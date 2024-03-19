@@ -3,6 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DATX11_VT24_84.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <Style x:Key="LargeButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#36474F"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontSize" Value="26"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

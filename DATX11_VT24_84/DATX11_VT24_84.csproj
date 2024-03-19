@@ -12,4 +12,19 @@
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Images\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Images\black_x_icon.png" />
+      <EmbeddedResource Include="Images\black_x_icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Images\grey_search_icon.png" />
+      <EmbeddedResource Include="Images\grey_search_icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
 </Project>

@@ -1,14 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:DATX11_VT24_84"
-             x:Class="DATX11_VT24_84.MainPage">
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
+             x:Class="DATX11_VT24_84.MainPage"
+             NavigationPage.HasNavigationBar="False">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <RelativeLayout x:Name="MainLayout">
+        <Grid RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+            <!-- Grid definitions -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Search box -->
+            <Frame BackgroundColor="#AFAFAF"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   CornerRadius="20" 
+                   Padding="7.5" 
+                   HorizontalOptions="FillAndExpand" 
+                   VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Center">
+                    <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_search_icon.png'}"
+                           HeightRequest="30"
+                           Margin="5,5,5,5"/>
+                    <Entry Placeholder="Hitta till grupprum"
+                           TextColor="Black" 
+                           BackgroundColor="Transparent" 
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </Frame>
+            <!-- Buttons -->
+            <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
+                    Text="Lediga just nu" Clicked="OnLedigaJustNuButtonClicked"/>
+            <Button Grid.Column="1" Grid.Row="4" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
+                    Text="Boka" Clicked="OnBokaButtonClicked"/>
+            <Button Grid.Column="1" Grid.Row="5" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
+                    Text="Mina bokningar" Clicked="OnMinaBokningarButtonClicked"/>
+        </Grid>
+    </RelativeLayout>
 
 </ContentPage>
