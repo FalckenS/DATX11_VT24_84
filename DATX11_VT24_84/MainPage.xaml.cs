@@ -9,18 +9,13 @@ using Xamarin.Forms;
 
 namespace DATX11_VT24_84
 {
-    public partial class MainPage : IHasBackButton
+    public partial class MainPage
     {
         public MainPage()
         {
             InitializeComponent();
             UIHelper.UpdateBackgroundColor(this);
             AddTrianglesAndBackButton();
-        }
-        
-        public void AddClickedMethod(ImageButton backButton)
-        {
-            backButton.Clicked += OnXButtonClicked;
         }
 
         private void AddTrianglesAndBackButton()
@@ -29,7 +24,6 @@ namespace DATX11_VT24_84
             SizeChanged += (sender, e) =>
             {
                 UIHelper.AddTopTriangles(MainLayout, Width, Height);
-                UIHelper.AddBackButton(MainLayout, this);
             };
         }
         
@@ -46,11 +40,6 @@ namespace DATX11_VT24_84
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new MinaBokningar());
-        }
-
-        private async void OnXButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PopAsync();
         }
     }
 }

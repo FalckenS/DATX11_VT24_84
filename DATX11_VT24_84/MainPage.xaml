@@ -11,13 +11,16 @@
               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
             <!-- Grid definitions -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.2*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="*"/> <!-- 1  -->
+                <RowDefinition Height="*"/> <!-- 2  -->
+                <RowDefinition Height="*"/> <!-- 3  -->
+                <RowDefinition Height="*"/> <!-- 4  -->
+                <RowDefinition Height="*"/> <!-- 5  -->
+                <RowDefinition Height="*"/> <!-- 6  -->
+                <RowDefinition Height="*"/> <!-- 7  -->
+                <RowDefinition Height="*"/> <!-- 8  -->
+                <RowDefinition Height="*"/> <!-- 9  -->
+                <RowDefinition Height="0.5*"/> <!-- 10 -->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -29,7 +32,7 @@
                    Grid.Column="1"
                    Grid.Row="1"
                    CornerRadius="20" 
-                   Padding="7.5" 
+                   Padding="10" 
                    HorizontalOptions="FillAndExpand" 
                    VerticalOptions="Center">
                 <StackLayout Orientation="Horizontal"
@@ -46,11 +49,11 @@
                 </StackLayout>
             </Frame>
             <!-- Buttons -->
-            <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
+            <Button Grid.Column="1" Grid.Row="6" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
                     Text="Lediga just nu" Clicked="OnLedigaJustNuButtonClicked"/>
-            <Button Grid.Column="1" Grid.Row="4" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
+            <Button Grid.Column="1" Grid.Row="7" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
                     Text="Boka" Clicked="OnBokaButtonClicked"/>
-            <Button Grid.Column="1" Grid.Row="5" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
+            <Button Grid.Column="1" Grid.Row="8" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
                     Text="Mina bokningar" Clicked="OnMinaBokningarButtonClicked"/>
         </Grid>
     </RelativeLayout>

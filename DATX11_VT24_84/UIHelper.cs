@@ -24,21 +24,22 @@ namespace DATX11_VT24_84
         
         public static void AddBackButton(RelativeLayout layout, IHasBackButton backButtonPage)
         {
+            const int width = 40;
+            
             ImageButton imageButton = new ImageButton
             {
-                Source = ImageSource.FromResource("DATX11_VT24_84.Images.black_x_icon.png", typeof(EmbeddedImage).GetTypeInfo().Assembly),
-                BackgroundColor = Color.Green,
-                WidthRequest = 60,
-                HeightRequest = 60,
-                CornerRadius = 20
+                Source = ImageSource.FromResource("DATX11_VT24_84.Images.grey_back_arrow_icon.png", typeof(EmbeddedImage).GetTypeInfo().Assembly),
+                BackgroundColor = Color.Transparent,
+                WidthRequest = width,
+                HeightRequest = width
             };
 
             backButtonPage.AddClickedMethod(imageButton);
             
-            Constraint xConstraint = Constraint.RelativeToParent(parent => parent.Width - 50);
-            Constraint yConstraint = Constraint.RelativeToParent(parent => 20);
-            Constraint widthConstraint = Constraint.Constant(60);
-            Constraint heightConstraint = Constraint.Constant(60);
+            Constraint xConstraint = Constraint.RelativeToParent(parent => parent.Width - width - (width/2));
+            Constraint yConstraint = Constraint.RelativeToParent(parent => (width/2));
+            Constraint widthConstraint = Constraint.Constant(width);
+            Constraint heightConstraint = Constraint.Constant(width);
             
             layout.Children.Add(imageButton, xConstraint, yConstraint, widthConstraint, heightConstraint);
         }

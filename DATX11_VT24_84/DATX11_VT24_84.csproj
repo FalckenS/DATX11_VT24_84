@@ -14,16 +14,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Images\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Images\black_x_icon.png" />
-      <EmbeddedResource Include="Images\black_x_icon.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="Images\grey_search_icon.png" />
       <EmbeddedResource Include="Images\grey_search_icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Images\grey_x_icon.png" />
+      <EmbeddedResource Include="Images\grey_x_icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Images\grey_back_arrow.png" />
+      <EmbeddedResource Include="Images\grey_back_arrow_icon.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
