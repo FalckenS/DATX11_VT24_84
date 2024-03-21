@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
+using Xamarin.Forms.Xaml;
 
 namespace DATX11_VT24_84
 {
-    public static class UIHelper
+    public static class UIUtility
     {
         public static void UpdateBackgroundColor(ContentPage page)
         {
@@ -20,28 +22,6 @@ namespace DATX11_VT24_84
             AddTriangleToLayout(layout, middleTriangle);
             AddTriangleToLayout(layout, leftTriangle);
             AddTriangleToLayout(layout, rightTriangle);
-        }
-        
-        public static void AddBackButton(RelativeLayout layout, IHasBackButton backButtonPage)
-        {
-            const int width = 40;
-            
-            ImageButton imageButton = new ImageButton
-            {
-                Source = ImageSource.FromResource("DATX11_VT24_84.Images.grey_back_arrow_icon.png", typeof(EmbeddedImage).GetTypeInfo().Assembly),
-                BackgroundColor = Color.Transparent,
-                WidthRequest = width,
-                HeightRequest = width
-            };
-
-            backButtonPage.AddClickedMethod(imageButton);
-            
-            Constraint xConstraint = Constraint.RelativeToParent(parent => parent.Width - width - width/2);
-            Constraint yConstraint = Constraint.RelativeToParent(parent => width/2);
-            Constraint widthConstraint = Constraint.Constant(width);
-            Constraint heightConstraint = Constraint.Constant(width);
-            
-            layout.Children.Add(imageButton, xConstraint, yConstraint, widthConstraint, heightConstraint);
         }
 
         private static Polygon CreateLeftTriangle(double width, double height)
@@ -94,6 +74,42 @@ namespace DATX11_VT24_84
                 widthConstraint: Constraint.RelativeToParent(parent => parent.Width),
                 heightConstraint: Constraint.RelativeToParent(parent => parent.Height)
             );
+        }
+        
+        public static void AddBackButton(RelativeLayout layout, IHasBackButton backButtonPage)
+        {
+            const int width = 40;
+            
+            ImageButton imageButton = new ImageButton
+            {
+                Source = ImageSource.FromResource("DATX11_VT24_84.Images.grey_back_arrow_icon.png", typeof(EmbeddedImage).GetTypeInfo().Assembly),
+                BackgroundColor = Color.Transparent,
+                WidthRequest = width,
+                HeightRequest = width
+            };
+            
+            backButtonPage.AddClickedMethod(imageButton);
+            
+            Constraint xConstraint = Constraint.RelativeToParent(parent => parent.Width - width - width/2);
+            Constraint yConstraint = Constraint.RelativeToParent(parent => width/2);
+            Constraint widthConstraint = Constraint.Constant(width);
+            Constraint heightConstraint = Constraint.Constant(width);
+            layout.Children.Add(imageButton, xConstraint, yConstraint, widthConstraint, heightConstraint);
+        }
+    }
+    
+    // Denna klass används för att kunna använda bilder lagrade som "embedded resources" direkt i XAML-filerna
+    public class EmbeddedImage : IMarkupExtension
+    {
+        public string ResourceId { get; set; }
+
+        public object ProvideValue(IServiceProvider serviceProvider)
+        {
+            if (string.IsNullOrWhiteSpace(ResourceId))
+            {
+                return null;
+            }
+            return ImageSource.FromResource(ResourceId, Assembly.GetExecutingAssembly());
         }
     }
 }

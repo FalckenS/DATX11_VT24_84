@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using System;
-using Xamarin.Forms;
 
 namespace DATX11_VT24_84
 {
@@ -14,7 +7,7 @@ namespace DATX11_VT24_84
         public MainPage()
         {
             InitializeComponent();
-            UIHelper.UpdateBackgroundColor(this);
+            UIUtility.UpdateBackgroundColor(this);
             AddTrianglesAndBackButton();
         }
 
@@ -23,13 +16,15 @@ namespace DATX11_VT24_84
             // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
             SizeChanged += (sender, e) =>
             {
-                UIHelper.AddTopTriangles(MainLayout, Width, Height);
+                UIUtility.AddTopTriangles(MainLayout, Width, Height);
             };
         }
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new LedigaJustNu());
+
+            Room room = await BackEnd.GetRoomByName("432q43");
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)
