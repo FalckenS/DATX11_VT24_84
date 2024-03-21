@@ -18,7 +18,7 @@ namespace DATX11_VT24_84
             AddTrianglesAndBackButton();
         }
 
-        private void AddTrianglesAndBackButton()
+        public void AddTrianglesAndBackButton()
         {
             // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
             SizeChanged += (sender, e) =>
@@ -32,14 +32,16 @@ namespace DATX11_VT24_84
             await Navigation.PushAsync(new LedigaJustNu());
         }
         
-        private async void OnBokaButtonClicked(object sender, EventArgs e)
+        public async void OnBokaButtonClicked(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new Boka());
         }
+        // ändra från privat för att kunna använda
         
-        private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
+        public async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new MinaBokningar());
         }
+        // ändra från privat för att kunna använda
     }
 }
