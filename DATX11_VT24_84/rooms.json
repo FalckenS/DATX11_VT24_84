@@ -1,0 +1,306 @@
+﻿{
+  "rooms":
+  [
+    {
+    "Name"     : "M0167A",
+    "Capacity" : "-",
+    "Floor"    : "-1",
+    "Building" : "M-huset",
+    "Features" : []
+    },
+    {
+      "Name"     : "M0167B",
+      "Capacity" : "-",
+      "Floor"    : "-1",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M0167C",
+      "Capacity" : "-",
+      "Floor"    : "-1",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M0170",
+      "Capacity" : "-",
+      "Floor"    : "-1",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M0172",
+      "Capacity" : "-",
+      "Floor"    : "-1",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M0173",
+      "Capacity" : "-",
+      "Floor"    : "-1",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1161",
+      "Capacity" : "8",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162A",
+      "Capacity" : "8",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162B",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162C",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162D",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162E",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162F",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162G",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162H",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162I",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1162J",
+      "Capacity" : "8",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },    
+    {
+      "Name"     : "M1203A",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1203B",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1203C",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1203D",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1203E",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1204",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1205",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1206A",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1206B",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1208A",
+      "Capacity" : "10",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1208C",
+      "Capacity" : "8",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1211",
+      "Capacity" : "10",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1212A",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1212B",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1212C",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1212D",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1212E",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1212F",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1213A",
+      "Capacity" : "4",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1213B",
+      "Capacity" : "4",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1215A",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1215B",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1215C",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1215D",
+      "Capacity" : "6",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1222A",
+      "Capacity" : "4",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    },
+    {
+      "Name"     : "M1222B",
+      "Capacity" : "4",
+      "Floor"    : "E",
+      "Building" : "M-huset",
+      "Features" : []
+    }
+  ]
+}

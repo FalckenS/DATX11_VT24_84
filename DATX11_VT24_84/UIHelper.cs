@@ -36,8 +36,8 @@ namespace DATX11_VT24_84
 
             backButtonPage.AddClickedMethod(imageButton);
             
-            Constraint xConstraint = Constraint.RelativeToParent(parent => parent.Width - width - (width/2));
-            Constraint yConstraint = Constraint.RelativeToParent(parent => (width/2));
+            Constraint xConstraint = Constraint.RelativeToParent(parent => parent.Width - width - width/2);
+            Constraint yConstraint = Constraint.RelativeToParent(parent => width/2);
             Constraint widthConstraint = Constraint.Constant(width);
             Constraint heightConstraint = Constraint.Constant(width);
             
