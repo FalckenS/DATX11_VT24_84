@@ -29,7 +29,7 @@ namespace DATX11_VT24_84
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new LedigaJustNu());
+            await Navigation.PushAsync(new LedigaJustNu());
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)
