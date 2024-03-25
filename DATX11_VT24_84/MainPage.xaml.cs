@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms.Internals;
 
 namespace DATX11_VT24_84
 {
@@ -22,19 +23,17 @@ namespace DATX11_VT24_84
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new LedigaJustNu());
-
-            Room room = await BackEnd.GetRoomByName("432q43");
+            // Test
+            Room room = await BackEnd.Instance.GetRoomInfo("M1162J");
+            Console.WriteLine(room.Capacity);
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new Boka());
         }
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new MinaBokningar());
         }
     }
 }

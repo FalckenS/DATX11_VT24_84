@@ -33,4 +33,8 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="reservations.json" />
+    </ItemGroup>
 </Project>
