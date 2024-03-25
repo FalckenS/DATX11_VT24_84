@@ -2,14 +2,76 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.LedigaJustNu"
              NavigationPage.HasNavigationBar="False">
     
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Hej!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"/>
-        </StackLayout>
-    </ContentPage.Content>
+    <RelativeLayout x:Name="MainLayout">
+        
+        <!-- Lediga just nu label/text -->
+        <Grid x:Name="TitleLabel" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-55}"
+              RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0.5, Constant=50}">
+            <Label Text="Lediga just nu" TextColor="White" FontSize="20" HorizontalOptions="Center"/>
+        </Grid>
+        
+        <!-- Frame för text och knappar-->
+        <Frame BackgroundColor="#36474F" CornerRadius="10" Margin="0,0,10,0"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=0.5, Constant=170}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-155}">
+            
+            <!-- Container/Låda runt/för text och knappar -->
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Start" Spacing="20" Padding="10">
+                
+                <!-- Rad 1 -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="M112A" Grid.Column="0" VerticalOptions="CenterAndExpand" TextColor="White"/>
+                    <Label Text="08:00 - 09:00" Grid.Column="1" VerticalOptions="CenterAndExpand" TextColor="White" Padding="0,0,10,0"/>
+                    
+                </Grid>
+
+                <!-- Rad 2 -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="M112K" Grid.Column="0" VerticalOptions="CenterAndExpand" TextColor="White"/>
+                    <Label Text="10:00 - 11:00" Grid.Column="1" VerticalOptions="CenterAndExpand" TextColor="White" Padding="0,0,10,0"/>
+                         
+                </Grid>
+
+                <!-- Rad 3 -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="M112C" Grid.Column="0" VerticalOptions="CenterAndExpand" TextColor="White"/>
+                    <Label Text="13:00 - 14:00" Grid.Column="1" VerticalOptions="CenterAndExpand" TextColor="White" Padding="0,0,10,0"/>
+                    
+                </Grid>
+                
+                <!-- Rad 4 -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="M112C" Grid.Column="0" VerticalOptions="CenterAndExpand" TextColor="White"/>
+                    <Label Text="13:00 - 14:00" Grid.Column="1" VerticalOptions="CenterAndExpand" TextColor="White" Padding="0,0,10,0"/>
+                   
+                </Grid> 
+                
+            </StackLayout>
+        </Frame>
+    </RelativeLayout>
 </ContentPage>
