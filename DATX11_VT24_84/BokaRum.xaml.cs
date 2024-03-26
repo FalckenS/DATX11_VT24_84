@@ -12,9 +12,12 @@ namespace DATX11_VT24_84
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BokaRum : ContentPage
     {
-        public BokaRum()
+        public BokaRum(string roomName, string timeFrame)
         {
             InitializeComponent();
+            UIUtility.UpdateBackgroundColorOtherPages(this);
+            RoomNameLabel.Text = roomName;
+            TimeFramLabel.Text = timeFrame;
         }
     }
 }
