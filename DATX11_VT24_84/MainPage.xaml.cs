@@ -5,7 +5,7 @@ namespace DATX11_VT24_84
     public partial class MainPage
     {
         public MainPage()
-        {
+        {   
             InitializeComponent();
             UIUtility.UpdateBackgroundColor(this);
             AddTrianglesAndBackButton();
