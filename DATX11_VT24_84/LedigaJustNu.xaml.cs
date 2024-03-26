@@ -25,7 +25,7 @@ namespace DATX11_VT24_84
             var stackLayout = new StackLayout(); // Create a StackLayout to hold the grids
             double yOffset = 0;
 
-            for (int i = 0; i <amountOfFreeRooms ; i++)
+            for (int i = 0; i < amountOfFreeRooms; i++)
             {
                 var grid = new Grid();
 
@@ -33,18 +33,23 @@ namespace DATX11_VT24_84
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                
-                //Hämta in namn från .json-filen
-                
+
                 // Add labels to the grid
-                var label1 = new Label { Text = $"Room {i + 1}", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, FontAttributes = FontAttributes.Bold};
-                var label2 = new Label { Text = $"{i + 8}:00 - {i + 9}:00", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, Padding = new Thickness(0, 0, 10, 0), FontAttributes = FontAttributes.Bold};
-                var button = new Button { Text = "Boka", TextColor = Color.White, BackgroundColor = Color.FromHex("#00ACFF"), VerticalOptions = LayoutOptions.CenterAndExpand, CornerRadius = 30, FontAttributes = FontAttributes.Bold};
+                var label1 = new Label { Text = $"Room {i + 1}", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, FontAttributes = FontAttributes.Bold };
+                var label2 = new Label { Text = $"{i + 8}:00 - {i + 9}:00", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, Padding = new Thickness(0, 0, 10, 0), FontAttributes = FontAttributes.Bold };
+                var button = new Button { Text = "Boka", TextColor = Color.White, BackgroundColor = Color.FromHex("#00ACFF"), VerticalOptions = LayoutOptions.CenterAndExpand, CornerRadius = 30, FontAttributes = FontAttributes.Bold };
 
                 // Set grid column for labels
                 Grid.SetColumn(label1, 0);
                 Grid.SetColumn(label2, 1);
                 Grid.SetColumn(button, 2);
+
+                // Add event handler for button click
+                button.Clicked += (sender, e) =>
+                {
+                    // Navigate to the new page
+                    Navigation.PushModalAsync(new BokaRum(), false); // Replace BokaScreen with the actual name of your new page
+                };
 
                 // Add labels and button to the grid
                 grid.Children.Add(label1);
@@ -60,6 +65,7 @@ namespace DATX11_VT24_84
             // Add the StackLayout to the FrameLayout
             FrameLayout.Content = stackLayout;
         }
+
         
         // Kodduplication men kan nog justeras om senare
         private void AddTrianglesAndBackButton()
