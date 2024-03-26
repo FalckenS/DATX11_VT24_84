@@ -18,7 +18,7 @@
             <!-- Frame för text och knappar-->
             <Frame x:Name="FrameLayout" BackgroundColor="#36474F" CornerRadius="10" Margin="0,0,10,0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=0.5, Constant=170}"
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=0.5, Constant=100}"
                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-155}">
 
                 <!-- Your content here -->
