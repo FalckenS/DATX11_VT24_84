@@ -12,7 +12,7 @@
             <!-- Lediga just nu label/text -->
             <Grid x:Name="TitleLabel" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-55}"
                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0.5, Constant=50}">
-                <Label Text="Lediga just nu" TextColor="White" FontSize="20" HorizontalOptions="Center"/>
+                <Label Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
             </Grid>
 
             <!-- Frame för text och knappar-->

@@ -37,9 +37,9 @@ namespace DATX11_VT24_84
                 //Hämta in namn från .json-filen
                 
                 // Add labels to the grid
-                var label1 = new Label { Text = $"Room {i + 1}", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand };
-                var label2 = new Label { Text = $"{i + 8}:00 - {i + 9}:00", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, Padding = new Thickness(0, 0, 10, 0) };
-                var button = new Button { Text = "Boka", TextColor = Color.White, BackgroundColor = Color.FromHex("#00ACFF"), VerticalOptions = LayoutOptions.CenterAndExpand, CornerRadius = 30 };
+                var label1 = new Label { Text = $"Room {i + 1}", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, FontAttributes = FontAttributes.Bold};
+                var label2 = new Label { Text = $"{i + 8}:00 - {i + 9}:00", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, Padding = new Thickness(0, 0, 10, 0), FontAttributes = FontAttributes.Bold};
+                var button = new Button { Text = "Boka", TextColor = Color.White, BackgroundColor = Color.FromHex("#00ACFF"), VerticalOptions = LayoutOptions.CenterAndExpand, CornerRadius = 30, FontAttributes = FontAttributes.Bold};
 
                 // Set grid column for labels
                 Grid.SetColumn(label1, 0);
