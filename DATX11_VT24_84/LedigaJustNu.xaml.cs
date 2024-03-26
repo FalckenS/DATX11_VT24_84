@@ -54,10 +54,10 @@ namespace DATX11_VT24_84
         {
             // Get the room name from the label
             var roomName = label1.Text;
-            var timeFrame = label2.Text;
+            //var timeFrame = label2.Text;
 
             // Navigate to the BokaRum page with the room name
-            Navigation.PushModalAsync(new BokaRum(roomName, timeFrame),false);
+            Navigation.PushModalAsync(new BokaRum(roomName),false);
         };
 
         // Add the grid to the StackLayout

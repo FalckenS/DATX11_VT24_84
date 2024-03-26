@@ -3,13 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DATX11_VT24_84.BokaRum">
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="RoomNameLabel"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
-            <Label x:Name="TimeFramLabel"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="20">
+
+            <!-- Frame to display the room name -->
+            <Frame CornerRadius="15"
+                   Padding="20"
+                   Margin="0,150,0,0" 
+                   BackgroundColor="#80232E34"
+                   WidthRequest="300"
+                   HeightRequest="80">
+                <Label x:Name="RoomNameLabel"
+                       TextColor="White"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       VerticalTextAlignment="Start"
+                       Margin="0,-15,0,0" />
+            </Frame>
+
+            <!-- Other content here -->
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

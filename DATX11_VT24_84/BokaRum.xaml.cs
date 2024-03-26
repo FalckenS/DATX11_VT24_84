@@ -12,12 +12,14 @@ namespace DATX11_VT24_84
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BokaRum : ContentPage
     {
-        public BokaRum(string roomName, string timeFrame)
+        
+        //Kan enkelt lägga till timeFramen också på denna sida, inte speciellt svårt. Behövs inte för nu dock. 
+        public BokaRum(string roomName)
         {
             InitializeComponent();
             UIUtility.UpdateBackgroundColorOtherPages(this);
             RoomNameLabel.Text = roomName;
-            TimeFramLabel.Text = timeFrame;
+            //TimeFramLabel.Text = timeFrame;
         }
     }
 }
