@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Google.Apis.Calendar.v3" Version="1.67.0.3297" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012"/>
     </ItemGroup>
@@ -30,6 +31,10 @@
       </EmbeddedResource>
       <None Remove="rooms.json" />
       <EmbeddedResource Include="rooms.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="disco-catcher-418315-d913f85a8669.json" />
+      <EmbeddedResource Include="disco-catcher-418315-d913f85a8669.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>

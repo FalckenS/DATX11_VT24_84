@@ -5,70 +5,135 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Google.Apis.Services;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
+using Google.Apis.Calendar.v3.Data;
+
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
+// DateTime.Now  ÄR 1 TIMMA EFTER (går på london tid)!
+// EventDateTime GER OCKSÅ EN TIMMA EFTER (går på london tid)!
 
 namespace DATX11_VT24_84
 {
-    public class BackEnd
+    public static class BackEnd
     {
-        private const string RoomsFilePath = "DATX11_VT24_84.rooms.json";
-
-        //private readonly List<Reservation> _reservations;
-
-        public BackEnd()
+        // Retunerar den RIKTIGA tiden (Sverige tid)
+        public static DateTime GetCurrentTime()
         {
-            //_reservations = new List<Reservation>();
-            Init();
+            return DateTime.Now.AddHours(1);
         }
         
-        private void Init()
+        public static async Task<bool> IsRoomAvailableNow(string roomName)
         {
-            // TODO BackEnd INIT
+            CalendarService calendarService = await GetCalendarService();
+            EventsResource.ListRequest request = calendarService.Events.List("datx11.vt24.84@gmail.com");
+            
+            request.TimeMinDateTimeOffset = DateTime.Now.AddSeconds(-30);
+            request.TimeMaxDateTimeOffset = DateTime.Now.AddSeconds(30);
+            request.ShowDeleted = false;
+            request.SingleEvents = true;
+            request.Q = roomName;
+            request.MaxResults = 1;
+            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+            
+            Events events = await request.ExecuteAsync();
+            List<Reservation> reservations = GetReservationList(events);
+            
+            // Rom reservations är tom pågår inga events för roomName just nu, alltså är rummet ledigt
+            return reservations.Count == 0;
+        }
+
+        /*
+        private static async Task<List<Reservation>> GetAllRoomsAvailableNow()
+        {
+            CalendarService calendarService = await GetCalendarService();
+            EventsResource.ListRequest request = calendarService.Events.List("datx11.vt24.84@gmail.com");
+            
+            request.TimeMinDateTimeOffset = DateTime.Now.AddSeconds(-30);
+            request.TimeMaxDateTimeOffset = DateTime.Now.AddSeconds(30);
+            request.ShowDeleted = false;
+            request.SingleEvents = true;
+            request.MaxResults = 2500;
+            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+            
+            Events events = await request.ExecuteAsync();
+            
+            return GetReservationList(events);
         }
         
-//  -------------------------------------------------- Singleton code --------------------------------------------------
-        private static BackEnd _instance;
-
-        // Lock object for thread safety in multi-threaded applications
-        private static readonly object LockObject = new object();
-        
-        // Public static method to get the instance of the class
-        public static BackEnd Instance
+        private static async Task<List<Reservation>> GetAllRoomsNotAvailableNow()
         {
-            get
+            CalendarService calendarService = await GetCalendarService();
+            EventsResource.ListRequest request = calendarService.Events.List("datx11.vt24.84@gmail.com");
+            
+            request.TimeMinDateTimeOffset = DateTime.Now.AddSeconds(-30);
+            request.TimeMaxDateTimeOffset = DateTime.Now.AddSeconds(30);
+            request.ShowDeleted = false;
+            request.SingleEvents = true;
+            request.MaxResults = 2500;
+            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+            
+            Events events = await request.ExecuteAsync();
+            
+            return GetReservationList(events);
+        }
+        */
+        
+        private static List<Reservation> GetReservationList(Events events)
+        {
+            // Lägger till en timma för tiden från APIn går på London tid
+            return events.Items.Select(e => new Reservation
             {
-                // Double-check locking for thread safety
-                if (_instance == null)
-                {
-                    lock (LockObject)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new BackEnd();
-                        }
-                    }
-                }
-                return _instance;
+                UserID = e.Summary, RoomID = e.Location, StartTime = e.Start.DateTime.Value.AddHours(1), EndTime = e.End.DateTime.Value.AddHours(1)
+            }).ToList();
+        }
+        
+        private static async Task<CalendarService> GetCalendarService()
+        {
+            Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
+            const string filePath = "DATX11_VT24_84.disco-catcher-418315-d913f85a8669.json";
+            Stream stream = assembly.GetManifestResourceStream(filePath);
+            if (stream == null)
+            {
+                throw new FileNotFoundException("Could not find json file.", filePath);
             }
+            GoogleCredential credential = GoogleCredential.FromStream(stream).CreateScoped(CalendarService.Scope.Calendar);
+            CalendarService calendarService = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "DATX11_VT24_84",
+            });
+            return calendarService;
         }
         
 //  ------------------------------------------------ Room data back end ------------------------------------------------
         
-        public async Task<Room> GetRoomInfo(string roomName)
+        public static async Task<Room> GetRoomInfo(string roomName)
         {
-            List<Room> allRooms = await ReadRoomsFromFile();
-            Room room = allRooms.FirstOrDefault(r => r.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase));
+            List<Room> allRooms = await GetAllRooms();
+            Room room = allRooms.First(r => r.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase));
             return room;
         }
-        
-        // ReSharper disable once MemberCanBeMadeStatic.Local
-        private async Task<List<Room>> ReadRoomsFromFile()
+
+        private static async Task<List<string>> GetAllRoomNames(string building)
         {
+            List<Room> allRooms = await GetAllRooms();
+            return (from room in allRooms where room.Building == building select room.Name).ToList();
+        }
+        
+        private static async Task<List<Room>> GetAllRooms()
+        {
+            const string filePath = "DATX11_VT24_84.rooms.json";
+            
             Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
-            Stream stream = assembly.GetManifestResourceStream(RoomsFilePath);
+            Stream stream = assembly.GetManifestResourceStream(filePath);
             if (stream == null)
             {
-                throw new FileNotFoundException("Could not find json file.", RoomsFilePath);
+                throw new FileNotFoundException("Could not find json file.", filePath);
             }
             using (StreamReader reader = new StreamReader(stream))
             {
@@ -77,68 +142,6 @@ namespace DATX11_VT24_84
                 return roomList.Rooms;
             }
         }
-        
-// ----------------------------------------------- Reservations methods -----------------------------------------------
-        
-        /*public async Task<bool> IsRoomAvailable(string roomId, DateTime startTime, DateTime endTime)
-        {
-            if (startTime < endTime)
-            {
-                throw new ArgumentException("Invalid start and end time!");
-            }
-            List<Reservation> reservationsForRoom = _reservations.Where(reservation => reservation.RoomID == roomId).ToList();
-            return !reservationsForRoom.Any(reservation =>
-                (reservation.StartTime <= startTime && startTime < reservation.EndTime) ||
-                (reservation.StartTime < endTime    && endTime <= reservation.EndTime)  ||
-                (startTime <= reservation.StartTime && reservation.EndTime <= endTime));
-        }
-        
-        public async Task<bool> IsRoomAvailableNow(string roomId)
-        {
-            List<Reservation> reservationsForRoom = _reservations.Where(reservation => reservation.RoomID == roomId).ToList();
-            return !reservationsForRoom.Any(reservation => 
-                reservation.StartTime <= DateTime.Now && DateTime.Now < reservation.EndTime);
-        }
-
-        // Retunrs all current and coming reservations for a user
-        public async Task<List<Reservation>> GetCurrentAndComingReservations(string userID)
-        {
-            List<Reservation> currentAndComingReservation = new List<Reservation>();
-            
-            // Filter and sort reservations
-            List<Reservation> reservationsForUser = _reservations.Where(reservation => reservation.UserID == userID).ToList();
-            reservationsForUser = reservationsForUser.OrderBy(reservation => reservation.StartTime).ToList();
-            
-            foreach (Reservation reservation in reservationsForUser)
-            {
-                if (reservation.EndTime < DateTime.Now)
-                {
-                    // Reservation has ended
-                    continue;
-                }
-                currentAndComingReservation.Add(reservation);
-            }
-            return currentAndComingReservation;
-        }
-
-        public async void AddNewReservation(string userID, string roomId, DateTime startTime, DateTime endTime)
-        {
-            if (startTime < endTime)
-            {
-                throw new ArgumentException("Invalid start and end time!");
-            }
-            if (!await IsRoomAvailable(roomId, startTime, endTime))
-            {
-                throw new ArgumentException("Room is not available during that time!");
-            }
-            _reservations.Add(new Reservation
-            {
-                UserID = userID,
-                RoomID = roomId,
-                StartTime = startTime,
-                EndTime = endTime
-            });
-        }*/
     }
     
     public class Room
@@ -155,11 +158,11 @@ namespace DATX11_VT24_84
         public List<Room> Rooms { get; set; }
     }
 
-    /*public class Reservation
+    public class Reservation
     {
         public string UserID { get; set; }
         public string RoomID { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-    }*/
+    }
 }

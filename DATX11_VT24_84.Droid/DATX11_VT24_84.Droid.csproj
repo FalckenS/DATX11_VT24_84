@@ -46,6 +46,7 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Google.Apis.Calendar.v3" Version="1.67.0.3297" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012"/>
     </ItemGroup>
     <ItemGroup>
