@@ -57,5 +57,4 @@
                     Text="Mina bokningar" Clicked="OnMinaBokningarButtonClicked"/>
         </Grid>
     </RelativeLayout>
-
 </ContentPage>
