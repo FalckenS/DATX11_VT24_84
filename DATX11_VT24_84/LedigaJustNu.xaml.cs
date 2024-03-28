@@ -6,7 +6,7 @@ namespace DATX11_VT24_84
 {
     public partial class LedigaJustNu :ContentPage,  IHasBackButton
     {
-        public int amountOfFreeRooms = 7;
+        public int amountOfFreeRooms = 3;
         public LedigaJustNu()
         {
             InitializeComponent();
