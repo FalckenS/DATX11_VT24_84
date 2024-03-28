@@ -5,9 +5,9 @@ namespace DATX11_VT24_84
     public partial class MainPage
     {
         public MainPage()
-        {
+        {   
             InitializeComponent();
-            UIUtility.UpdateBackgroundColor(this);
+            UIUtility.UpdateBackgroundColorMainPages(this);
             AddTrianglesAndBackButton();
         }
 
@@ -22,6 +22,10 @@ namespace DATX11_VT24_84
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
+
+            await Navigation.PushModalAsync(new LedigaJustNu(), false);
+            //Room room = await BackEnd.GetRoomByName("432q43");
+
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)

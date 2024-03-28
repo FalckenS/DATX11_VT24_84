@@ -8,9 +8,14 @@ namespace DATX11_VT24_84
 {
     public static class UIUtility
     {
-        public static void UpdateBackgroundColor(ContentPage page)
+        public static void UpdateBackgroundColorMainPages(ContentPage page)
         {
             page.BackgroundColor = Color.FromHex("#232E34");
+        }
+        
+        public static void UpdateBackgroundColorOtherPages(ContentPage page)
+        {
+            page.BackgroundColor = Color.FromHex("#36474F");
         }
         
         public static void AddTopTriangles(RelativeLayout layout, double width, double height)
