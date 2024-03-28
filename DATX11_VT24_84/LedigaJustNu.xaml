@@ -2,14 +2,31 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.LedigaJustNu"
              NavigationPage.HasNavigationBar="False">
-    
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"/>
-        </StackLayout>
-    </ContentPage.Content>
+    <ScrollView Margin="0,0,0,20"> <!-- Add margin at the bottom -->
+
+        <RelativeLayout x:Name="MainLayout">
+
+            <!-- Lediga just nu label/text -->
+            <Grid x:Name="TitleLabel" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-55}"
+                  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0.5, Constant=50}">
+                <Label Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+            </Grid>
+
+            <!-- Frame för text och knappar-->
+            <Frame x:Name="FrameLayout" BackgroundColor="#36474F" CornerRadius="10" Margin="0,0,10,0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=0.5, Constant=100}"
+                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-155}">
+
+                <!-- Your content here -->
+                <!-- Add empty space at the bottom -->
+                <BoxView HeightRequest="20" BackgroundColor="Transparent" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"/>
+
+            </Frame>
+
+        </RelativeLayout>
+    </ScrollView>
 </ContentPage>

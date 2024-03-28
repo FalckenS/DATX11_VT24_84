@@ -71,5 +71,11 @@
             <Name>DATX11_VT24_84</Name>
         </ProjectReference>
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="obj\Debug\110\AndroidManifest.xml" />
+      <Content Include="obj\Debug\110\build.props" />
+      <Content Include="obj\Debug\110\DATX11_VT24_84.Droid.csproj.FileListAbsolute.txt" />
+      <Content Include="obj\Debug\110\__environment__.txt" />
+    </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets"/>
 </Project>
