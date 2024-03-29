@@ -24,8 +24,6 @@ namespace DATX11_VT24_84
         {
 
             await Navigation.PushModalAsync(new LedigaJustNu(), false);
-            //Room room = await BackEnd.GetRoomByName("432q43");
-
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)

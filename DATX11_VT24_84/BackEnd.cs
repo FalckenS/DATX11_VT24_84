@@ -10,19 +10,113 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 
+// ReSharper disable PossibleInvalidOperationException
 #pragma warning disable CS0618 // Type or member is obsolete
-
-// DateTime.Now ÄR 1 TIMMA EFTER (London tid)!
-// EventDateTime GER OCKSÅ EN TIMMA EFTER (London tid)!
 
 namespace DATX11_VT24_84
 {
     public static class BackEnd
     {
+        private const string CalendarID = "datx11.vt24.84@gmail.com";
+        private const string TimeZone = "Europe/Stockholm";
+        
+        // FRÅN OSS TILL API: EN TIMMA + vi måste ta bort en innan vi skickar för det ska bli rätt!
+        // FRÅN API TILL OSS: EN TIMMA - vi måste lägga till en för det ska bli rätt!
+        // DateTime.Now ger 1-timma-minus tid
+        
+        // Ska ha 1-timma-minus tid som input, använd CreateReservationTime()
+        public static async Task<bool> CreateReservation(string userID, string roomName, DateTime startTime, DateTime endTime)
+        {
+            if (endTime < startTime)
+            {
+                Console.WriteLine("Invalid start and end time!");
+                return false;
+            }
+            
+            List<string> allRoomNames = await GetAllRoomNames();
+            if (!allRoomNames.Contains(roomName))
+            {
+                Console.WriteLine("Invalid room name!");
+                return false;
+            }
+            
+            bool isRoomAvailable = await IsRoomAvailable(roomName, startTime, endTime);
+            if (!isRoomAvailable)
+            {
+                Console.WriteLine("Room not available during that time!");
+                return false;
+            }
+            try
+            {
+                Event newReservation = new Event()
+                {
+                    Summary = userID,
+                    Location = roomName,
+                    Start = new EventDateTime()
+                    {
+                        DateTime = startTime,
+                        TimeZone = TimeZone
+                    },
+                    End = new EventDateTime()
+                    {
+                        DateTime = endTime,
+                        TimeZone = TimeZone
+                    }
+                };
+                CalendarService calendarService = GetCalendarService();
+                EventsResource.InsertRequest request = calendarService.Events.Insert(newReservation, CalendarID);
+                await request.ExecuteAsync();
+            }
+            catch (Exception e)
+            {
+                Console.Write("Something went wrong with creating reservation!");
+                return false;
+            }
+            return true;
+        }
+        
+        // TODO GÖR EN KLASS RESERVATIONTIME
+        // Ska ha vanlig tid som input, retunerar 1-timma-minus tid. Används för att skapa reservations
+        public static DateTime CreateReservationTime(int month, int day, int hour, int minute)
+        {
+            return new DateTime(GetYearOfMonth(month), month, day, hour, minute, 0).AddHours(-1);
+        }
+        
+        public static DateTime CreateReservationTimeForNow()
+        {
+            return DateTime.Now;
+        }
+        
+        // Retunerar riktiga tiden
+        private static DateTime GetRealCurrentTime()
+        {
+            return DateTime.Now.AddHours(1);
+        }
+
+        private static int GetYearOfMonth(int month)
+        {
+            if (GetRealCurrentTime().Month <= month)
+            {
+                // Samma år
+                return GetRealCurrentTime().Year;
+            }
+            // Nästa år
+            return GetRealCurrentTime().Year + 1;
+        }
+        
+        // ------------------------------------------- Available rooms methods -------------------------------------------
+
+        // Ska ha 1-timma-minus tid som input
+        public static async Task<bool> IsRoomAvailable(string roomName, DateTime startTime, DateTime endTime)
+        {
+            List<Reservation> reservations = await GetReservationsDuring(startTime, endTime);
+            return reservations.All(reservation => reservation.RoomName != roomName);
+        }
+        
         public static async Task<bool> IsRoomAvailableNow(string roomName)
         {
-            List<Reservation> allOngoingReservations = await GetAllOngoingReservations();
-            return allOngoingReservations.All(reservation => reservation.RoomName != roomName);
+            List<Reservation> ongoingReservations = await GetReservationsDuring(DateTime.Now.AddSeconds(-15), DateTime.Now.AddSeconds(15));
+            return ongoingReservations.All(reservation => reservation.RoomName != roomName);
         }
 
         public static async Task<List<Room>> GetAllRoomsAvailableNow()
@@ -31,72 +125,52 @@ namespace DATX11_VT24_84
             List<string> roomNames = await GetAllRoomNamesAvailableNow();
             foreach (string roomName in roomNames)
             {
-                allRoomsAvailableNow.Add(await GetRoomInfo(roomName));
+                Room room = await GetRoomInfo(roomName);
+                allRoomsAvailableNow.Add(room);
             }
             return allRoomsAvailableNow;
         }
         
-        private static async Task<List<string>> GetAllRoomNamesAvailableNow()
+        public static async Task<List<string>> GetAllRoomNamesAvailableNow()
         {
-            List<string> notAvailableNow = await GetAllRoomNamesNotAvailableNow();
-            List<string> allRoomNames = await GetAllRoomNames();
-            return allRoomNames.Where(roomName => !notAvailableNow.Contains(roomName)).ToList();
+            List<Reservation> ongoingReservations = await GetReservationsDuring(DateTime.Now.AddSeconds(-15), DateTime.Now.AddSeconds(15));
+            List<string> roomsNotAvailableNow = ongoingReservations.Select(ongoingReservation => ongoingReservation.RoomName).ToList();
+            List<string> allRooms = await GetAllRoomNames();
+            // Retunerar alla element i allRooms som INTE finns med i roomsNotAvailableNow
+            return allRooms.Where(roomName => !roomsNotAvailableNow.Contains(roomName)).ToList();
         }
-        
-        private static async Task<List<string>> GetAllRoomNamesNotAvailableNow()
+     
+        // Ska ha 1-timma-minus tid som input
+        public static async Task<List<Reservation>> GetReservationsDuring(DateTime startTime, DateTime endTime)
         {
-            List<Room> roomsNotAvailableNow = await GetAllRoomsNotAvailableNow();
-            return roomsNotAvailableNow.Select(room => room.Name).ToList();
-        }
-        
-        private static async Task<List<Room>> GetAllRoomsNotAvailableNow()
-        {
-            List<Room> allRoomsNotAvailableNow = new List<Room>();
+            CalendarService calendarService = GetCalendarService();
+            EventsResource.ListRequest request = calendarService.Events.List(CalendarID);
             
-            List<Reservation> allOngoingReservations = await GetAllOngoingReservations();
-            foreach (Reservation ongoingReservation in allOngoingReservations)
-            {
-                allRoomsNotAvailableNow.Add(await GetRoomInfo(ongoingReservation.RoomName));
-            }
-            return allRoomsNotAvailableNow;
+            request.TimeMinDateTimeOffset = startTime; // Filtrera bort alla som slutar före startTime
+            request.TimeMaxDateTimeOffset = endTime;   // Filtrera bort alla som börjar efter endTime
+            request.ShowDeleted = false;
+            request.SingleEvents = true;
+            request.MaxResults = 2500;
+            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+
+            Events events = await request.ExecuteAsync();
+            List<Reservation> reservations = GetReservationList(events);
+            
+            return reservations;
         }
         
-        //  --------------------------------------------- Helper methods ---------------------------------------------
+        //  ---------------------------------------- Reservation helper methods ----------------------------------------
         
         private static List<Reservation> GetReservationList(Events events)
         {
-            // Lägger till en timma för tiden från APIn går på London tid
+            // Lägger till en timma för tiden från APIn är en-timma-minus
             return events.Items.Select(e => new Reservation
             {
                 UserID = e.Summary, RoomName = e.Location, StartTime = e.Start.DateTime.Value.AddHours(1), EndTime = e.End.DateTime.Value.AddHours(1)
             }).ToList();
         }
         
-        // Retunerar Sverige tid
-        private static DateTime GetCurrentTime()
-        {
-            return DateTime.Now.AddHours(1);
-        }
-        
-        //  ------------------------------------------- Calender API methods -------------------------------------------
-        
-        private static async Task<List<Reservation>> GetAllOngoingReservations()
-        {
-            CalendarService calendarService = GetCalendarService();
-            EventsResource.ListRequest request = calendarService.Events.List("datx11.vt24.84@gmail.com");
-            
-            request.TimeMinDateTimeOffset = DateTime.Now.AddSeconds(-30);
-            request.TimeMaxDateTimeOffset = DateTime.Now.AddSeconds(30);
-            request.ShowDeleted = false;
-            request.SingleEvents = true;
-            request.MaxResults = 2500;
-            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
-            
-            List<Reservation> reservations = GetReservationList(await request.ExecuteAsync());
-            
-            // Rom reservations är tom pågår inga events för roomName just nu, alltså är rummet ledigt
-            return reservations;
-        }
+        //  ----------------------------------------------- Calender API -----------------------------------------------
         
         private static CalendarService GetCalendarService()
         {

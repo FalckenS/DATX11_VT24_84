@@ -110,11 +110,7 @@ namespace DATX11_VT24_84
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (string.IsNullOrWhiteSpace(ResourceId))
-            {
-                return null;
-            }
-            return ImageSource.FromResource(ResourceId, Assembly.GetExecutingAssembly());
+            return string.IsNullOrWhiteSpace(ResourceId) ? null : ImageSource.FromResource(ResourceId, Assembly.GetExecutingAssembly());
         }
     }
 }
