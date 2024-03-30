@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DATX11_VT24_84
 {
@@ -22,7 +23,6 @@ namespace DATX11_VT24_84
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
-
             await Navigation.PushModalAsync(new LedigaJustNu(), false);
         }
         
