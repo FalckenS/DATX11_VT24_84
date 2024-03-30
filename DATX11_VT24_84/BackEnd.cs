@@ -56,7 +56,7 @@ namespace DATX11_VT24_84
             await CreateReservation(userID, roomName, GetRealTime().AddMinutes(1), endTime);
         }
         
-        // Ska ha vanlig tid som input, kastar olika Exception beroende på vad som går fel
+        // Ska ha vanlig tid som input, kastar olika exception beroende på vad som går fel
         public static async Task CreateReservation(string userID, string roomName, DateTime startTime, DateTime endTime)
         {
             if (endTime < startTime)
@@ -164,6 +164,7 @@ namespace DATX11_VT24_84
             List<string> roomsNotAvailableNow_Names = ongoingReservations.Select(
                 ongoingReservation => ongoingReservation.RoomName).ToList();
             List<string> allRoomNames = await GetAllRoomNames();
+            
             // Retunerar alla element i allRooms som INTE finns med i roomsNotAvailableNow_Names
             List<string> roomsAvailableNow_Names = allRoomNames.Where(
                 roomName => !roomsNotAvailableNow_Names.Contains(roomName)).ToList();
