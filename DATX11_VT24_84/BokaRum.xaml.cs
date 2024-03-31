@@ -15,13 +15,27 @@ namespace DATX11_VT24_84
             BuildingLabel.Text = building; // Set the building information
             FloorLabel.Text = $"Våning  {floor}";
 
-            // Set default start time to 10:15
-            StartHourPicker.SelectedIndex = 10;
-            StartMinutePicker.SelectedIndex = 1;
+            // Set default start time to the next quarter-hour increment
+            DateTime currentTime = DateTime.Now;
+            int currentMinute = currentTime.Minute;
+            int nearestQuarter = (currentMinute / 15 + 1) * 15;
+            int currentHour = currentTime.Hour;
+            if (nearestQuarter >= 60)
+            {
+                currentHour = (currentHour + 1) % 24;
+                nearestQuarter = 0;
+            }
 
-            // Set default end time to 11:15
-            EndHourPicker.SelectedIndex = 11;
-            EndMinutePicker.SelectedIndex = 1;
+            StartHourPicker.SelectedIndex = currentHour;
+            StartMinutePicker.SelectedIndex = nearestQuarter / 15;
+
+            // Set default end time to the next hour from the start time
+            int endHour = (currentHour + 1) % 24;
+            EndHourPicker.SelectedIndex = endHour;
+            EndMinutePicker.SelectedIndex = nearestQuarter / 15;
+
+            // Update end time based on selected start time
+            UpdateEndTime();
         }
 
         // Event handler for start hour picker

@@ -17,7 +17,7 @@
                    Margin="0,30,0,0" 
                    BackgroundColor="#80232E34"
                    WidthRequest="300"
-                   HeightRequest="120">
+                   HeightRequest="80">
                 <StackLayout>
                     <Label x:Name="RoomNameLabel"
                            TextColor="White"
@@ -55,7 +55,9 @@
                     <Frame CornerRadius="15" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
                         <Picker x:Name="StartHourPicker"
                                 Title="Timme"
-                                SelectedIndexChanged="OnStartHourSelectedIndexChanged">
+                                SelectedIndexChanged="OnStartHourSelectedIndexChanged"
+                                FontSize="15"> <!-- Set the font size to 16 -->
+
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <!-- Add hour options -->
@@ -94,7 +96,9 @@
                     <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
                         <Picker x:Name="StartMinutePicker"
                                 Title="Minut"
-                                SelectedIndexChanged="OnStartMinuteSelectedIndexChanged">
+                                SelectedIndexChanged="OnStartMinuteSelectedIndexChanged"
+                                FontSize="15"> <!-- Set the font size to 16 -->
+
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <!-- Add minute options with 15-minute increments -->
@@ -116,7 +120,8 @@
                     <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
                         <Picker x:Name="EndHourPicker"
                                 Title="Timme"
-                                SelectedIndexChanged="OnEndHourSelectedIndexChanged">
+                                SelectedIndexChanged="OnEndHourSelectedIndexChanged"
+                                FontSize="15"> <!-- Set the font size to 16 -->
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <!-- Add hour options -->
@@ -156,7 +161,8 @@
                     <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
                         <Picker x:Name="EndMinutePicker"
                                 Title="Minut"
-                                SelectedIndexChanged="OnEndMinuteSelectedIndexChanged">
+                                SelectedIndexChanged="OnEndMinuteSelectedIndexChanged"
+                                FontSize="15"> <!-- Set the font size to 16 -->
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <x:String>00</x:String>
