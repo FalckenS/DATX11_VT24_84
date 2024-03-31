@@ -5,7 +5,7 @@
              xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.LedigaJustNu"
              NavigationPage.HasNavigationBar="False">
-    <ScrollView Margin="0,0,0,20"> <!-- Add margin at the bottom -->
+    <ScrollView Margin="0,0,0,-800"> <!-- Add margin at the bottom -->
 
         <RelativeLayout x:Name="MainLayout">
 
@@ -23,8 +23,6 @@
 
                 <!-- Your content here -->
                 <!-- Add empty space at the bottom -->
-                <BoxView HeightRequest="20" BackgroundColor="Transparent" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"/>
-
             </Frame>
 
         </RelativeLayout>

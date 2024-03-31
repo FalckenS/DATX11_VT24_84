@@ -1,25 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DATX11_VT24_84.BokaRum">
     <ContentPage.Content>
         <StackLayout Padding="20">
+            <!-- Label for "Boka grupprum" -->
+            <Label Text="Boka grupprum"
+                   TextColor="White"
+                   FontSize="18"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Margin="10,10,0,0"/>
 
-            <!-- Frame to display the room name -->
+            <!-- Frame to display the room name and building -->
             <Frame CornerRadius="15"
                    Padding="20"
-                   Margin="0,150,0,0" 
+                   Margin="0,30,0,0" 
                    BackgroundColor="#80232E34"
                    WidthRequest="300"
-                   HeightRequest="80">
-                <Label x:Name="RoomNameLabel"
-                       TextColor="White"
-                       FontSize="20"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Start"
-                       VerticalOptions="Start"
-                       VerticalTextAlignment="Start"
-                       Margin="0,-15,0,0" />
+                   HeightRequest="120">
+                <StackLayout>
+                    <Label x:Name="RoomNameLabel"
+                           TextColor="White"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"
+                           VerticalTextAlignment="Start"
+                           Margin="0,-15,0,0" />
+
+                    <!-- Add label for displaying building -->
+                    <Label x:Name="BuildingLabel"
+                           TextColor="White"
+                           FontSize="15"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"
+                           VerticalTextAlignment="Start"
+                           Margin="0,5,0,0" />
+                    
+                    <Label x:Name="FloorLabel"
+                           TextColor="White"
+                           FontSize="15"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"
+                           VerticalTextAlignment="Start"
+                           Margin="230,-29,0,0" />
+                </StackLayout>
             </Frame>
 
             <!-- Other content here -->
