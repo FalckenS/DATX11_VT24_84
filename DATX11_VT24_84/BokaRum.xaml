@@ -47,8 +47,141 @@
                 </StackLayout>
             </Frame>
 
-            <!-- Other content here -->
+            <!-- Start and end time pickers -->
+            <StackLayout Orientation="Horizontal" Margin="10,80,0,0">
+                <!-- Start time pickers -->
+                <StackLayout Orientation="Horizontal" Margin="0,0,20,0">
+                    <!-- Start hour picker -->
+                    <Frame CornerRadius="15" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
+                        <Picker x:Name="StartHourPicker"
+                                Title="Timme"
+                                SelectedIndexChanged="OnStartHourSelectedIndexChanged">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <!-- Add hour options -->
+                                    <x:String>00</x:String>
+                                    <x:String>01</x:String>
+                                    <x:String>02</x:String>
+                                    <x:String>03</x:String>
+                                    <x:String>04</x:String>
+                                    <x:String>05</x:String>
+                                    <x:String>06</x:String>
+                                    <x:String>07</x:String>
+                                    <x:String>08</x:String>
+                                    <x:String>09</x:String>
+                                    <x:String>10</x:String>
+                                    <x:String>11</x:String>
+                                    <x:String>12</x:String>
+                                    <x:String>13</x:String>
+                                    <x:String>14</x:String>
+                                    <x:String>15</x:String>
+                                    <x:String>16</x:String>
+                                    <x:String>17</x:String>
+                                    <x:String>18</x:String>
+                                    <x:String>19</x:String>
+                                    <x:String>20</x:String>
+                                    <x:String>21</x:String>
+                                    <x:String>22</x:String>
+                                    <x:String>23</x:String>
+                                    <x:String>24</x:String>                                   
+                                </x:Array>
+                            </Picker.ItemsSource>
+                            <Picker.SelectedIndex>10</Picker.SelectedIndex> <!-- Set default hour to 10 -->
+                        </Picker>
+                    </Frame>
 
+                    <!-- Start minute picker -->
+                    <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
+                        <Picker x:Name="StartMinutePicker"
+                                Title="Minut"
+                                SelectedIndexChanged="OnStartMinuteSelectedIndexChanged">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <!-- Add minute options with 15-minute increments -->
+                                    <x:String>00</x:String>
+                                    <x:String>15</x:String>
+                                    <x:String>30</x:String>
+                                    <x:String>45</x:String>                                  
+                                </x:Array>
+                            </Picker.ItemsSource>
+                            <Picker.SelectedIndex>3</Picker.SelectedIndex> <!-- Set default minutes to 15 -->
+
+                        </Picker>
+                    </Frame>
+                </StackLayout>
+                
+                <!-- End time pickers -->
+                <StackLayout Orientation="Horizontal">
+                    <!-- End hour picker -->
+                    <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
+                        <Picker x:Name="EndHourPicker"
+                                Title="Timme"
+                                SelectedIndexChanged="OnEndHourSelectedIndexChanged">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <!-- Add hour options -->
+                                    <x:String>00</x:String>
+                                    <x:String>01</x:String>
+                                    <x:String>02</x:String>
+                                    <x:String>03</x:String>
+                                    <x:String>04</x:String>
+                                    <x:String>05</x:String>
+                                    <x:String>06</x:String>
+                                    <x:String>07</x:String>
+                                    <x:String>08</x:String>
+                                    <x:String>09</x:String>
+                                    <x:String>10</x:String>
+                                    <x:String>11</x:String>
+                                    <x:String>12</x:String>
+                                    <x:String>13</x:String>
+                                    <x:String>14</x:String>
+                                    <x:String>15</x:String>
+                                    <x:String>16</x:String>
+                                    <x:String>17</x:String>
+                                    <x:String>18</x:String>
+                                    <x:String>19</x:String>
+                                    <x:String>20</x:String>
+                                    <x:String>21</x:String>
+                                    <x:String>22</x:String>
+                                    <x:String>23</x:String>
+                                    <x:String>24</x:String>                                     
+                                </x:Array>
+                            </Picker.ItemsSource>
+                            <Picker.SelectedIndex>12</Picker.SelectedIndex> <!-- Set default hour to 10 -->
+
+                        </Picker>
+                    </Frame>
+
+                    <!-- End minute picker -->
+                    <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
+                        <Picker x:Name="EndMinutePicker"
+                                Title="Minut"
+                                SelectedIndexChanged="OnEndMinuteSelectedIndexChanged">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>00</x:String>
+                                    <x:String>15</x:String>
+                                    <x:String>30</x:String>
+                                    <x:String>45</x:String>                                     
+                                </x:Array>
+                            </Picker.ItemsSource>
+                            <Picker.SelectedIndex>3</Picker.SelectedIndex> <!-- Set default minutes to 15 -->
+
+                        </Picker>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+            
+            <!-- Button for booking -->
+            <Button Text="Book Room" 
+                    BackgroundColor="#00ACFF"
+                    TextColor="White"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    CornerRadius="15"
+                    Margin="20,150,20,0"
+                    Padding="20,20" 
+                    Clicked="OnBookRoomClicked" /> <!-- Add Clicked event handler -->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
