@@ -7,11 +7,12 @@ namespace DATX11_VT24_84
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BokaRum : ContentPage
     {
+        
         public BokaRum(string roomName, string building, string floor)
         {
             InitializeComponent();
             UIUtility.UpdateBackgroundColorOtherPages(this);
-            RoomNameLabel.Text = roomName;
+            RoomNameLabel.Text = roomName; // Set the room name label with the passed parameter
             BuildingLabel.Text = building; // Set the building information
             FloorLabel.Text = $"Våning  {floor}";
 
@@ -37,6 +38,7 @@ namespace DATX11_VT24_84
             // Update end time based on selected start time
             UpdateEndTime();
         }
+
 
         // Event handler for start hour picker
         private void OnStartHourSelectedIndexChanged(object sender, EventArgs e)
@@ -78,9 +80,36 @@ namespace DATX11_VT24_84
         }
 
         // Event handler for booking button click
-        private void OnBookRoomClicked(object sender, EventArgs e)
+        private async void OnBookRoomClicked(object sender, EventArgs e)
         {
-            // Handle the booking button click event
+            try
+            {
+                // Get the selected start and end times from the pickers
+                int startHour = int.Parse(StartHourPicker.SelectedItem.ToString());
+                int startMinute = int.Parse(StartMinutePicker.SelectedItem.ToString());
+                int endHour = int.Parse(EndHourPicker.SelectedItem.ToString());
+                int endMinute = int.Parse(EndMinutePicker.SelectedItem.ToString());
+
+                // Calculate the start and end DateTime objects
+                DateTime startTime = DateTime.Today.AddHours(startHour).AddMinutes(startMinute);
+                DateTime endTime = DateTime.Today.AddHours(endHour).AddMinutes(endMinute);
+
+                // Get the room name from somewhere (you need to implement this logic)
+                string roomName = RoomNameLabel.Text; // Replace "Room Name" with the actual room name
+
+                // Create the reservation with the calculated start time
+                await BackEnd.CreateReservation("datx11.vt24.84@gmail.com", roomName, startTime, endTime); 
+
+                // Display a success message (you can implement this as needed)
+                await DisplayAlert("Success", "Booking created successfully", "OK");
+            }
+            catch (Exception ex)
+            {
+                // Display an error message if something goes wrong
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
         }
+
+
     }
 }

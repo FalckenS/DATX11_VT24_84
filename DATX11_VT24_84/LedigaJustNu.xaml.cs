@@ -81,13 +81,14 @@ namespace DATX11_VT24_84
                         grid.Children.Add(button);
 
                         // Add click event handler for the button
-                        button.Clicked += (sender, e) =>
+                        button.Clicked += async (sender, e) =>
                         {
                             var roomName = label1.Text;
                             var building = room.Building;
                             var floor = room.Floor;
-                            Navigation.PushModalAsync(new BokaRum(roomName, building, floor), false);
+                            await Navigation.PushModalAsync(new BokaRum(roomName, building, floor), false);
                         };
+
 
                         // Add the grid to the stack layout
                         roomsStackLayout.Children.Add(grid);
