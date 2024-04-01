@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DATX11_VT24_84.MinaBokningar">
-    <ContentPage.Content>
+    <ScrollView>
         <StackLayout x:Name="stackLayout">
             <!-- This stack layout will be populated with booking information -->
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>
