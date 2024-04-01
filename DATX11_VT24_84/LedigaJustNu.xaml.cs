@@ -69,7 +69,7 @@ namespace DATX11_VT24_84
                
             }
             // Add the StackLayout to the FrameLayout
-            FrameLayout.Content = stackLayout;
+            FrameLayout.Content = stackLayout; 
         }
         
         // Kodduplication men kan nog justeras om senare

@@ -10,6 +10,7 @@ namespace DATX11_VT24_84
         {
             InitializeComponent();
             MainPage = new MainPage();
+            FakeBookingCreator.CreatePreMadeBookings(); // Optional
         }
 
         protected override void OnStart()
