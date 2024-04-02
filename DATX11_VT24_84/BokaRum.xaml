@@ -28,7 +28,6 @@
                            VerticalTextAlignment="Start"
                            Margin="0,-15,0,0" />
 
-                    <!-- Add label for displaying building -->
                     <Label x:Name="BuildingLabel"
                            TextColor="White"
                            FontSize="15"
@@ -47,20 +46,16 @@
                 </StackLayout>
             </Frame>
 
-            <!-- Start and end time pickers -->
             <StackLayout Orientation="Horizontal" Margin="10,80,0,0">
-                <!-- Start time pickers -->
                 <StackLayout Orientation="Horizontal" Margin="0,0,20,0">
-                    <!-- Start hour picker -->
                     <Frame CornerRadius="15" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
                         <Picker x:Name="StartHourPicker"
                                 Title="Timme"
                                 SelectedIndexChanged="OnStartHourSelectedIndexChanged"
-                                FontSize="15"> <!-- Set the font size to 16 -->
+                                FontSize="15"> 
 
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
-                                    <!-- Add hour options -->
                                     <x:String>00</x:String>
                                     <x:String>01</x:String>
                                     <x:String>02</x:String>
@@ -88,11 +83,10 @@
                                     <x:String>24</x:String>                                   
                                 </x:Array>
                             </Picker.ItemsSource>
-                            <Picker.SelectedIndex>10</Picker.SelectedIndex> <!-- Set default hour to 10 -->
+                            <Picker.SelectedIndex>10</Picker.SelectedIndex> 
                         </Picker>
                     </Frame>
 
-                    <!-- Start minute picker -->
                     <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
                         <Picker x:Name="StartMinutePicker"
                                 Title="Minut"

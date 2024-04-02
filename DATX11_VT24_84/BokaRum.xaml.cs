@@ -12,11 +12,10 @@ namespace DATX11_VT24_84
         {
             InitializeComponent();
             UIUtility.UpdateBackgroundColorOtherPages(this);
-            RoomNameLabel.Text = roomName; // Set the room name label with the passed parameter
-            BuildingLabel.Text = building; // Set the building information
+            RoomNameLabel.Text = roomName; 
+            BuildingLabel.Text = building; 
             FloorLabel.Text = $"Våning  {floor}";
 
-            // Set default start time to the next quarter-hour increment
             DateTime currentTime = DateTime.Now;
             int currentMinute = currentTime.Minute;
             int nearestQuarter = (currentMinute / 15 + 1) * 15;
@@ -30,12 +29,10 @@ namespace DATX11_VT24_84
             StartHourPicker.SelectedIndex = currentHour;
             StartMinutePicker.SelectedIndex = nearestQuarter / 15;
 
-            // Set default end time to the next hour from the start time
             int endHour = (currentHour + 1) % 24;
             EndHourPicker.SelectedIndex = endHour;
             EndMinutePicker.SelectedIndex = nearestQuarter / 15;
 
-            // Update end time based on selected start time
             UpdateEndTime();
         }
 
@@ -52,7 +49,6 @@ namespace DATX11_VT24_84
             UpdateEndTime();
         }
 
-        // Method to update the end time based on the selected start time
         private void UpdateEndTime()
         {
             int startHour = int.Parse(StartHourPicker.SelectedItem.ToString());
@@ -62,7 +58,6 @@ namespace DATX11_VT24_84
             {
                 endHour = 0;
             }
-
             EndHourPicker.SelectedIndex = endHour;
             EndMinutePicker.SelectedIndex = StartMinutePicker.SelectedIndex;
         }
@@ -84,28 +79,22 @@ namespace DATX11_VT24_84
         {
             try
             {
-                // Get the selected start and end times from the pickers
                 int startHour = int.Parse(StartHourPicker.SelectedItem.ToString());
                 int startMinute = int.Parse(StartMinutePicker.SelectedItem.ToString());
                 int endHour = int.Parse(EndHourPicker.SelectedItem.ToString());
                 int endMinute = int.Parse(EndMinutePicker.SelectedItem.ToString());
 
-                // Calculate the start and end DateTime objects
                 DateTime startTime = DateTime.Today.AddHours(startHour).AddMinutes(startMinute);
                 DateTime endTime = DateTime.Today.AddHours(endHour).AddMinutes(endMinute);
 
-                // Get the room name from somewhere (you need to implement this logic)
-                string roomName = RoomNameLabel.Text; // Replace "Room Name" with the actual room name
+                string roomName = RoomNameLabel.Text; 
 
-                // Create the reservation with the calculated start time
                 await BackEnd.CreateReservation("datx11.vt24.84@gmail.com", roomName, startTime, endTime); 
 
-                // Display a success message (you can implement this as needed)
                 await DisplayAlert("Success", "Booking created successfully", "OK");
             }
             catch (Exception ex)
             {
-                // Display an error message if something goes wrong
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
