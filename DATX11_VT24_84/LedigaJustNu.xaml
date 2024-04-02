@@ -5,20 +5,13 @@
              NavigationPage.HasNavigationBar="False">
 
     <ScrollView>
-        <RelativeLayout x:Name="MainLayout">
+        <StackLayout>
             <!-- Lediga just nu label/text -->
-            <Grid x:Name="TitleLabel" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-55}"
-                  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0.5, Constant=50}">
-                <Label Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
-            </Grid>
+            <Label Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,20,0,10"/>
 
             <!-- StackLayout to contain dynamically generated Frames -->
-            <StackLayout x:Name="StackLayoutFrames"
-                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=0.5, Constant=100}"
-                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-155}">
+            <StackLayout x:Name="StackLayoutFrames">
             </StackLayout>
-            
-        </RelativeLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

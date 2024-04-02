@@ -30,9 +30,11 @@ namespace DATX11_VT24_84
             var frame = new Frame
             {
                 BackgroundColor = Color.FromHex("#36474F"),
-                CornerRadius = 10,
-                Margin = new Thickness(0, 10, 0, 10)
+                CornerRadius = 15,
+                Margin = new Thickness(50, 5), // Adjust margins here
+                Padding = new Thickness(30) // Add padding to make it a bit squished together from the sides
             };
+
 
             var titleLabel = new Label
             {
@@ -89,9 +91,14 @@ namespace DATX11_VT24_84
     {
         SizeChanged += (sender, e) =>
         {
-            UIUtility.AddTopTriangles(MainLayout, Width, Height);
+            var mainLayout = this.FindByName<RelativeLayout>("MainLayout");
+            if (mainLayout != null)
+            {
+                UIUtility.AddTopTriangles(mainLayout, Width, Height);
+            }
         };
     }
+
 }
 
     

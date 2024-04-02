@@ -301,6 +301,20 @@
       "Floor"    : "E",
       "Building" : "M-huset",
       "Features" : []
+    },
+    {
+      "Name"     : "EG-2515",
+      "Capacity" : "4",
+      "Floor"    : "E",
+      "Building" : "ED-Blocket",
+      "Features" : []
+    },
+    {
+      "Name"     : "EG-2516",
+      "Capacity" : "4",
+      "Floor"    : "E",
+      "Building" : "ED-Blocket",
+      "Features" : []
     }
   ]
 }
