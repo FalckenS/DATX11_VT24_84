@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
@@ -57,10 +58,13 @@ namespace DATX11_VT24_84
                 // Fetch reservations for the specified room and date
                 List<Reservation> reservations = await BackEnd.GetReservationsForRoom(_roomName, _bookingDate);
 
+                // Filter out past bookings
+                reservations = reservations.Where(booking => booking.StartTime > DateTime.Now).ToList();
+
                 // Display booking information
                 if (reservations.Count == 0)
                 {
-                    BookingInfoLabel.Text = "No bookings for the room today";
+                    BookingInfoLabel.Text = "Inga bokningar framöver för denna dag";
                 }
                 else
                 {
@@ -69,7 +73,7 @@ namespace DATX11_VT24_84
                     {
                         string startTime = booking.StartTime.ToString("HH:mm");
                         string endTime = booking.EndTime.ToString("HH:mm");
-                        bookingInfo += $"Booked {startTime} - {endTime}\n";
+                        bookingInfo += $"Bokat {startTime} - {endTime}\n";
                     }
                     BookingInfoLabel.Text = bookingInfo;
                 }
@@ -81,19 +85,8 @@ namespace DATX11_VT24_84
                 BookingInfoLabel.Text = "Error fetching reservations";
             }
         }
+
         
-        private async Task<List<Reservation>> FetchReservationsForRoom(string roomName, DateTime bookingDate)
-        {
-            // Placeholder implementation to simulate reservations
-            List<Reservation> reservations = new List<Reservation>();
-
-            // Add sample reservations (replace with actual logic to fetch reservations)
-            reservations.Add(new Reservation("userID1", roomName, DateTime.Today.AddHours(9), DateTime.Today.AddHours(11), "1"));
-            reservations.Add(new Reservation("userID2", roomName, DateTime.Today.AddHours(14), DateTime.Today.AddHours(15), "2"));
-
-            return reservations;
-        }
-
 
         // Event handler for start hour picker
         private void OnStartHourSelectedIndexChanged(object sender, EventArgs e)
@@ -133,6 +126,7 @@ namespace DATX11_VT24_84
         }
 
         // Event handler for booking button click
+        // Event handler for booking button click
         private async void OnBookRoomClicked(object sender, EventArgs e)
         {
             try
@@ -147,14 +141,20 @@ namespace DATX11_VT24_84
 
                 string roomName = RoomNameLabel.Text; 
 
+                // Create reservation
                 await BackEnd.CreateReservation("datx11.vt24.84@gmail.com", roomName, startTime, endTime); 
 
+                // Display success message
                 await DisplayAlert("Success", "Booking created successfully", "OK");
+
+                // Refresh booking information
+                FetchAndDisplayBookings();
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
+
     }
 }
