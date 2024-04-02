@@ -6,11 +6,18 @@
             <!-- Label for "Boka grupprum" -->
             <Label Text="Boka grupprum"
                    TextColor="White"
-                   FontSize="18"
+                   FontSize="15"
                    HorizontalOptions="Start"
                    VerticalOptions="Start"
                    Margin="10,10,0,0"/>
-
+            
+            <Label x:Name="CurrentDayLabel"
+                   TextColor="White"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Margin="10,5,0,0"/>
             <!-- Frame to display the room name and building -->
             <Frame CornerRadius="15"
                    Padding="20"
@@ -115,7 +122,7 @@
                         <Picker x:Name="EndHourPicker"
                                 Title="Timme"
                                 SelectedIndexChanged="OnEndHourSelectedIndexChanged"
-                                FontSize="15"> <!-- Set the font size to 16 -->
+                                FontSize="15"> 
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <!-- Add hour options -->
@@ -171,9 +178,14 @@
                     </Frame>
                 </StackLayout>
             </StackLayout>
-            
+            <!-- Label to display booking information -->
+            <Label x:Name="BookingInfoLabel"
+                   TextColor="White"
+                   FontSize="16"
+                   Margin="10,10,10,0"/>
+
             <!-- Button for booking -->
-            <Button Text="Book Room" 
+            <Button Text="Boka rum" 
                     BackgroundColor="#00ACFF"
                     TextColor="White"
                     FontSize="20"

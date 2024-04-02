@@ -1,20 +1,34 @@
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
+
 
 namespace DATX11_VT24_84
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BokaRum : ContentPage
     {
-        
-        public BokaRum(string roomName, string building, string floor)
+        private string _roomName;
+        private DateTime _bookingDate;
+        public BokaRum(string roomName, string building, string floor, DateTime bookingDate)
         {
             InitializeComponent();
+            _roomName = roomName;
+            _bookingDate = bookingDate;
+            FetchAndDisplayBookings();
+
             UIUtility.UpdateBackgroundColorOtherPages(this);
             RoomNameLabel.Text = roomName; 
             BuildingLabel.Text = building; 
             FloorLabel.Text = $"Våning  {floor}";
+            string dayName = bookingDate.ToString("dddd", new System.Globalization.CultureInfo("sv-SE"));
+            string capitalizedDayName = char.ToUpper(dayName[0]) + dayName.Substring(1);
+            string formattedDate = bookingDate.ToString("d MMMM yyyy", new System.Globalization.CultureInfo("sv-SE"));
+            string displayText = capitalizedDayName + " " + formattedDate;
+
+            CurrentDayLabel.Text = displayText;
 
             DateTime currentTime = DateTime.Now;
             int currentMinute = currentTime.Minute;
@@ -34,6 +48,50 @@ namespace DATX11_VT24_84
             EndMinutePicker.SelectedIndex = nearestQuarter / 15;
 
             UpdateEndTime();
+        }
+
+        private async void FetchAndDisplayBookings()
+        {
+            try
+            {
+                // Fetch reservations for the specified room and date
+                List<Reservation> reservations = await BackEnd.GetReservationsForRoom(_roomName, _bookingDate);
+
+                // Display booking information
+                if (reservations.Count == 0)
+                {
+                    BookingInfoLabel.Text = "No bookings for the room today";
+                }
+                else
+                {
+                    string bookingInfo = "";
+                    foreach (var booking in reservations)
+                    {
+                        string startTime = booking.StartTime.ToString("HH:mm");
+                        string endTime = booking.EndTime.ToString("HH:mm");
+                        bookingInfo += $"Booked {startTime} - {endTime}\n";
+                    }
+                    BookingInfoLabel.Text = bookingInfo;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors gracefully
+                Console.WriteLine($"Error fetching reservations: {ex.Message}");
+                BookingInfoLabel.Text = "Error fetching reservations";
+            }
+        }
+        
+        private async Task<List<Reservation>> FetchReservationsForRoom(string roomName, DateTime bookingDate)
+        {
+            // Placeholder implementation to simulate reservations
+            List<Reservation> reservations = new List<Reservation>();
+
+            // Add sample reservations (replace with actual logic to fetch reservations)
+            reservations.Add(new Reservation("userID1", roomName, DateTime.Today.AddHours(9), DateTime.Today.AddHours(11), "1"));
+            reservations.Add(new Reservation("userID2", roomName, DateTime.Today.AddHours(14), DateTime.Today.AddHours(15), "2"));
+
+            return reservations;
         }
 
 
@@ -98,7 +156,5 @@ namespace DATX11_VT24_84
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
-
-
     }
 }

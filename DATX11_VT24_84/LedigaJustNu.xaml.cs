@@ -86,7 +86,8 @@ namespace DATX11_VT24_84
                             var roomName = label1.Text;
                             var building = room.Building;
                             var floor = room.Floor;
-                            await Navigation.PushModalAsync(new BokaRum(roomName, building, floor), false);
+                            var today = DateTime.Today; // Get the current date
+                            await Navigation.PushModalAsync(new BokaRum(roomName, building, floor, today), false);
                         };
 
 

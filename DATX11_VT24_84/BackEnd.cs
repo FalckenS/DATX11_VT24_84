@@ -211,6 +211,25 @@ namespace DATX11_VT24_84
                 e.Id)).ToList();
         }
         
+        public static async Task<List<Reservation>> GetReservationsForRoom(string roomName, DateTime bookingDate)
+        {
+            try
+            {
+                List<Reservation> allReservations = await GetAllReservations();
+
+                List<Reservation> reservationsForRoom = allReservations.Where(reservation =>
+                    reservation.RoomName == roomName &&
+                    reservation.StartTime.Date == bookingDate.Date).ToList();
+
+                return reservationsForRoom;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching reservations for room {roomName}: {ex.Message}");
+                throw; 
+            }
+        }
+        
         //  ------------------------------------------------- Utility -------------------------------------------------
         
         private static CalendarService GetCalendarService()
