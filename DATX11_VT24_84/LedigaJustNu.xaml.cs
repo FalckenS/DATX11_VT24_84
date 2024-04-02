@@ -6,120 +6,94 @@ using Xamarin.Forms;
 
 namespace DATX11_VT24_84
 {
-    public partial class LedigaJustNu :ContentPage,  IHasBackButton
+    public partial class LedigaJustNu : ContentPage, IHasBackButton
+{
+    public LedigaJustNu()
     {
-        public LedigaJustNu()
-        {
-            InitializeComponent();
-            AddGrids();
-            AddTrianglesAndBackButton();
-            UIUtility.UpdateBackgroundColorMainPages(this);
-            
-        }
+        InitializeComponent();
+        AddGrids();
+        AddTrianglesAndBackButton();
+        UIUtility.UpdateBackgroundColorMainPages(this);
+    }
 
-        public void AddClickedMethod(ImageButton backButton)
+    public void AddClickedMethod(ImageButton backButton)
+    {
+    }
+
+    private async Task AddGrids()
+    {
+        List<Room> availableRooms = await BackEnd.GetAllRoomsAvailableNow();
+        var groupedRooms = availableRooms.GroupBy(room => room.Building);
+
+        foreach (var group in groupedRooms)
         {
-            
-        } 
-        private async Task AddGrids()
+            var frame = new Frame
             {
-                var stackLayout = new StackLayout(); // Create a StackLayout to hold the frames
+                BackgroundColor = Color.FromHex("#36474F"),
+                CornerRadius = 10,
+                Margin = new Thickness(0, 10, 0, 10)
+            };
 
-                // Call the backend method to get the list of available rooms
-                List<Room> availableRooms = await BackEnd.GetAllRoomsAvailableNow();
+            var titleLabel = new Label
+            {
+                Text = group.Key,
+                TextColor = Color.White,
+                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                FontAttributes = FontAttributes.Bold,
+                HorizontalOptions = LayoutOptions.Center
+            };
 
-                // Group rooms by building name
-                var groupedRooms = availableRooms.GroupBy(room => room.Building);
+            frame.Content = titleLabel;
 
-                // Loop through each group of rooms
-                foreach (var group in groupedRooms)
+            var roomsStackLayout = new StackLayout();
+
+            foreach (var room in group)
+            {
+                var grid = new Grid();
+
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+                var label1 = new Label { Text = $"{room.Name}", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, FontAttributes = FontAttributes.Bold };
+                var button = new Button { Text = "Boka", TextColor = Color.White, BackgroundColor = Color.FromHex("#00ACFF"), VerticalOptions = LayoutOptions.CenterAndExpand, CornerRadius = 30, FontAttributes = FontAttributes.Bold };
+
+                Grid.SetColumn(label1, 0);
+                Grid.SetColumn(button, 2);
+
+                grid.Children.Add(label1);
+                grid.Children.Add(button);
+
+                button.Clicked += async (sender, e) =>
                 {
-                    // Create a frame for the group of rooms
-                    var frame = new Frame
-                    {
-                        BackgroundColor = Color.FromHex("#36474F"),
-                        CornerRadius = 10,
-                        Margin = new Thickness(0, 10, 0, 10) // Add margin between frames
-                    };
+                    var roomName = label1.Text;
+                    var building = room.Building;
+                    var floor = room.Floor;
+                    var today = DateTime.Today; // Get the current date
+                    await Navigation.PushModalAsync(new BokaRum(roomName, building, floor, today), false);
+                };
 
-                    // Add building name as title above the frame
-                    var titleLabel = new Label
-                    {
-                        Text = group.Key,
-                        TextColor = Color.White,
-                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
-                        FontAttributes = FontAttributes.Bold,
-                        HorizontalOptions = LayoutOptions.Center
-                    };
-
-                    frame.Content = titleLabel;
-
-                    // Create a stack layout to hold the rooms within the frame
-                    var roomsStackLayout = new StackLayout();
-
-                    // Loop through each room in the group
-                    foreach (var room in group)
-                    {
-                        // Create grid for each room
-                        var grid = new Grid();
-
-                        // Define column definitions
-                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-
-                        // Add labels to the grid
-                        var label1 = new Label { Text = $"{room.Name}", TextColor = Color.White, VerticalOptions = LayoutOptions.CenterAndExpand, FontAttributes = FontAttributes.Bold };
-                        var button = new Button { Text = "Boka", TextColor = Color.White, BackgroundColor = Color.FromHex("#00ACFF"), VerticalOptions = LayoutOptions.CenterAndExpand, CornerRadius = 30, FontAttributes = FontAttributes.Bold };
-
-                        // Set grid column for labels
-                        Grid.SetColumn(label1, 0);
-                        Grid.SetColumn(button, 2);
-
-                        // Add labels and button to the grid
-                        grid.Children.Add(label1);
-                        grid.Children.Add(button);
-
-                        // Add click event handler for the button
-                        button.Clicked += async (sender, e) =>
-                        {
-                            var roomName = label1.Text;
-                            var building = room.Building;
-                            var floor = room.Floor;
-                            var today = DateTime.Today; // Get the current date
-                            await Navigation.PushModalAsync(new BokaRum(roomName, building, floor, today), false);
-                        };
-
-
-                        // Add the grid to the stack layout
-                        roomsStackLayout.Children.Add(grid);
-                    }
-
-                    // Add the stack layout of rooms to the frame
-                    frame.Content = new StackLayout
-                    {
-                        Children = { titleLabel, roomsStackLayout }
-                    };
-
-                    // Add the frame to the main stack layout
-                    stackLayout.Children.Add(frame);
-                }
-
-                // Add the StackLayout to the FrameLayout
-                FrameLayout.Content = stackLayout;
+                roomsStackLayout.Children.Add(grid);
             }
 
-        
-        // Kodduplication men kan nog justeras om senare
-        private void AddTrianglesAndBackButton()
-                {
-                    // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
-                    SizeChanged += (sender, e) =>
-                    {
-                        UIUtility.AddTopTriangles(MainLayout, Width, Height);
-                    };
-                }
+            frame.Content = new StackLayout
+            {
+                Children = { titleLabel, roomsStackLayout }
+            };
+
+            StackLayoutFrames.Children.Add(frame);
         }
+    }
+
+    private void AddTrianglesAndBackButton()
+    {
+        SizeChanged += (sender, e) =>
+        {
+            UIUtility.AddTopTriangles(MainLayout, Width, Height);
+        };
+    }
+}
+
     
     
 }
