@@ -37,6 +37,10 @@
       <EmbeddedResource Include="disco-catcher-418315-d913f85a8669.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Images\clock.png" />
+      <EmbeddedResource Include="Images\clock.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>

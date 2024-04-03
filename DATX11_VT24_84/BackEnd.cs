@@ -25,9 +25,13 @@ namespace DATX11_VT24_84
     
     public static class BackEnd
     {
+        // Vintertid:
         // FRÅN OSS TILL API: En timma + så vi måste TA BORT EN innan vi skickar för det ska bli rätt!
         // FRÅN API TILL OSS: En timma - så vi måste LÄGGA TILL EN för det ska bli rätt!
-        // DateTime.Now ger 1-timma-minus tid, GetRealTime() ger vanlig tid
+        
+        // Sommartid:
+        // FRÅN OSS TILL API: Två timmar + så vi måste TA BORT TVÅ innan vi skickar för det ska bli rätt!
+        // FRÅN API TILL OSS: Två timmaR - så vi måste LÄGGA TILL TVÅ för det ska bli rätt!
         
         private const string CalendarID = "datx11.vt24.84@gmail.com";
         private const string TimeZone = "Europe/Stockholm";
@@ -59,6 +63,12 @@ namespace DATX11_VT24_84
         // Ska ha vanlig tid som input, kastar olika exception beroende på vad som går fel
         public static async Task CreateReservation(string userID, string roomName, DateTime startTime, DateTime endTime)
         {
+            List<string> allRoomNames = await GetAllRoomNames();
+            if (!allRoomNames.Contains(roomName))
+            {
+                throw new Exception("Invalid room name!");
+            }
+            
             if (endTime < startTime)
             {
                 throw new Exception("Start time is after end time!");
@@ -79,15 +89,9 @@ namespace DATX11_VT24_84
                 throw new Exception("Reservation to long!");
             }
             
-            if (4 < (await GetReservationsForUser(userID)).Count)
+            if (4 < (await GetUpcomingReservationsForUser(userID)).Count)
             {
                 throw new Exception("Already to many reservations for user!");
-            }
-            
-            List<string> allRoomNames = await GetAllRoomNames();
-            if (!allRoomNames.Contains(roomName))
-            {
-                throw new Exception("Invalid room name!");
             }
             
             bool isRoomAvailable = await IsRoomAvailable(roomName, startTime, endTime);
@@ -96,11 +100,10 @@ namespace DATX11_VT24_84
                 throw new Exception("Room not available during that time!");
             }
             
-            // Gör vanlig tid till 1-timma-minus tid
             startTime = new DateTime(startTime.Year, startTime.Month, startTime.Day, startTime.Hour, startTime.Minute, 
-                0).AddHours(-1);
+                0).AddHours(-2);
             endTime =   new DateTime(endTime.Year,   endTime.Month,   endTime.Day,   endTime.Hour,   endTime.Minute,   
-                0).AddHours(-1);
+                0).AddHours(-2);
             
             try
             {
@@ -179,13 +182,21 @@ namespace DATX11_VT24_84
         //  --------------------------------------------- Get reservations ---------------------------------------------
         
         // Returnera lista för bokningar pågående och 7 dagar framåt, sorterad efter start time
-        public static async Task<List<Reservation>> GetReservationsForUser(string userID)
+        public static async Task<List<Reservation>> GetOngoingReservationsForUser(string userID)
         {
             List<Reservation> allReservations = await GetAllReservations();
-            List<Reservation> ongoingAndUpcomingReservations = allReservations.Where(reservation =>
-                (reservation.StartTime <= GetRealTime() && GetRealTime() < reservation.EndTime) ||
-                (GetRealTime() < reservation.StartTime && reservation.EndTime <= GetRealTime().AddDays(7))).ToList();
-            return ongoingAndUpcomingReservations.Where(reservation => reservation.UserID == userID).ToList();
+            List<Reservation> ongoingReservations = allReservations.Where(reservation =>
+                reservation.StartTime <= GetRealTime() && GetRealTime() < reservation.EndTime).ToList();
+            return ongoingReservations.Where(reservation => reservation.UserID == userID).ToList();
+        }
+        
+        // Returnera lista för bokningar pågående och 7 dagar framåt, sorterad efter start time
+        public static async Task<List<Reservation>> GetUpcomingReservationsForUser(string userID)
+        {
+            List<Reservation> allReservations = await GetAllReservations();
+            List<Reservation> upcomingReservations = allReservations.Where(reservation =>
+                GetRealTime() < reservation.StartTime && reservation.EndTime <= GetRealTime().AddDays(7)).ToList();
+            return upcomingReservations.Where(reservation => reservation.UserID == userID).ToList();
         }
         
         // Returnera lista med vanlig tid sorterad efter start time
@@ -202,12 +213,11 @@ namespace DATX11_VT24_84
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
     
             Events events = await request.ExecuteAsync();
-            // Lägger till en timma för tiden från APIn är en-timma-minus
             return events.Items.Select(e => new Reservation(
                 e.Summary,
                 e.Location,
-                e.Start.DateTime.Value.AddHours(1),
-                e.End.DateTime.Value.AddHours(1),
+                e.Start.DateTime.Value.AddHours(2),
+                e.End.DateTime.Value.AddHours(2),
                 e.Id)).ToList();
         }
         
@@ -253,7 +263,9 @@ namespace DATX11_VT24_84
 
         private static DateTime GetRealTime()
         {
-            return DateTime.Now.AddHours(1);
+            // Vintertid: +1
+            // Sommartid: +2
+            return DateTime.Now.AddHours(2);
         }
         
         //  -------------------------------------------- Room data back end --------------------------------------------
@@ -330,6 +342,7 @@ namespace DATX11_VT24_84
             EndTime = endTime;
             ID = id;
         }
+        public string TimeRange => $"{StartTime:HH:mm} - {EndTime:HH:mm}";
         public string UserID { get; }
         public string RoomName { get; }
         public DateTime StartTime { get; }
