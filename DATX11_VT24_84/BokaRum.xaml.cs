@@ -117,17 +117,16 @@ namespace DATX11_VT24_84
         // Event handler for end hour picker
         private void OnEndHourSelectedIndexChanged(object sender, EventArgs e)
         {
-            // You can add additional logic here if needed
+          
         }
 
-        // Event handler for end minute picker
+      
         private void OnEndMinuteSelectedIndexChanged(object sender, EventArgs e)
         {
-            // You can add additional logic here if needed
+            
         }
 
-        // Event handler for booking button click
-        // Event handler for booking button click
+       
         private async void OnBookRoomClicked(object sender, EventArgs e)
         {
             try

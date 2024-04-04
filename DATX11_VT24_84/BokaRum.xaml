@@ -72,112 +72,126 @@
     <!-- Start time labels -->
     <StackLayout VerticalOptions="EndAndExpand">
         <Label Text="Starttid" TextColor="White" FontSize="16" Margin="0,-50,0,5" />
-        <Frame CornerRadius="15" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
-            <Picker x:Name="StartHourPicker" Title="Timme" SelectedIndexChanged="OnStartHourSelectedIndexChanged" FontSize="15">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>00</x:String>
-                        <x:String>01</x:String>
-                        <x:String>02</x:String>
-                        <x:String>03</x:String>
-                        <x:String>04</x:String>
-                        <x:String>05</x:String>
-                        <x:String>06</x:String>
-                        <x:String>07</x:String>
-                        <x:String>08</x:String>
-                        <x:String>09</x:String>
-                        <x:String>10</x:String>
-                        <x:String>11</x:String>
-                        <x:String>12</x:String>
-                        <x:String>13</x:String>
-                        <x:String>14</x:String>
-                        <x:String>15</x:String>
-                        <x:String>16</x:String>
-                        <x:String>17</x:String>
-                        <x:String>18</x:String>
-                        <x:String>19</x:String>
-                        <x:String>20</x:String>
-                        <x:String>21</x:String>
-                        <x:String>22</x:String>
-                        <x:String>23</x:String>
-                        <x:String>24</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="StartHourPicker" Title="Timme" SelectedIndexChanged="OnStartHourSelectedIndexChanged" FontSize="15">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>01</x:String>
+                            <x:String>02</x:String>
+                            <x:String>03</x:String>
+                            <x:String>04</x:String>
+                            <x:String>05</x:String>
+                            <x:String>06</x:String>
+                            <x:String>07</x:String>
+                            <x:String>08</x:String>
+                            <x:String>09</x:String>
+                            <x:String>10</x:String>
+                            <x:String>11</x:String>
+                            <x:String>12</x:String>
+                            <x:String>13</x:String>
+                            <x:String>14</x:String>
+                            <x:String>15</x:String>
+                            <x:String>16</x:String>
+                            <x:String>17</x:String>
+                            <x:String>18</x:String>
+                            <x:String>19</x:String>
+                            <x:String>20</x:String>
+                            <x:String>21</x:String>
+                            <x:String>22</x:String>
+                            <x:String>23</x:String>
+                            <x:String>24</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
         </Frame>
     </StackLayout>
     <StackLayout VerticalOptions="EndAndExpand">
-        <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
-            <Picker x:Name="StartMinutePicker" Title="Minut" SelectedIndexChanged="OnStartMinuteSelectedIndexChanged" FontSize="15">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>00</x:String>
-                        <x:String>15</x:String>
-                        <x:String>30</x:String>
-                        <x:String>45</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="StartMinutePicker" Title="Minut" SelectedIndexChanged="OnStartMinuteSelectedIndexChanged" FontSize="15" HorizontalOptions="Center">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>15</x:String>
+                            <x:String>30</x:String>
+                            <x:String>45</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
         </Frame>
     </StackLayout>
     
     <!-- End time labels -->
-    <StackLayout VerticalOptions="EndAndExpand" Margin="30,0,0,0">
+    <StackLayout VerticalOptions="EndAndExpand" Margin="90,0,0,0">
         <Label Text="Sluttid" TextColor="White" FontSize="16" Margin="0,-50,0,5" />
-        <Frame CornerRadius="15" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
-            <Picker x:Name="EndHourPicker" Title="Timme" SelectedIndexChanged="OnEndHourSelectedIndexChanged" FontSize="15">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>00</x:String>
-                        <x:String>01</x:String>
-                        <x:String>02</x:String>
-                        <x:String>03</x:String>
-                        <x:String>04</x:String>
-                        <x:String>05</x:String>
-                        <x:String>06</x:String>
-                        <x:String>07</x:String>
-                        <x:String>08</x:String>
-                        <x:String>09</x:String>
-                        <x:String>10</x:String>
-                        <x:String>11</x:String>
-                        <x:String>12</x:String>
-                        <x:String>13</x:String>
-                        <x:String>14</x:String>
-                        <x:String>15</x:String>
-                        <x:String>16</x:String>
-                        <x:String>17</x:String>
-                        <x:String>18</x:String>
-                        <x:String>19</x:String>
-                        <x:String>20</x:String>
-                        <x:String>21</x:String>
-                        <x:String>22</x:String>
-                        <x:String>23</x:String>
-                        <x:String>24</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="EndHourPicker" Title="Timme" SelectedIndexChanged="OnEndHourSelectedIndexChanged" FontSize="15">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>01</x:String>
+                            <x:String>02</x:String>
+                            <x:String>03</x:String>
+                            <x:String>04</x:String>
+                            <x:String>05</x:String>
+                            <x:String>06</x:String>
+                            <x:String>07</x:String>
+                            <x:String>08</x:String>
+                            <x:String>09</x:String>
+                            <x:String>10</x:String>
+                            <x:String>11</x:String>
+                            <x:String>12</x:String>
+                            <x:String>13</x:String>
+                            <x:String>14</x:String>
+                            <x:String>15</x:String>
+                            <x:String>16</x:String>
+                            <x:String>17</x:String>
+                            <x:String>18</x:String>
+                            <x:String>19</x:String>
+                            <x:String>20</x:String>
+                            <x:String>21</x:String>
+                            <x:String>22</x:String>
+                            <x:String>23</x:String>
+                            <x:String>24</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
         </Frame>
     </StackLayout>
     <StackLayout VerticalOptions="EndAndExpand">
-        <Frame CornerRadius="10" BackgroundColor="White" WidthRequest="30" HeightRequest="40">
-            <Picker x:Name="EndMinutePicker" Title="Minut" SelectedIndexChanged="OnEndMinuteSelectedIndexChanged" FontSize="15">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>00</x:String>
-                        <x:String>15</x:String>
-                        <x:String>30</x:String>
-                        <x:String>45</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="EndMinutePicker" Title="Minut" SelectedIndexChanged="OnEndMinuteSelectedIndexChanged" FontSize="15" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>15</x:String>
+                            <x:String>30</x:String>
+                            <x:String>45</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
         </Frame>
     </StackLayout>
 </StackLayout>
 
 
-            
-            
-            
+
             <Frame CornerRadius="15"
                    Padding="20"
                    Margin="0,20,0,0" 
