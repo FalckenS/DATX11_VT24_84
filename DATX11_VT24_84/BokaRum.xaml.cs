@@ -13,7 +13,7 @@ namespace DATX11_VT24_84
     {
         private string _roomName;
         private DateTime _bookingDate;
-        public BokaRum(string roomName, string building, string floor, DateTime bookingDate)
+        public BokaRum(string roomName, string building, string floor, DateTime bookingDate, string capacity)
         {
             InitializeComponent();
             _roomName = roomName;
@@ -30,6 +30,7 @@ namespace DATX11_VT24_84
             string displayText = capitalizedDayName + " " + formattedDate;
 
             CurrentDayLabel.Text = displayText;
+            CapacityLabel.Text = $"Kapacitet: {capacity} platser";
 
             DateTime currentTime = DateTime.Now;
             int currentMinute = currentTime.Minute;
