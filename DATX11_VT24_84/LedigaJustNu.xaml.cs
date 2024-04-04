@@ -6,19 +6,34 @@ using Xamarin.Forms;
 
 namespace DATX11_VT24_84
 {
-    public partial class LedigaJustNu : ContentPage, IHasBackButton
+    public partial class LedigaJustNu : IHasBackButton
 {
     public LedigaJustNu()
     {
         InitializeComponent();
         AddGrids();
-        AddTrianglesAndBackButton();
         UIUtility.UpdateBackgroundColorMainPages(this);
+        ShowCurrentDateTime();
     }
 
     public void AddClickedMethod(ImageButton backButton)
     {
     }
+    private void ShowCurrentDateTime()
+    {
+        // Update the DateTime label with the current date and time
+        Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                string formattedDateTime = DateTime.Now.ToString("dddd d MMMM, HH:mm", new System.Globalization.CultureInfo("sv-SE"));
+                formattedDateTime = char.ToUpper(formattedDateTime[0]) + formattedDateTime.Substring(1);
+                dateTimeLabel.Text = formattedDateTime;
+            });
+            return true;
+        });
+    }
+
 
     private async Task AddGrids()
     {
@@ -87,17 +102,7 @@ namespace DATX11_VT24_84
         }
     }
 
-    private void AddTrianglesAndBackButton()
-    {
-        SizeChanged += (sender, e) =>
-        {
-            var mainLayout = this.FindByName<RelativeLayout>("MainLayout");
-            if (mainLayout != null)
-            {
-                UIUtility.AddTopTriangles(mainLayout, Width, Height);
-            }
-        };
-    }
+    
 
 }
 
