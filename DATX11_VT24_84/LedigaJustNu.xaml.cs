@@ -91,7 +91,11 @@ namespace DATX11_VT24_84
                 };
 
                 roomsStackLayout.Children.Add(grid);
+                
+                var separatorLine = new SeparatorLine();
+                roomsStackLayout.Children.Add(separatorLine);
             }
+
 
             frame.Content = new StackLayout
             {
