@@ -22,11 +22,8 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="Images\grey_x_icon.png" />
-      <EmbeddedResource Include="Images\grey_x_icon.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="Images\grey_back_arrow.png" />
-      <EmbeddedResource Include="Images\grey_back_arrow_icon.png">
+      <EmbeddedResource Include="Images\grey_left_arrow.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="rooms.json" />
@@ -39,6 +36,10 @@
       </EmbeddedResource>
       <None Remove="Images\clock.png" />
       <EmbeddedResource Include="Images\clock.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Images\black_right_arrow.png" />
+      <EmbeddedResource Include="Images\black_right_arrow.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>

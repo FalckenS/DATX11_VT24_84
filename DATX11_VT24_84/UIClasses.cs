@@ -87,7 +87,7 @@ namespace DATX11_VT24_84
             
             ImageButton imageButton = new ImageButton
             {
-                Source = ImageSource.FromResource("DATX11_VT24_84.Images.grey_back_arrow_icon.png", typeof(EmbeddedImage).GetTypeInfo().Assembly),
+                Source = ImageSource.FromResource("DATX11_VT24_84.Images.grey_left_arrow.png", typeof(EmbeddedImage).GetTypeInfo().Assembly),
                 BackgroundColor = Color.Transparent,
                 WidthRequest = width,
                 HeightRequest = width
