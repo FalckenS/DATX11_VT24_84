@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Xamarin.Forms;
 
 namespace DATX11_VT24_84
 {
     public partial class MainPage
     {
+        private const string UserID = "1";
+        
         public MainPage()
         {   
             InitializeComponent();
-            UIUtility.UpdateBackgroundColorMainPages(this);
-            AddTrianglesAndBackButton();
+            AddTopTriangles();
+
+            UpdateReservationCards();
         }
 
-        private void AddTrianglesAndBackButton()
+        private void AddTopTriangles()
         {
             // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
             SizeChanged += (sender, e) =>
@@ -32,6 +37,108 @@ namespace DATX11_VT24_84
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
         {
+        }
+        
+        private async void UpdateReservationCards()
+        {
+            ReservationTitle.IsVisible = false;
+            ReservationCard1.IsVisible = false;
+            ReservationCard2.IsVisible = false;
+            
+            List<Reservation> ongoingReservations = await BackEnd.GetOngoingReservationsForUser(UserID);
+            List<Reservation> upcomingReservationsThisDay = 
+                (await BackEnd.GetUpcomingReservationsForUser(UserID)).Where(reservation =>
+                    GetRealTime().Year == reservation.StartTime.Year &&
+                    GetRealTime().Month == reservation.StartTime.Month &&
+                    GetRealTime().Day == reservation.StartTime.Day).ToList();
+            
+            if (ongoingReservations.Count >= 2)
+            {
+                ReservationTitle.IsVisible = true;
+                
+                AddReservationCard(ongoingReservations[0], ReservationCard1Room, ReservationCard1Building,
+                    ReservationCard1Time, ReservationCard1TimeUntil);
+                AddReservationCard(ongoingReservations[1], ReservationCard2Room, ReservationCard2Building,
+                    ReservationCard2Time, ReservationCard2TimeUntil);
+
+                ReservationCard1.IsVisible = true;
+                ReservationCard2.IsVisible = true;
+            }
+            
+            else if (ongoingReservations.Count == 1 && upcomingReservationsThisDay.Count >= 1)
+            {
+                ReservationTitle.IsVisible = true;
+                
+                AddReservationCard(ongoingReservations[0], ReservationCard1Room, ReservationCard1Building,
+                    ReservationCard1Time, ReservationCard1TimeUntil);
+                AddReservationCard(upcomingReservationsThisDay[0], ReservationCard2Room, ReservationCard2Building,
+                    ReservationCard2Time, ReservationCard2TimeUntil);
+                
+                ReservationCard1.IsVisible = true;
+                ReservationCard2.IsVisible = true;
+            }
+            else if (ongoingReservations.Count == 1 && upcomingReservationsThisDay.Count == 0)
+            {
+                ReservationTitle.IsVisible = true;
+                
+                AddReservationCard(ongoingReservations[0], ReservationCard1Room, ReservationCard1Building,
+                    ReservationCard1Time, ReservationCard1TimeUntil);
+                
+                ReservationCard1.IsVisible = true;
+            }
+            
+            else if (upcomingReservationsThisDay.Count >= 2)
+            {
+                ReservationTitle.IsVisible = true;
+                
+                AddReservationCard(upcomingReservationsThisDay[0], ReservationCard1Room, ReservationCard1Building,
+                    ReservationCard1Time, ReservationCard1TimeUntil);
+                AddReservationCard(upcomingReservationsThisDay[1], ReservationCard2Room, ReservationCard2Building,
+                    ReservationCard2Time, ReservationCard2TimeUntil);
+                
+                ReservationCard1.IsVisible = true;
+                ReservationCard2.IsVisible = true;
+            }
+            else if (upcomingReservationsThisDay.Count == 1)
+            {
+                ReservationTitle.IsVisible = true;
+                
+                AddReservationCard(upcomingReservationsThisDay[0], ReservationCard1Room, ReservationCard1Building,
+                    ReservationCard1Time, ReservationCard1TimeUntil);
+                
+                ReservationCard1.IsVisible = true;
+            }
+        }
+
+        // TODO gör cards clickable
+        
+        private async void AddReservationCard(Reservation reservation, Label roomLabel, Label buildingLabel,
+            Label timeLabel, Label timeUntilLabel)
+        {
+            roomLabel.Text = reservation.RoomName;
+            buildingLabel.Text = (await BackEnd.GetRoomInfo(reservation.RoomName)).Building;
+            timeLabel.Text =
+                reservation.StartTime.ToString("HH:mm") + " - " + reservation.EndTime.ToString("HH:mm");
+            TimeSpan timeUntilReservation = reservation.StartTime - GetRealTime();
+            if (timeUntilReservation.Ticks > 0 && timeUntilReservation.Hours >= 1)
+            {
+                timeUntilLabel.Text = "Om " + timeUntilReservation.Hours + " h";
+            }
+            else if (timeUntilReservation.Ticks > 0 && timeUntilReservation.Minutes > 0)
+            {
+                timeUntilLabel.Text = "Om " + timeUntilReservation.Minutes + " min";
+            }
+            else
+            {
+                timeUntilLabel.Text = "Pågående";
+            }
+        }
+
+        private static DateTime GetRealTime()
+        {
+            // Vintertid: +1
+            // Sommartid: +2
+            return DateTime.Now.AddHours(2);
         }
     }
 }

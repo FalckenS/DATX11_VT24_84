@@ -6,55 +6,174 @@
              x:Class="DATX11_VT24_84.MainPage"
              NavigationPage.HasNavigationBar="False">
 
-    <RelativeLayout x:Name="MainLayout">
-        <Grid RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+    <RelativeLayout x:Name="MainLayout" BackgroundColor="#232E34">
+        <Grid RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+              RelativeLayout.WidthConstraint ="{ConstraintExpression Type=RelativeToParent, Property=Width,  Factor=1}">
+            
             <!-- Grid definitions -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>    <!-- 1  -->
-                <RowDefinition Height="*"/>    <!-- 2  -->
-                <RowDefinition Height="*"/>    <!-- 3  -->
-                <RowDefinition Height="*"/>    <!-- 4  -->
-                <RowDefinition Height="*"/>    <!-- 5  -->
-                <RowDefinition Height="*"/>    <!-- 6  -->
-                <RowDefinition Height="*"/>    <!-- 7  -->
-                <RowDefinition Height="*"/>    <!-- 8  -->
-                <RowDefinition Height="*"/>    <!-- 9  -->
-                <RowDefinition Height="0.5*"/> <!-- 10 -->
+                <RowDefinition Height="*"/>     <!-- 0  -->
+                <RowDefinition Height="*"/>     <!-- 1  -->
+                <RowDefinition Height="0.75*"/> <!-- 2  -->
+                <RowDefinition Height="1.5*"/>  <!-- 3  -->
+                <RowDefinition Height="0.1*"/>  <!-- 4  -->
+                <RowDefinition Height="1.5*"/>  <!-- 5  -->
+                <RowDefinition Height="*"/>     <!-- 6  -->
+                <RowDefinition Height="1.25*"/> <!-- 7  -->
+                <RowDefinition Height="0.25*"/> <!-- 8  -->
+                <RowDefinition Height="1.25*"/> <!-- 9  -->
+                <RowDefinition Height="0.25*"/> <!-- 10 -->
+                <RowDefinition Height="1.25*"/> <!-- 11 -->
+                <RowDefinition Height="0.5*"/>  <!-- 12 -->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!-- Search box -->
-            <Frame BackgroundColor="#AFAFAF"
-                   Grid.Column="1"
-                   Grid.Row="1"
+            
+            <!-- Row: 0 -->
+            
+            <!-- Search box row: 1 -->
+            <Frame Grid.Row="1" Grid.Column="1"
+                   BackgroundColor="#AFAFAF"
                    CornerRadius="20" 
-                   Padding="10" 
-                   HorizontalOptions="FillAndExpand" 
-                   VerticalOptions="Center">
-                <StackLayout Orientation="Horizontal"
-                             HorizontalOptions="FillAndExpand"
-                             VerticalOptions="Center">
+                   Padding="10">
+                <StackLayout Orientation="Horizontal">
                     <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_search_icon.png'}"
-                           HeightRequest="30"
-                           Margin="5,5,5,5"/>
+                           HeightRequest="30"/>
                     <Entry Placeholder="Hitta till grupprum"
-                           TextColor="Black" 
-                           BackgroundColor="Transparent" 
-                           VerticalOptions="Center"
-                           HorizontalOptions="FillAndExpand"/>
+                           TextColor="Black"
+                           BackgroundColor="Transparent"
+                           HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 </StackLayout>
             </Frame>
-            <!-- Buttons -->
-            <Button Grid.Column="1" Grid.Row="6" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
-                    Text="Lediga just nu" Clicked="OnLedigaJustNuButtonClicked"/>
-            <Button Grid.Column="1" Grid.Row="7" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
-                    Text="Boka" Clicked="OnBokaButtonClicked"/>
-            <Button Grid.Column="1" Grid.Row="8" Style="{StaticResource LargeButtonStyle}" HorizontalOptions="Fill" VerticalOptions="Fill"
-                    Text="Mina bokningar" Clicked="OnMinaBokningarButtonClicked"/>
+            
+            <!-- Bokningar rubrik, row: 2 -->
+            <Label Grid.Row="2" Grid.Column="1"
+                   x:Name="ReservationTitle"
+                   IsVisible="True"
+                   Text="Dagens bokningar:"
+                   FontSize="20"
+                   TextColor="White"
+                   Padding="5, 0, 0, 0"
+                   HorizontalOptions="Start" VerticalOptions="Center"/>
+            
+            <!-- Bokning 1, row: 3 -->
+            <Frame Grid.Row="3" Grid.Column="1"
+                   x:Name="ReservationCard1"
+                   Style="{StaticResource ReservationCard}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                                 HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                        <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.clock.png'}"
+                               HorizontalOptions="Start" VerticalOptions="Center"/>
+                        <Label x:Name="ReservationCard1TimeUntil"
+                               Style="{StaticResource ReservationCardTimeUntil}">
+                        </Label>
+                    </StackLayout>
+                    
+                    <Label Grid.Row="1" Grid.Column="0"
+                           x:Name="ReservationCard1Room"
+                           Style="{StaticResource ReservationCardRoom}">
+                    </Label>
+                    
+                    <Label Grid.Row="2" Grid.Column="0"
+                           x:Name="ReservationCard1Building"
+                           Style="{StaticResource ReservationCardBuilding}">
+                    </Label>
+                    
+                    <StackLayout Grid.Row="1" Grid.Column="1"
+                                 Style="{StaticResource ReservationCardTimeAndArrow}">
+                        <Label x:Name="ReservationCard1Time"
+                               Style="{StaticResource ReservationCardTime}">
+                        </Label>
+                        <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.black_right_arrow.png'}"/>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+            
+            <!-- Row: 4 -->
+            
+            <!-- Bokning 2, row: 5 -->
+            <Frame Grid.Row="5" Grid.Column="1"
+                   x:Name="ReservationCard2"
+                   Style="{StaticResource ReservationCard}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                                 HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                        <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.clock.png'}"
+                               HorizontalOptions="Start" VerticalOptions="Center"/>
+                        <Label x:Name="ReservationCard2TimeUntil"
+                               Style="{StaticResource ReservationCardTimeUntil}">
+                        </Label>
+                    </StackLayout>
+                    
+                    <Label Grid.Row="1" Grid.Column="0"
+                           x:Name="ReservationCard2Room"
+                           Style="{StaticResource ReservationCardRoom}">
+                    </Label>
+                    
+                    <Label Grid.Row="2" Grid.Column="0"
+                           x:Name="ReservationCard2Building"
+                           Style="{StaticResource ReservationCardBuilding}">
+                    </Label>
+                    
+                    <StackLayout Grid.Row="1" Grid.Column="1"
+                                 Style="{StaticResource ReservationCardTimeAndArrow}">
+                        <Label x:Name="ReservationCard2Time"
+                               Style="{StaticResource ReservationCardTime}">
+                        </Label>
+                        <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.black_right_arrow.png'}"/>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+            
+            <!-- Row: 6 -->
+            
+            <!-- Button 1, row: 7 -->
+            <Button Grid.Row="7" Grid.Column="1"
+                    Text="Lediga just nu"
+                    Clicked="OnLedigaJustNuButtonClicked"
+                    Style="{StaticResource MainPageButton}"/>
+            
+            <!-- Row: 8 -->
+            
+            <!-- Button 2, row: 9 -->
+            <Button Grid.Row="9" Grid.Column="1"
+                    Text="Boka"
+                    Clicked="OnBokaButtonClicked"
+                    Style="{StaticResource MainPageButton}"/>
+            
+            <!-- Row: 10 -->
+            
+            <!-- Button 3, row: 11 -->
+            <Button Grid.Row="11" Grid.Column="1"
+                    Text="Mina bokningar"
+                    Clicked="OnMinaBokningarButtonClicked"
+                    Style="{StaticResource MainPageButton}"/>
+            
+            <!-- Row: 12 -->
         </Grid>
     </RelativeLayout>
 </ContentPage>
