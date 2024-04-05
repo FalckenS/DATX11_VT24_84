@@ -46,7 +46,7 @@ namespace DATX11_VT24_84
                 {
                     BackgroundColor = Color.FromHex("#36474F"),
                     CornerRadius = 15,
-                    Margin = new Thickness(50, 5), // Adjust margins here
+                    Margin = new Thickness(35, 5), // Adjust margins here
                     Padding = new Thickness(30) // Add padding to make it a bit squished together from the sides
                 };
 
