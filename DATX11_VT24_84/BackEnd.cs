@@ -11,27 +11,33 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable PossibleInvalidOperationException
+#pragma warning disable CS0168 // Variable is declared but never used
 #pragma warning disable CS0618 // Type or member is obsolete
 
 namespace DATX11_VT24_84
 {
     /*
-    Kan vara så att skiten slutar fungera när det blir sommartid, löser det då isåfall
-    Vetefan om TimeZone faktiskt gör något, verkar som den är broken, verkar alltid köra på London tid
-    Inte den snyggaste koden, bryter mot lite principer här och där men den funkar så fuck it we ball
-    Allt skriven av Samuel Falck
+    Denna BackEnd fungerar endast rätt när det är sommartid. Eftersom det här systemet endast är en prototyp och kommer
+    ersättas av nåt annat system (tex TimeEdit) så bedömer jag att det inte behövs lösas.
+    Allt skriven av Samuel Falck.
     */
     
     public static class BackEnd
     {
-        // Vintertid:
-        // FRÅN OSS TILL API: En timma + så vi måste TA BORT EN innan vi skickar för det ska bli rätt!
-        // FRÅN API TILL OSS: En timma - så vi måste LÄGGA TILL EN för det ska bli rätt!
+        /*
+        Vintertid:
         
-        // Sommartid:
-        // FRÅN OSS TILL API: Två timmar + så vi måste TA BORT TVÅ innan vi skickar för det ska bli rätt!
-        // FRÅN API TILL OSS: Två timmaR - så vi måste LÄGGA TILL TVÅ för det ska bli rätt!
+        FRÅN OSS TILL API: En timma + så vi måste TA BORT EN innan vi skickar för det ska bli rätt!
+        FRÅN API TILL OSS: En timma - så vi måste LÄGGA TILL EN för det ska bli rätt!
+        
+        Sommartid:
+        
+        FRÅN OSS TILL API: Två timmar + så vi måste TA BORT TVÅ innan vi skickar för det ska bli rätt!
+        FRÅN API TILL OSS: Två timmar - så vi måste LÄGGA TILL TVÅ för det ska bli rätt!
+        */
         
         private const string CalendarID = "datx11.vt24.84@gmail.com";
         private const string TimeZone = "Europe/Stockholm";
@@ -63,7 +69,7 @@ namespace DATX11_VT24_84
         // Ska ha vanlig tid som input, kastar olika exception beroende på vad som går fel
         public static async Task CreateReservation(string userID, string roomName, DateTime startTime, DateTime endTime)
         {
-            List<string> allRoomNames = await GetAllRoomNames();
+            List<string> allRoomNames = (await GetAllRoomNames());
             if (!allRoomNames.Contains(roomName))
             {
                 throw new Exception("Invalid room name!");
@@ -89,7 +95,8 @@ namespace DATX11_VT24_84
                 throw new Exception("Reservation to long!");
             }
             
-            if (4 < (await GetUpcomingReservationsForUser(userID)).Count)
+            int numOfUpcomingReservations = (await GetUpcomingReservationsForUser(userID)).Count;
+            if (4 < numOfUpcomingReservations)
             {
                 throw new Exception("Already to many reservations for user!");
             }
@@ -181,7 +188,7 @@ namespace DATX11_VT24_84
         
         //  --------------------------------------------- Get reservations ---------------------------------------------
         
-        // Returnera lista för bokningar pågående och 7 dagar framåt, sorterad efter start time
+        // Returnera lista för pågående bokningar, sorterad efter start time
         public static async Task<List<Reservation>> GetOngoingReservationsForUser(string userID)
         {
             List<Reservation> allReservations = await GetAllReservations();
@@ -190,7 +197,7 @@ namespace DATX11_VT24_84
             return ongoingReservations.Where(reservation => reservation.UserID == userID).ToList();
         }
         
-        // Returnera lista för bokningar pågående och 7 dagar framåt, sorterad efter start time
+        // Returnera lista för bokningar 7 dagar framåt, sorterad efter start time
         public static async Task<List<Reservation>> GetUpcomingReservationsForUser(string userID)
         {
             List<Reservation> allReservations = await GetAllReservations();
@@ -226,7 +233,6 @@ namespace DATX11_VT24_84
             try
             {
                 List<Reservation> allReservations = await GetAllReservations();
-
                 List<Reservation> reservationsForRoom = allReservations.Where(reservation =>
                     reservation.RoomName == roomName &&
                     reservation.StartTime.Date == bookingDate.Date).ToList();
@@ -282,8 +288,6 @@ namespace DATX11_VT24_84
                 throw new Exception("Invalid room name!");
             }
         }
-        
-
 
         private static async Task<List<string>> GetAllRoomNames()
         {
@@ -309,6 +313,7 @@ namespace DATX11_VT24_84
         }
     }
     
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class Room
     {
         public Room(string name, string capacity, string floor, string building, List<string> features)
@@ -328,7 +333,8 @@ namespace DATX11_VT24_84
 
     internal class RoomList
     {
-        public List<Room> Rooms { get; set; }
+        // ReSharper disable once UnassignedGetOnlyAutoProperty
+        public List<Room> Rooms { get; }
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -342,7 +348,6 @@ namespace DATX11_VT24_84
             EndTime = endTime;
             ID = id;
         }
-        public string TimeRange => $"{StartTime:HH:mm} - {EndTime:HH:mm}";
         public string UserID { get; }
         public string RoomName { get; }
         public DateTime StartTime { get; }
