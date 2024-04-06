@@ -1,0 +1,78 @@
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
+             x:Class="DATX11_VT24_84.Boka">
+    <ContentPage.Content>
+        <RelativeLayout x:Name="MainLayout">
+            <!-- Title Label -->
+            <Label x:Name="TitleLabel"
+                   Text="Boka grupprum"
+                   FontSize="20"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Constant=20}" />
+
+            <!-- Date Bar -->
+            <Frame BackgroundColor="#00ACFF"
+       CornerRadius="20"
+       Padding="10"
+       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Height, Constant=50}"
+       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}">
+
+    <StackLayout Orientation="Horizontal"
+                 BackgroundColor="Transparent"
+                 Spacing="0"
+                 HorizontalOptions="FillAndExpand"
+                 VerticalOptions="Center">
+
+        <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_back_arrow_icon.png'}"
+               BackgroundColor="Transparent"
+               WidthRequest="40"
+               HeightRequest="40"
+               Aspect="AspectFit"
+               VerticalOptions="Center">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnPreviousDateClicked" />
+            </Image.GestureRecognizers>
+        </Image>
+        
+
+        
+
+        <!-- Add the Label and DatePicker here -->
+        <Label x:Name="DateDisplayLabel"
+               Text="Select Date"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"
+               FontSize="20">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDateLabelTapped" />
+            </Label.GestureRecognizers>
+        </Label>
+
+        <DatePicker x:Name="DatePicker"
+                    IsVisible="False"
+                    DateSelected="OnDateSelected"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=DateDisplayLabel, Property=Height, Constant=20}" />
+        
+        <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_back_arrow_icon.png'}"
+               BackgroundColor="Transparent"
+               WidthRequest="40"
+               HeightRequest="40"
+               Aspect="AspectFit"
+               VerticalOptions="Center"
+               Rotation="180">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnNextDateClicked" />
+            </Image.GestureRecognizers>
+        </Image>
+    </StackLayout>
+                
+</Frame>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -33,6 +33,8 @@ namespace DATX11_VT24_84
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)
         {
+            await Navigation.PushModalAsync(new Boka(), false);
+
         }
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
