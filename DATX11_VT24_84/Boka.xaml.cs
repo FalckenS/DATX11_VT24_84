@@ -7,35 +7,37 @@ namespace DATX11_VT24_84
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Boka : ContentPage
     {
-        private DateTime _currentDate;
+        private DateTime currentDate;
 
         public Boka()
         {
             InitializeComponent();
             UIUtility.UpdateBackgroundColorOtherPages(this);
-            _currentDate = DateTime.Today;
+            currentDate = DateTime.Today;
             UpdateDateLabel();
-            UpdateDatePicker(); 
+            UpdateDatePicker(); // Update the DatePicker immediately
         }
 
 
         private void OnPreviousDateClicked(object sender, EventArgs e)
         {
-            if (_currentDate > DateTime.Today.AddDays(0))
+            // Check if it's within the allowed range
+            if (currentDate > DateTime.Today.AddDays(0))
             {
-                _currentDate = _currentDate.AddDays(-1);
+                // Go to the previous date (subtract one day)
+                currentDate = currentDate.AddDays(-1);
                 UpdateDateLabel();
-                UpdateDatePicker(); 
+                UpdateDatePicker(); // Update the DatePicker
             }
         }
 
         private void OnNextDateClicked(object sender, EventArgs e)
         {
             // Check if it's within the allowed range
-            if (_currentDate < DateTime.Today.AddDays(14))
+            if (currentDate < DateTime.Today.AddDays(14))
             {
                 // Go to the next date (add one day)
-                _currentDate = _currentDate.AddDays(1);
+                currentDate = currentDate.AddDays(1);
                 UpdateDateLabel();
                 UpdateDatePicker(); // Update the DatePicker
             }
@@ -43,29 +45,40 @@ namespace DATX11_VT24_84
 
         private void OnDateLabelTapped(object sender, EventArgs e)
         {
+            // Focus the DatePicker to show the calendar
             DatePicker.Focus();
         }
 
         private void OnDateSelected(object sender, DateChangedEventArgs e)
         {
-            _currentDate = e.NewDate;
+            // Update the selected date
+            currentDate = e.NewDate;
             UpdateDateLabel();
+
+            // Hide the DatePicker
             DatePicker.IsVisible = false;
+
+            // Update the DatePicker after selecting a date
             UpdateDatePicker();
         }
 
         private void UpdateDateLabel()
         {
-            string formattedDate = _currentDate.ToString("dddd, d MMMM yyyy", new System.Globalization.CultureInfo("sv-SE"));
+            // Update the date label with the current date in Swedish with the first letter capitalized
+            string formattedDate = currentDate.ToString("dddd, d MMMM yyyy", new System.Globalization.CultureInfo("sv-SE"));
             formattedDate = char.ToUpper(formattedDate[0]) + formattedDate.Substring(1);
             DateDisplayLabel.Text = formattedDate;
         }
 
         private void UpdateDatePicker()
         {
-            DatePicker.Date = _currentDate;
-            DatePicker.MinimumDate = DateTime.Today.AddDays(0); //Kan inte kolla på bokningar bak i tiden
-            DatePicker.MaximumDate = DateTime.Today.AddDays(14); // Kan boka 14 dar i framtiden
+            DatePicker.Date = currentDate;
+            DatePicker.MinimumDate = DateTime.Today.AddDays(0); //Not possible to look at previous bookings
+            DatePicker.MaximumDate = DateTime.Today.AddDays(14); // Allow booking up to 14 days in advance
         }
+
+
+
+
     }
 }
