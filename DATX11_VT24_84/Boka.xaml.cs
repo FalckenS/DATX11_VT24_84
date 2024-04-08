@@ -15,9 +15,8 @@ namespace DATX11_VT24_84
             UIUtility.UpdateBackgroundColorOtherPages(this);
             _currentDate = DateTime.Today;
             UpdateDateLabel();
-            UpdateDatePicker(); 
+            UpdateDatePicker();
         }
-
 
         private void OnPreviousDateClicked(object sender, EventArgs e)
         {
@@ -25,19 +24,17 @@ namespace DATX11_VT24_84
             {
                 _currentDate = _currentDate.AddDays(-1);
                 UpdateDateLabel();
-                UpdateDatePicker(); 
+                UpdateDatePicker();
             }
         }
 
         private void OnNextDateClicked(object sender, EventArgs e)
         {
-            // Check if it's within the allowed range
-            if (_currentDate < DateTime.Today.AddDays(14))
+            if (_currentDate < DateTime.Today.AddDays(7))
             {
-                // Go to the next date (add one day)
                 _currentDate = _currentDate.AddDays(1);
                 UpdateDateLabel();
-                UpdateDatePicker(); // Update the DatePicker
+                UpdateDatePicker();
             }
         }
 
@@ -56,16 +53,20 @@ namespace DATX11_VT24_84
 
         private void UpdateDateLabel()
         {
-            string formattedDate = _currentDate.ToString("dddd, d MMMM yyyy", new System.Globalization.CultureInfo("sv-SE"));
+            string formattedDate =
+                _currentDate.ToString("dddd, d MMMM yyyy", new System.Globalization.CultureInfo("sv-SE"));
             formattedDate = char.ToUpper(formattedDate[0]) + formattedDate.Substring(1);
             DateDisplayLabel.Text = formattedDate;
+            DateDisplayLabel.FontAttributes = FontAttributes.Bold;
+            DateDisplayLabel.TextColor = Color.Black;
         }
 
         private void UpdateDatePicker()
         {
             DatePicker.Date = _currentDate;
             DatePicker.MinimumDate = DateTime.Today.AddDays(0); //Kan inte kolla på bokningar bak i tiden
-            DatePicker.MaximumDate = DateTime.Today.AddDays(14); // Kan boka 14 dar i framtiden
+            DatePicker.MaximumDate = DateTime.Today.AddDays(7); // Kan boka 14 dar i framtiden
         }
-    }
+
+}
 }
