@@ -8,7 +8,7 @@ namespace DATX11_VT24_84
     public partial class Boka : ContentPage
     {
         private DateTime _currentDate;
-        private bool isListaSelected = true; // Initially, Lista is selected
+        private bool _isListaSelected = true;
 
 
         public Boka()
@@ -72,15 +72,18 @@ namespace DATX11_VT24_84
         }
         private void OnListaLabelTapped(object sender, EventArgs e)
         {
-            isListaSelected = true;
+            _isListaSelected = true;
             UpdateOverlayPositionLeft();
         }
 
         private void OnKartaLabelTapped(object sender, EventArgs e)
         {
-            isListaSelected = false; 
+            _isListaSelected = false; 
             UpdateOverlayPositionRight();
         }
+
+       
+
 
         private void UpdateOverlayPositionRight()
         {
