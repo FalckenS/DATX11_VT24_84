@@ -72,13 +72,13 @@ namespace DATX11_VT24_84
         }
         private void OnListaLabelTapped(object sender, EventArgs e)
         {
-            isListaSelected = true; // Set Lista as selected
+            isListaSelected = true;
             UpdateOverlayPositionLeft();
         }
 
         private void OnKartaLabelTapped(object sender, EventArgs e)
         {
-            isListaSelected = false; // Set Karta as selected
+            isListaSelected = false; 
             UpdateOverlayPositionRight();
         }
 

@@ -79,10 +79,10 @@
             <Frame x:Name="ToggleFrame"
                    BackgroundColor="Gray"
                    CornerRadius="10"
-                   HeightRequest="40"
+                   HeightRequest="18"
                    WidthRequest="200"
-                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-100}"
-                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-20}">
+                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-120}"
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-250}">
 
                 <!-- Inner StackLayout for Labels -->
                 <StackLayout Orientation="Horizontal"
