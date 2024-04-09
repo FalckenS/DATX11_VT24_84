@@ -8,6 +8,8 @@ namespace DATX11_VT24_84
     public partial class Boka : ContentPage
     {
         private DateTime _currentDate;
+        private bool isListaSelected = true; // Initially, Lista is selected
+
 
         public Boka()
         {
@@ -16,6 +18,7 @@ namespace DATX11_VT24_84
             _currentDate = DateTime.Today;
             UpdateDateLabel();
             UpdateDatePicker();
+
         }
 
         private void OnPreviousDateClicked(object sender, EventArgs e)
@@ -67,6 +70,29 @@ namespace DATX11_VT24_84
             DatePicker.MinimumDate = DateTime.Today.AddDays(0); //Kan inte kolla på bokningar bak i tiden
             DatePicker.MaximumDate = DateTime.Today.AddDays(7); // Kan boka 14 dar i framtiden
         }
+        private void OnListaLabelTapped(object sender, EventArgs e)
+        {
+            isListaSelected = true; // Set Lista as selected
+            UpdateOverlayPositionLeft();
+        }
 
+        private void OnKartaLabelTapped(object sender, EventArgs e)
+        {
+            isListaSelected = false; // Set Karta as selected
+            UpdateOverlayPositionRight();
+        }
+
+        private void UpdateOverlayPositionRight()
+        {
+            OverlayBox.TranslateTo(120, 0, 250);
+        }
+        private void UpdateOverlayPositionLeft()
+        {
+            OverlayBox.TranslateTo(0, 0, 250);
+        }
+
+
+
+        
 }
 }
