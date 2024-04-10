@@ -130,11 +130,25 @@
                  RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ToggleFrame, Property=X}"
                  RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ToggleFrame, Property=Y}" />
 
-        <Frame CornerRadius="0"
-               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+        <Frame x:Name="ListMapFrame"
+               CornerRadius="0"
+               BackgroundColor="Transparent"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.8}" 
-               RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=0}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.265}" /> 
+               RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=-5}" 
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.24}">
+
+            <!-- Wrap content inside ScrollView -->
+            <ScrollView>
+                <StackLayout x:Name="RoomNamesContainer">
+                    <!-- Room names will be dynamically added here -->
+                </StackLayout>
+            </ScrollView>
+
+        </Frame>
+
+
+
 
     </RelativeLayout>
 </ContentPage>
