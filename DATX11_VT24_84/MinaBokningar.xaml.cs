@@ -22,6 +22,11 @@ namespace DATX11_VT24_84
                 UIUtility.AddTopTriangles(MainLayout, Width, Height);
             };
         }
+       
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync(false);
+        }
 
         private async void LoadBookings()
         {

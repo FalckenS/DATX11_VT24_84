@@ -8,7 +8,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17d40d41-297e-426a-a97d-3d7a457d30db" name="Changes" comment="" />
+    <list default="true" id="17d40d41-297e-426a-a97d-3d7a457d30db" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DATX11_VT24_84/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DATX11_VT24_84/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DATX11_VT24_84/MinaBokningar.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/DATX11_VT24_84/MinaBokningar.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DATX11_VT24_84/MinaBokningar.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DATX11_VT24_84/MinaBokningar.xaml.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="MinaBokningar" />
+        <entry key="$PROJECT_DIR$" value="5e6b51fd7e11d46f5176043a6985f5415b956fcf" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -93,7 +97,8 @@
       <workItem from="1711999211290" duration="4181000" />
       <workItem from="1712150501956" duration="586000" />
       <workItem from="1712730514356" duration="3045000" />
-      <workItem from="1712743391402" duration="2808000" />
+      <workItem from="1712743391402" duration="5782000" />
+      <workItem from="1712750343270" duration="1256000" />
     </task>
     <servers />
   </component>

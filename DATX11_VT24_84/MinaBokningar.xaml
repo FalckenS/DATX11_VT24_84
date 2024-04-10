@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.MinaBokningar">
     <RelativeLayout x:Name="MainLayout">
-            <ScrollView>
-                <StackLayout x:Name="stackLayout">
-                    <Label x:Name="titleLabel" Text="Mina Bokningar" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,80,0,10"/>
-                    <!-- This stack layout will be populated with booking information -->
-                </StackLayout>
-            </ScrollView>
+        <ScrollView>
+            <StackLayout x:Name="stackLayout">
+                <Grid Margin="0,50,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_left_arrow.png'}" 
+                                 Clicked="OnBackButtonClicked" 
+                                 BackgroundColor="Transparent" 
+                                 HorizontalOptions="Start" 
+                                 VerticalOptions="Center"
+                                 Aspect="AspectFit"
+                                 WidthRequest="30"
+                                 HeightRequest="30"
+                                 Margin="40,0,0,0"/>
+                   
+                    <Label x:Name="titleLabel" Text="Mina Bokningar" 
+                           TextColor="White" 
+                           FontSize="20" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" 
+                           Margin="0,0,55,0" 
+                           Grid.Column="1"/>
+                </Grid>
+                <!-- This stack layout will be populated with booking information -->
+            </StackLayout>
+        </ScrollView>
     </RelativeLayout>
 </ContentPage>
