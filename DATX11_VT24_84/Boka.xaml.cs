@@ -33,14 +33,15 @@ namespace DATX11_VT24_84
 
         foreach (string roomName in roomNames)
         {
+            // Create green frame
             Frame greenFrame = new Frame
             {
-                Padding = new Thickness(0),
-                BackgroundColor = Color.FromHex("#27AD72"), 
-                HorizontalOptions = LayoutOptions.Start, 
-                VerticalOptions = LayoutOptions.Fill, 
-                WidthRequest = 80, 
-                HeightRequest = 28, 
+                Padding = new Thickness(0), // Remove padding
+                BackgroundColor = Color.FromHex("#27AD72"), // Set background color to green
+                HorizontalOptions = LayoutOptions.Start, // Align the frame to the left
+                VerticalOptions = LayoutOptions.Fill, // Fill parent's height
+                WidthRequest = 80, // Set a fixed width for the frame
+                HeightRequest = 28, // Set a fixed height for both frames
                 BorderColor = Color.Black,
                 HasShadow = false 
             };
@@ -48,7 +49,7 @@ namespace DATX11_VT24_84
             Label roomLabel = new Label
             {
                 Text = roomName,
-                FontSize = 15,
+                FontSize = 14,
                 TextColor = Color.White,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalTextAlignment = TextAlignment.Start, 
@@ -60,17 +61,20 @@ namespace DATX11_VT24_84
 
             Room roomInfo = await BackEnd.GetRoomInfo(roomName);
             string buildingName = roomInfo.Building;
+            string floor = roomInfo.Floor;
+            string capacity = roomInfo.Capacity;
 
             Label buildingLabel = new Label
             {
                 Text = buildingName,
-                FontSize = 13,
+                FontSize = 10,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center,
-                Margin = new Thickness(5, 0, 0, 25) 
+                Margin = new Thickness(5, 0, 0, 0) // Add margin to position the label
             };
 
+            // Add roomLabel and buildingLabel to a vertical stack layout
             StackLayout labelsLayout = new StackLayout
             {
                 Orientation = StackOrientation.Vertical,
@@ -97,6 +101,15 @@ namespace DATX11_VT24_84
             frameLayout.Children.Add(greenFrame);
             frameLayout.Children.Add(whiteFrame);
 
+            // Add tap gesture recognizer to whiteFrame
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += async (s, e) =>
+            {
+                // Open BokaRum page with the selected room name and date
+                await Navigation.PushModalAsync(new BokaRum(roomName, buildingName, floor, _currentDate, capacity, DatePicker.Date)); 
+            };
+            whiteFrame.GestureRecognizers.Add(tapGestureRecognizer);
+
             roomNamesContainer.Children.Add(frameLayout);
         }
 
@@ -104,6 +117,7 @@ namespace DATX11_VT24_84
         _groupRoomsPopulated = true; 
     }
 }
+
 
 
         private void OnPreviousDateClicked(object sender, EventArgs e)

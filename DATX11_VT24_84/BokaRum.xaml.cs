@@ -13,7 +13,7 @@ namespace DATX11_VT24_84
     {
         private string _roomName;
         private DateTime _bookingDate;
-        public BokaRum(string roomName, string building, string floor, DateTime bookingDate, string capacity)
+        public BokaRum(string roomName, string building, string floor, DateTime bookingDate, string capacity, DateTime selectedDate)
         {
             InitializeComponent();
             _roomName = roomName;
@@ -136,8 +136,9 @@ namespace DATX11_VT24_84
                 int endHour = int.Parse(EndHourPicker.SelectedItem.ToString());
                 int endMinute = int.Parse(EndMinutePicker.SelectedItem.ToString());
 
-                DateTime startTime = DateTime.Today.AddHours(startHour).AddMinutes(startMinute);
-                DateTime endTime = DateTime.Today.AddHours(endHour).AddMinutes(endMinute);
+                DateTime startTime = _bookingDate.AddHours(startHour).AddMinutes(startMinute);
+                DateTime endTime = _bookingDate.AddHours(endHour).AddMinutes(endMinute);
+
 
                 string roomName = RoomNameLabel.Text; 
 
