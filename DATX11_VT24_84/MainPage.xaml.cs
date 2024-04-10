@@ -37,6 +37,7 @@ namespace DATX11_VT24_84
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
         {
+            await Navigation.PushModalAsync(new MinaBokningar(), false);
         }
         
         private async void UpdateReservationCards()
