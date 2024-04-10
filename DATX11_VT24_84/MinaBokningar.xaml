@@ -33,5 +33,15 @@
                 <!-- This stack layout will be populated with booking information -->
             </StackLayout>
         </ScrollView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator x:Name="activityIndicator"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="Gray"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-20}"
+                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-20}" />
     </RelativeLayout>
 </ContentPage>

@@ -1,6 +1,7 @@
+using Xamarin.Forms;
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace DATX11_VT24_84
@@ -14,6 +15,7 @@ namespace DATX11_VT24_84
             LoadBookings();
             UIUtility.UpdateBackgroundColorMainPages(this);
         }
+
         private void AddTopTriangles()
         {
             // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
@@ -22,7 +24,7 @@ namespace DATX11_VT24_84
                 UIUtility.AddTopTriangles(MainLayout, Width, Height);
             };
         }
-       
+
         private async void OnBackButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync(false);
@@ -32,6 +34,10 @@ namespace DATX11_VT24_84
         {
             try
             {
+                // Show activity indicator while loading
+                activityIndicator.IsVisible = true;
+                activityIndicator.IsRunning = true;
+
                 // Retrieve the bookings for the user
                 List<Reservation> bookings = await BackEnd.GetUpcomingReservationsForUser("1");
 
@@ -55,7 +61,7 @@ namespace DATX11_VT24_84
                     Frame grayFrame = new Frame
                     {
                         BackgroundColor = Color.FromHex("#36474F"),
-                        Margin = new Thickness(15,10,15,10), // Add margin for separation
+                        Margin = new Thickness(15, 10, 15, 10), // Add margin for separation
                         CornerRadius = 20 // Set corner radius to 10 (adjust as needed)
                     };
                     stackLayout.Children.Add(grayFrame);
@@ -67,7 +73,7 @@ namespace DATX11_VT24_84
                     // Add the date label to the day's content layout
                     Label dateLabel = new Label
                     {
-                        Text = group.Key.ToString("dddd yyyy-MM-dd"),
+                        Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(group.Key.ToString("dddd d MMMM yyyy", new CultureInfo("sv-SE"))), // Display day in Swedish and capitalize the first letter
                         FontAttributes = FontAttributes.Bold,
                         FontSize = 18, // Set the font size to 18
                         HorizontalTextAlignment = TextAlignment.Start,
@@ -114,9 +120,22 @@ namespace DATX11_VT24_84
                         Grid.SetColumn(roomLabel, 1); // Set the column index to 1
                         grid.Children.Add(roomLabel);
 
+                        // Attach TapGestureRecognizer to reservationFrame
+                        TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
+                        tapGestureRecognizer.Tapped += async (sender, e) =>
+                        {
+                            // Display popup window with reservation details
+                            await DisplayReservationDetailsPopup(booking);
+                        };
+                        reservationFrame.GestureRecognizers.Add(tapGestureRecognizer);
+
                         dayContentLayout.Children.Add(reservationFrame);
                     }
                 }
+
+                // Hide activity indicator after loading
+                activityIndicator.IsVisible = false;
+                activityIndicator.IsRunning = false;
             }
             catch (Exception ex)
             {
@@ -124,6 +143,11 @@ namespace DATX11_VT24_84
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
-         
+
+        private async Task DisplayReservationDetailsPopup(Reservation booking)
+        {
+            // Create and display
+            await DisplayAlert("Reservation Details", $"Start Time: {booking.StartTime}\nEnd Time: {booking.EndTime}\nRoom: {booking.RoomName}", "OK");
+        }
     }
 }
