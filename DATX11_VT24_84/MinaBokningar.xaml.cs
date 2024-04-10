@@ -10,8 +10,17 @@ namespace DATX11_VT24_84
         public MinaBokningar()
         {
             InitializeComponent();
+            AddTopTriangles();
             LoadBookings();
             UIUtility.UpdateBackgroundColorMainPages(this);
+        }
+        private void AddTopTriangles()
+        {
+            // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
+            SizeChanged += (sender, e) =>
+            {
+                UIUtility.AddTopTriangles(MainLayout, Width, Height);
+            };
         }
 
         private async void LoadBookings()

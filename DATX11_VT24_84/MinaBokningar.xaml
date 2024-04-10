@@ -2,9 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DATX11_VT24_84.MinaBokningar">
-    <ScrollView>
-        <StackLayout x:Name="stackLayout">
-            <!-- This stack layout will be populated with booking information -->
-        </StackLayout>
-    </ScrollView>
+    <RelativeLayout x:Name="MainLayout">
+            <ScrollView>
+                <StackLayout x:Name="stackLayout">
+                    <Label x:Name="titleLabel" Text="Mina Bokningar" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,80,0,10"/>
+                    <!-- This stack layout will be populated with booking information -->
+                </StackLayout>
+            </ScrollView>
+    </RelativeLayout>
 </ContentPage>
