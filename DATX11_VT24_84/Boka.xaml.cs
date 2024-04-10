@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +10,7 @@ namespace DATX11_VT24_84
     {
         private DateTime _currentDate;
         private bool _isListaSelected = true;
-        private bool _groupRoomsPopulated = false; // Track whether group rooms have been populated
+        private bool _groupRoomsPopulated = false; 
 
 
 
@@ -26,47 +25,85 @@ namespace DATX11_VT24_84
         }
         
         private async void PopulateGroupRooms()
+{
+    if (_isListaSelected && !_groupRoomsPopulated) 
+    {
+        List<string> roomNames = await BackEnd.GetAllRoomNames();
+        StackLayout roomNamesContainer = new StackLayout();
+
+        foreach (string roomName in roomNames)
         {
-            if (_isListaSelected && !_groupRoomsPopulated) 
+            Frame greenFrame = new Frame
             {
-                List<string> roomNames = await BackEnd.GetAllRoomNames();
-                StackLayout roomNamesContainer = new StackLayout
-                {
-                    Spacing = 0 // Set spacing between child elements to 0
-                };
+                Padding = new Thickness(0),
+                BackgroundColor = Color.FromHex("#27AD72"), 
+                HorizontalOptions = LayoutOptions.Start, 
+                VerticalOptions = LayoutOptions.Fill, 
+                WidthRequest = 80, 
+                HeightRequest = 28, 
+                BorderColor = Color.Black,
+                HasShadow = false 
+            };
 
-                foreach (string roomName in roomNames)
-                {
-                    Frame frame = new Frame
-                    {
-                        Padding = new Thickness(10), // Padding around the text inside the frame
-                        BackgroundColor = Color.FromHex("#27AD72"), // Set background color to green
-                        HorizontalOptions = LayoutOptions.StartAndExpand, // Align the frame to the left
-                        VerticalOptions = LayoutOptions.Start, // Align the frame to the top
-                        WidthRequest = 55, // Set a fixed width for the frame
-                        HeightRequest = 40, // Set a fixed height for the frame
-                        BorderColor = Color.Black,
-                        HasShadow = false 
-                    };
+            Label roomLabel = new Label
+            {
+                Text = roomName,
+                FontSize = 15,
+                TextColor = Color.White,
+                FontAttributes = FontAttributes.Bold,
+                HorizontalTextAlignment = TextAlignment.Start, 
+                VerticalTextAlignment = TextAlignment.Start, 
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Padding = new Thickness(5, 2, 0, 0) 
+            };
 
-                    Label roomLabel = new Label
-                    {
-                        Text = roomName,
-                        FontSize = 14,
-                        TextColor = Color.White,
-                        FontAttributes = FontAttributes.Bold,
-                        HorizontalOptions = LayoutOptions.CenterAndExpand,
-                        VerticalOptions = LayoutOptions.CenterAndExpand
-                    };
+            Room roomInfo = await BackEnd.GetRoomInfo(roomName);
+            string buildingName = roomInfo.Building;
 
-                    frame.Content = roomLabel;
-                    roomNamesContainer.Children.Add(frame);
-                }
+            Label buildingLabel = new Label
+            {
+                Text = buildingName,
+                FontSize = 13,
+                TextColor = Color.White,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                Margin = new Thickness(5, 0, 0, 25) 
+            };
 
-                ListMapFrame.Content = new ScrollView { Content = roomNamesContainer };
-                _groupRoomsPopulated = true; // Set to true after populating
-            }
+            StackLayout labelsLayout = new StackLayout
+            {
+                Orientation = StackOrientation.Vertical,
+                Children = { roomLabel, buildingLabel }
+            };
+
+            greenFrame.Content = labelsLayout;
+
+            Frame whiteFrame = new Frame
+            {
+                BackgroundColor = Color.White,
+                HorizontalOptions = LayoutOptions.FillAndExpand, 
+                VerticalOptions = LayoutOptions.Fill, 
+                HeightRequest = 28, 
+                BorderColor = Color.Black,
+                HasShadow = false 
+            };
+
+            StackLayout frameLayout = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                Spacing = 0
+            };
+            frameLayout.Children.Add(greenFrame);
+            frameLayout.Children.Add(whiteFrame);
+
+            roomNamesContainer.Children.Add(frameLayout);
         }
+
+        ListMapFrame.Content = new ScrollView { Content = roomNamesContainer };
+        _groupRoomsPopulated = true; 
+    }
+}
 
 
         private void OnPreviousDateClicked(object sender, EventArgs e)
@@ -117,22 +154,21 @@ namespace DATX11_VT24_84
         {
             DatePicker.Date = _currentDate;
             DatePicker.MinimumDate = DateTime.Today.AddDays(0); //Kan inte kolla på bokningar bak i tiden
-            DatePicker.MaximumDate = DateTime.Today.AddDays(7); // Kan boka 14 dar i framtiden
+            DatePicker.MaximumDate = DateTime.Today.AddDays(7); // Kan boka 7 dar i framtiden
         }
         private void OnListaLabelTapped(object sender, EventArgs e)
         {
             _isListaSelected = true;
             UpdateOverlayPositionLeft();
-            PopulateGroupRooms(); // Call the method to populate the group rooms when Lista is selected
+            PopulateGroupRooms(); 
         }
 
         private void OnKartaLabelTapped(object sender, EventArgs e)
         {
             _isListaSelected = false;
             UpdateOverlayPositionRight();
-            // Clear the content of ListMapFrame when switching to Karta
             ListMapFrame.Content = null;
-            _groupRoomsPopulated = false; // Track whether group rooms have been populated
+            _groupRoomsPopulated = false;
 
         }
         private void UpdateOverlayPositionRight()
