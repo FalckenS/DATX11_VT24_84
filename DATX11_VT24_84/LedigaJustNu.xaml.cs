@@ -42,8 +42,21 @@ namespace DATX11_VT24_84
 
         private async Task AddGrids()
         {
+            var activityIndicator = new ActivityIndicator
+            {
+                IsRunning = true,
+                IsVisible = true,
+                Color = Color.White,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            StackLayoutFrames.Children.Add(activityIndicator);
+
             List<Room> availableRooms = await BackEnd.GetAllRoomsAvailableNow();
             var groupedRooms = availableRooms.GroupBy(room => room.Building);
+
+            StackLayoutFrames.Children.Remove(activityIndicator);
 
             foreach (var group in groupedRooms)
             {
