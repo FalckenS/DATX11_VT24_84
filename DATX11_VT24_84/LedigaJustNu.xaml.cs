@@ -19,6 +19,11 @@ namespace DATX11_VT24_84
         public void AddClickedMethod(ImageButton backButton)
         {
         }
+        
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync(false);
+        }
         private void ShowCurrentDateTime()
         {
             // Update the DateTime label with the current date and time

@@ -6,7 +6,7 @@
         <!-- Title Label -->
         <Label x:Name="TitleLabel"
                Text="Boka grupprum"
-               FontSize="24"
+               FontSize="20"
                TextColor="White"
                FontAttributes="Bold"
                VerticalOptions="Start"
@@ -14,7 +14,15 @@
                Margin="0,20,0,0"
                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Constant=20}" />
-
+        <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_left_arrow.png'}" 
+                     Clicked="OnBackButtonClicked" 
+                     BackgroundColor="Transparent" 
+                     HorizontalOptions="Start" 
+                     VerticalOptions="Center"
+                     Aspect="AspectFit"
+                     WidthRequest="30"
+                     HeightRequest="30"
+                     Margin="40,45,0,0"/>
         <!-- Main Frame -->
         <Frame BackgroundColor="#D9D9D9"
                CornerRadius="20"
@@ -73,70 +81,15 @@
                 </Image>
             </StackLayout>
         </Frame>
-
-        <!-- Smaller Pill-shaped Frame in the Center -->
-        <Frame x:Name="ToggleFrame"
-               BackgroundColor="#D9D9D9" 
-               CornerRadius="10"
-               HeightRequest="18"
-               WidthRequest="200"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-120}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-260}">
-
-            <!-- Inner StackLayout for Labels -->
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="FillAndExpand"
-                         VerticalOptions="Center">
-
-                <!-- "Lista" Label -->
-                <Label x:Name="ListaLabel"
-                       Text="Lista"
-                       HorizontalOptions="Start"
-                       VerticalOptions="Center"
-                       FontAttributes="Bold"
-                       FontSize="16"
-                       Margin="10,0,0,0"
-                       TextColor="Black">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnListaLabelTapped" />
-                    </Label.GestureRecognizers>
-                </Label>
-
-                <!-- Spacer -->
-                <BoxView HorizontalOptions="FillAndExpand" />
-
-                <!-- "Karta" Label -->
-                <Label x:Name="KartaLabel"
-                       Text="Karta"
-                       HorizontalOptions="End"
-                       VerticalOptions="Center"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       Margin="0,0,10,0"
-                       TextColor="Black">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnKartaLabelTapped" />
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
-        </Frame>
-
-        <!-- Custom overlay to shadow half of the pill-shaped frame -->
-        <BoxView x:Name="OverlayBox"
-                 BackgroundColor="#7000ACFF" 
-                 CornerRadius="10"
-                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ToggleFrame, Property=Width, Factor=0.5}"
-                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ToggleFrame, Property=Height}"
-                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ToggleFrame, Property=X}"
-                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=ToggleFrame, Property=Y}" />
+        
 
         <Frame x:Name="ListMapFrame"
                CornerRadius="0"
                BackgroundColor="Transparent"
                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.8}" 
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}" 
                RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=-5}" 
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.24}">
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.16}">
 
             <!-- Wrap content inside ScrollView -->
             <ScrollView>

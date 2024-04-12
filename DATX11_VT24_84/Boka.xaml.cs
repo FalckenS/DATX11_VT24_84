@@ -170,29 +170,9 @@ namespace DATX11_VT24_84
             DatePicker.MinimumDate = DateTime.Today.AddDays(0); //Kan inte kolla på bokningar bak i tiden
             DatePicker.MaximumDate = DateTime.Today.AddDays(7); // Kan boka 7 dar i framtiden
         }
-        private void OnListaLabelTapped(object sender, EventArgs e)
+        private async void OnBackButtonClicked(object sender, EventArgs e)
         {
-            _isListaSelected = true;
-            UpdateOverlayPositionLeft();
-            PopulateGroupRooms(); 
+            await Navigation.PopModalAsync(false);
         }
-
-        private void OnKartaLabelTapped(object sender, EventArgs e)
-        {
-            _isListaSelected = false;
-            UpdateOverlayPositionRight();
-            ListMapFrame.Content = null;
-            _groupRoomsPopulated = false;
-
-        }
-        private void UpdateOverlayPositionRight()
-        {
-            OverlayBox.TranslateTo(120, 0, 250);
-        }
-        private void UpdateOverlayPositionLeft()
-        {
-            OverlayBox.TranslateTo(0, 0, 250);
-        }
-        
     }
 }
