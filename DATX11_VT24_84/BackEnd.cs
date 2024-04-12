@@ -38,9 +38,21 @@ namespace DATX11_VT24_84
         FRÅN OSS TILL API: Två timmar + så vi måste TA BORT TVÅ innan vi skickar för det ska bli rätt!
         FRÅN API TILL OSS: Två timmar - så vi måste LÄGGA TILL TVÅ för det ska bli rätt!
         */
+        private const int HourDifference = 2;
         
         private const string CalendarID = "datx11.vt24.84@gmail.com";
         private const string TimeZone = "Europe/Stockholm";
+        
+        // -------------------------------------------- Confirm reservation --------------------------------------------
+
+        public static async Task ConfirmReservation(string reservationID)
+        {
+            CalendarService calendarService = GetCalendarService();
+            Event calendarEvent = await calendarService.Events.Get(CalendarID, reservationID).ExecuteAsync();
+            // Ändra händelse beskrivning
+            calendarEvent.Description = "True";
+            await calendarService.Events.Update(calendarEvent, CalendarID, reservationID).ExecuteAsync();
+        }
         
         // -------------------------------------------- Delete reservations --------------------------------------------
         
@@ -54,7 +66,7 @@ namespace DATX11_VT24_84
             }
             catch (Exception e)
             {
-                throw new Exception("Something went wrong with deleting reservation!");
+                throw new Exception("Något gick fel med att ta bort bokningen!");
             }
         }
         
@@ -63,61 +75,76 @@ namespace DATX11_VT24_84
         // Ska ha vanlig tid som input
         public static async Task CreateReservationStartsNow(string userID, string roomName, DateTime endTime)
         {
-            await CreateReservation(userID, roomName, GetRealTime().AddMinutes(1), endTime);
+            await CreateReservation(userID, roomName, GetRealTime().AddMinutes(1), endTime, true);
+        }
+        
+        // Ska ha vanlig tid som input
+        public static async Task CreateReservation(string userID, string roomName, DateTime startTime, DateTime endTime)
+        {
+            await CreateReservation(userID, roomName, startTime, endTime, false);
         }
         
         // Ska ha vanlig tid som input, kastar olika exception beroende på vad som går fel
-        public static async Task CreateReservation(string userID, string roomName, DateTime startTime, DateTime endTime)
+        private static async Task CreateReservation(string userID, string roomName, DateTime startTime, DateTime endTime,
+            bool isNow)
         {
-            List<string> allRoomNames = (await GetAllRoomNames());
+            List<string> allRoomNames = await GetAllRoomNames();
             if (!allRoomNames.Contains(roomName))
             {
-                throw new Exception("Invalid room name!");
+                throw new Exception("Ogiltigt rumsnamn!");
             }
             
             if (endTime < startTime)
             {
-                throw new Exception("Start time is after end time!");
+                throw new Exception("Starttiden är efter sluttid!");
             }
             
             if (startTime < GetRealTime())
             {
-                throw new Exception("Start time before now!");
+                throw new Exception("Starttiden är innan nu!");
             }
             
             if ((startTime - DateTime.Now).TotalDays > 7)
             {
-                throw new Exception("Cant reserve group room this far in the future!");
+                throw new Exception("Kan inte boka grupprum så här långt fram i tiden!");
             }
             
             if ((endTime - startTime).TotalHours > 2)
             {
-                throw new Exception("Reservation to long!");
+                throw new Exception("Bokning för lång!");
             }
             
             int numOfUpcomingReservations = (await GetUpcomingReservationsForUser(userID)).Count;
             if (4 < numOfUpcomingReservations)
             {
-                throw new Exception("Already to many reservations for user!");
+                throw new Exception("Redan för många bokningar för användaren!");
             }
             
             bool isRoomAvailable = await IsRoomAvailable(roomName, startTime, endTime);
             if (!isRoomAvailable)
             {
-                throw new Exception("Room not available during that time!");
+                throw new Exception("Rummet är inte tillgänglig under den tiden!");
             }
             
+            // Gör tiden rätt för APIn
             startTime = new DateTime(startTime.Year, startTime.Month, startTime.Day, startTime.Hour, startTime.Minute, 
-                0).AddHours(-2);
+                0).AddHours(-HourDifference);
             endTime =   new DateTime(endTime.Year,   endTime.Month,   endTime.Day,   endTime.Hour,   endTime.Minute,   
-                0).AddHours(-2);
-            
+                0).AddHours(-HourDifference);
+
+            string confirmed = "False";
+            if (isNow)
+            {
+                // Om bokningen börjar nu, bekräfta bokning
+                confirmed = "True";
+            }
             try
             {
                 Event newReservation = new Event()
                 {
                     Summary = userID,
                     Location = roomName,
+                    Description = confirmed,
                     Start = new EventDateTime()
                     {
                         DateTime = startTime,
@@ -135,29 +162,11 @@ namespace DATX11_VT24_84
             }
             catch (Exception e)
             {
-                throw new Exception("Something went wrong with creating reservation!");
+                throw new Exception("Något gick fel när bokningen skapades!");
             }
         }
         
         // ------------------------------------------ Available rooms methods ------------------------------------------
-
-        // Ska ha vanlig tid som input
-        public static async Task<bool> IsRoomAvailable(string roomName, DateTime startTime, DateTime endTime)
-        {
-            List<Reservation> allReservations = await GetAllReservations();
-            List<Reservation> reservationsDuringTime = allReservations.Where(reservation =>
-                reservation.StartTime <= startTime             && startTime           <  reservation.EndTime ||
-                reservation.StartTime <  endTime               && endTime             <= reservation.EndTime ||
-                startTime             <  reservation.StartTime && reservation.EndTime <  endTime).ToList();
-            return reservationsDuringTime.All(reservation => reservation.RoomName != roomName);
-        }
-        
-        public static async Task<bool> IsRoomAvailableNow(string roomName)
-        {
-            return await IsRoomAvailable(roomName, 
-                GetRealTime().AddSeconds(-15), 
-                GetRealTime().AddSeconds(15));
-        }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static async Task<List<Room>> GetAllRoomsAvailableNow()
@@ -166,10 +175,8 @@ namespace DATX11_VT24_84
             
             List<Reservation> allReservations = await GetAllReservations();
             List<Reservation> ongoingReservations = allReservations.Where(reservation =>
-                reservation.StartTime    <= GetRealTime() && GetRealTime() <  reservation.EndTime ||
-                reservation.StartTime    <  GetRealTime() && GetRealTime() <= reservation.EndTime ||
-                GetRealTime() <  reservation.StartTime    && reservation.EndTime      <  GetRealTime()
-                ).ToList();
+                reservation.StartTime <= GetRealTime() && GetRealTime() < reservation.EndTime && reservation.Confirmed
+            ).ToList();
             
             List<string> roomsNotAvailableNow_Names = ongoingReservations.Select(
                 ongoingReservation => ongoingReservation.RoomName).ToList();
@@ -186,24 +193,50 @@ namespace DATX11_VT24_84
             return roomsAvailableNow;
         }
         
+        public static async Task<bool> IsRoomAvailableNow(string roomName)
+        {
+            List<Room> allRoomsAvailableNow = await GetAllRoomsAvailableNow();
+            return allRoomsAvailableNow.Any(room => room.Name == roomName);
+        }
+        
+        // Ska ha vanlig tid som input
+        public static async Task<bool> IsRoomAvailable(string roomName, DateTime startTime, DateTime endTime)
+        {
+            List<Reservation> allReservations = await GetAllReservations();
+            List<Reservation> reservationsDuringTime = allReservations.Where(reservation =>
+                reservation.StartTime <= startTime             && startTime           <  reservation.EndTime ||
+                reservation.StartTime <  endTime               && endTime             <= reservation.EndTime ||
+                startTime             <  reservation.StartTime && reservation.EndTime <  endTime).ToList();
+            return reservationsDuringTime.All(reservation => reservation.RoomName != roomName);
+        }
+        
         //  --------------------------------------------- Get reservations ---------------------------------------------
         
-        // Returnera lista för pågående bokningar, sorterad efter start time
+        // Returnera lista med pågående bokningar, sorterad efter start time
         public static async Task<List<Reservation>> GetOngoingReservationsForUser(string userID)
         {
             List<Reservation> allReservations = await GetAllReservations();
-            List<Reservation> ongoingReservations = allReservations.Where(reservation =>
-                reservation.StartTime <= GetRealTime() && GetRealTime() < reservation.EndTime).ToList();
-            return ongoingReservations.Where(reservation => reservation.UserID == userID).ToList();
+            return allReservations.Where(reservation =>
+                reservation.StartTime <= GetRealTime() && GetRealTime() < reservation.EndTime &&
+                reservation.UserID == userID).ToList();
         }
         
-        // Returnera lista för bokningar 7 dagar framåt, sorterad efter start time
+        // Returnera lista med bokningar 7 dagar framåt, sorterad efter start time
         public static async Task<List<Reservation>> GetUpcomingReservationsForUser(string userID)
         {
             List<Reservation> allReservations = await GetAllReservations();
-            List<Reservation> upcomingReservations = allReservations.Where(reservation =>
-                GetRealTime() < reservation.StartTime && reservation.EndTime <= GetRealTime().AddDays(7)).ToList();
-            return upcomingReservations.Where(reservation => reservation.UserID == userID).ToList();
+            return allReservations.Where(reservation =>
+                GetRealTime() < reservation.StartTime && reservation.EndTime <= GetRealTime().AddDays(7) &&
+                reservation.UserID == userID).ToList();
+        }
+        
+        // Returnera lista med bokningar för ett rum under en dag
+        public static async Task<List<Reservation>> GetReservationsForRoom(string roomName, DateTime date)
+        {
+            List<Reservation> allReservations = await GetAllReservations();
+            return allReservations.Where(reservation =>
+                reservation.RoomName == roomName &&
+                (reservation.StartTime.Date == date.Date) || (reservation.EndTime.Date == date.Date)).ToList();
         }
         
         // Returnera lista med vanlig tid sorterad efter start time
@@ -223,27 +256,10 @@ namespace DATX11_VT24_84
             return events.Items.Select(e => new Reservation(
                 e.Summary,
                 e.Location,
-                e.Start.DateTime.Value.AddHours(2),
-                e.End.DateTime.Value.AddHours(2),
-                e.Id)).ToList();
-        }
-        
-        public static async Task<List<Reservation>> GetReservationsForRoom(string roomName, DateTime bookingDate)
-        {
-            try
-            {
-                List<Reservation> allReservations = await GetAllReservations();
-                List<Reservation> reservationsForRoom = allReservations.Where(reservation =>
-                    reservation.RoomName == roomName &&
-                    reservation.StartTime.Date == bookingDate.Date).ToList();
-
-                return reservationsForRoom;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error fetching reservations for room {roomName}: {ex.Message}");
-                throw; 
-            }
+                e.Start.DateTime.Value.AddHours(HourDifference),
+                e.End.DateTime.Value.AddHours(HourDifference),
+                e.Id,
+                bool.Parse(e.Description))).ToList();
         }
         
         //  ------------------------------------------------- Utility -------------------------------------------------
@@ -269,9 +285,7 @@ namespace DATX11_VT24_84
 
         private static DateTime GetRealTime()
         {
-            // Vintertid: +1
-            // Sommartid: +2
-            return DateTime.Now.AddHours(2);
+            return DateTime.Now.AddHours(HourDifference);
         }
         
         //  -------------------------------------------- Room data back end --------------------------------------------
@@ -285,7 +299,7 @@ namespace DATX11_VT24_84
             }
             catch (Exception e)
             {
-                throw new Exception("Invalid room name!");
+                throw new Exception("Ogiltigt rumsnamn!");
             }
         }
 
@@ -331,27 +345,29 @@ namespace DATX11_VT24_84
         public List<string> Features { get; }
     }
 
-    internal class RoomList
-    {
-        // ReSharper disable once UnassignedGetOnlyAutoProperty
-        public List<Room> Rooms { get; set; }
-    }
-
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class Reservation
     {
-        public Reservation(string userID, string roomName, DateTime startTime, DateTime endTime, string id)
+        public Reservation(string userID, string roomName, DateTime startTime, DateTime endTime, string id, bool confirmed)
         {
             UserID = userID;
             RoomName = roomName;
             StartTime = startTime;
             EndTime = endTime;
             ID = id;
+            Confirmed = confirmed;
         }
         public string UserID { get; }
         public string RoomName { get; }
         public DateTime StartTime { get; }
         public DateTime EndTime { get; }
         public string ID { get; }
+        public bool Confirmed { get; set; }
+    }
+    
+    internal class RoomList
+    {
+        // ReSharper disable once UnassignedGetOnlyAutoProperty
+        public List<Room> Rooms { get; set; }
     }
 }
