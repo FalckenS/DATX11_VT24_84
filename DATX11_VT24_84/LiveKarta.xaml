@@ -1,16 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
-             x:Class="DATX11_VT24_84.LedigaJustNu"
-             NavigationPage.HasNavigationBar="False">
-    
-    <ScrollView>
+             x:Class="DATX11_VT24_84.LiveKarta">
+    <ContentPage.Content>
         <StackLayout>
-            <!-- Lediga just nu label/text -->
-            <Label x:Name="titleLabel" Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,20,0,10"/>
-            
-            <!-- Date and time label -->
-            <Label x:Name="dateTimeLabel" TextColor="White" FontSize="16" HorizontalOptions="Center"/>
             <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_left_arrow.png'}" 
                          Clicked="OnBackButtonClicked" 
                          BackgroundColor="Transparent" 
@@ -19,10 +14,8 @@
                          Aspect="AspectFit"
                          WidthRequest="30"
                          HeightRequest="30"
-                         Margin="40,-30,0,0"/>
-            <!-- StackLayout to contain dynamically generated Frames -->
-            <StackLayout x:Name="StackLayoutFrames">
-            </StackLayout>
+                         Margin="40,60,0,0"/>
+           
         </StackLayout>
-    </ScrollView>
+    </ContentPage.Content>
 </ContentPage>

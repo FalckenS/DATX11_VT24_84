@@ -147,7 +147,7 @@ namespace DATX11_VT24_84
 
         private async Task DisplayConfirmationBookingPage(Reservation booking)
         {
-            // Navigate to Bekräftabokning page with the selected booking
+            // Navigate to bokningar page with the selected booking
             await Navigation.PushModalAsync(new Bokning(booking), false);
         }
     }
