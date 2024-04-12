@@ -42,9 +42,24 @@
       <EmbeddedResource Include="Images\black_right_arrow.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Images\white_location_needle.png" />
+      <EmbeddedResource Include="Images\white_location_needle.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="reservations.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Images\x.png" />
+      <EmbeddedResource Include="Images\white_x.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Images\grey_x.png" />
+      <EmbeddedResource Include="Images\grey_x.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 </Project>

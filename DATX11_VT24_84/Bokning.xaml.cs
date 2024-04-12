@@ -16,8 +16,8 @@ namespace DATX11_VT24_84
             TimeLabel.Text = $"{booking.StartTime:HH:mm} - {booking.EndTime:HH:mm}";
             RoomLabel.Text = $"{booking.RoomName}";
             DateLabel.Text = $"{booking.StartTime:M}";
-            Console.WriteLine($"booking.RoomName: {booking.RoomName}");
-            LocationLabel.Text = $"{(await BackEnd.GetRoomInfo(booking.RoomName)).Building}";
+            LocationLabel.Text = $"{(await BackEnd.GetRoomInfo(booking.RoomName)).Building},";
+            FloorLabel.Text = $"våning: {(await BackEnd.GetRoomInfo(booking.RoomName)).Floor}";
         }
         
         private async void OnBackButtonClicked(object sender, EventArgs e)
@@ -28,12 +28,16 @@ namespace DATX11_VT24_84
         {
             throw new NotImplementedException();
         }
-        
-        
-        
-        
-        
-        
-        
+
+
+        private void OnResceduleBookingClocked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnMapClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
