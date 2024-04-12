@@ -334,7 +334,7 @@ namespace DATX11_VT24_84
     internal class RoomList
     {
         // ReSharper disable once UnassignedGetOnlyAutoProperty
-        public List<Room> Rooms { get; }
+        public List<Room> Rooms { get; set; }
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
