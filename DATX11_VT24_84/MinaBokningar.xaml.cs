@@ -1,3 +1,4 @@
+// MinaBokningar.xaml.cs
 using Xamarin.Forms;
 using System;
 using System.Collections.Generic;
@@ -61,8 +62,8 @@ namespace DATX11_VT24_84
                     Frame grayFrame = new Frame
                     {
                         BackgroundColor = Color.FromHex("#36474F"),
-                        Margin = new Thickness(15, 10, 15, 10), // Add margin for separation
-                        CornerRadius = 20 // Set corner radius to 10 (adjust as needed)
+                        Margin = new Thickness(15, 10, 15, 10),
+                        CornerRadius = 20
                     };
                     stackLayout.Children.Add(grayFrame);
 
@@ -75,9 +76,9 @@ namespace DATX11_VT24_84
                     {
                         Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(group.Key.ToString("dddd d MMMM yyyy", new CultureInfo("sv-SE"))), // Display day in Swedish and capitalize the first letter
                         FontAttributes = FontAttributes.Bold,
-                        FontSize = 18, // Set the font size to 18
+                        FontSize = 18,
                         HorizontalTextAlignment = TextAlignment.Start,
-                        TextColor = Color.White // White text color for the date label
+                        TextColor = Color.White
                     };
                     dayContentLayout.Children.Add(dateLabel);
 
@@ -100,9 +101,9 @@ namespace DATX11_VT24_84
                         {
                             Text = $"{booking.StartTime:HH:mm} – {booking.EndTime:HH:mm}",
                             FontAttributes = FontAttributes.Bold,
-                            FontSize = 16, // Set the font size to 16
+                            FontSize = 16,
                             TextColor = Color.Black,
-                            HorizontalOptions = LayoutOptions.StartAndExpand, // Align to the start
+                            HorizontalOptions = LayoutOptions.StartAndExpand,
                             VerticalOptions = LayoutOptions.Center
                         };
                         grid.Children.Add(timeLabel);
@@ -124,8 +125,8 @@ namespace DATX11_VT24_84
                         TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
                         tapGestureRecognizer.Tapped += async (sender, e) =>
                         {
-                            // Display popup window with reservation details
-                            await DisplayReservationDetailsPopup(booking);
+                            // Display confirmation booking page with reservation details
+                            await DisplayConfirmationBookingPage(booking);
                         };
                         reservationFrame.GestureRecognizers.Add(tapGestureRecognizer);
 
@@ -144,10 +145,10 @@ namespace DATX11_VT24_84
             }
         }
 
-        private async Task DisplayReservationDetailsPopup(Reservation booking)
+        private async Task DisplayConfirmationBookingPage(Reservation booking)
         {
-            // Create and display
-            await DisplayAlert("Reservation Details", $"Start Time: {booking.StartTime}\nEnd Time: {booking.EndTime}\nRoom: {booking.RoomName}", "OK");
+            // Navigate to Bekräftabokning page with the selected booking
+            await Navigation.PushModalAsync(new Bokning(booking), false);
         }
     }
 }

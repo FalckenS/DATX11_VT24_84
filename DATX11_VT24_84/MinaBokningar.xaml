@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.MinaBokningar">
     <RelativeLayout x:Name="MainLayout">
@@ -27,7 +26,7 @@
                            FontSize="20" 
                            FontAttributes="Bold" 
                            HorizontalOptions="Center" 
-                           Margin="0,0,55,0" 
+                           Margin="0,0,60,0" 
                            Grid.Column="1"/>
                 </Grid>
                 <!-- This stack layout will be populated with booking information -->
