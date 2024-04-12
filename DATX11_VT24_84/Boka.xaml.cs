@@ -28,6 +28,17 @@ namespace DATX11_VT24_84
 {
     if (_isListaSelected && !_groupRoomsPopulated) 
     {
+        var activityIndicator = new ActivityIndicator
+        {
+            IsRunning = true,
+            IsVisible = true,
+            Color = Color.White,
+            HorizontalOptions = LayoutOptions.CenterAndExpand,
+            VerticalOptions = LayoutOptions.CenterAndExpand
+        };
+
+        ListMapFrame.Content = activityIndicator;
+
         List<string> roomNames = await BackEnd.GetAllRoomNames();
         StackLayout roomNamesContainer = new StackLayout();
 
