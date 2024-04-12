@@ -1,0 +1,107 @@
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
+             x:Class="DATX11_VT24_84.Boka">
+    <RelativeLayout x:Name="MainLayout">
+        <!-- Title Label -->
+        <Label x:Name="TitleLabel"
+               Text="Boka grupprum"
+               FontSize="20"
+               TextColor="White"
+               FontAttributes="Bold"
+               VerticalOptions="Start"
+               HorizontalOptions="Center"
+               Margin="0,20,0,0"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Constant=20}" />
+        <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_left_arrow.png'}" 
+                     Clicked="OnBackButtonClicked" 
+                     BackgroundColor="Transparent" 
+                     HorizontalOptions="Start" 
+                     VerticalOptions="Center"
+                     Aspect="AspectFit"
+                     WidthRequest="30"
+                     HeightRequest="30"
+                     Margin="40,45,0,0"/>
+        <!-- Main Frame -->
+        <Frame BackgroundColor="#D9D9D9"
+               CornerRadius="20"
+               Padding="10"
+               Margin="20,0,20,0"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Height, Constant=65}"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}">
+
+            <!-- Inner StackLayout -->
+            <StackLayout Orientation="Horizontal"
+                         BackgroundColor="Transparent"
+                         Spacing="0"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center">
+
+                <!-- Left Arrow -->
+                <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.black_right_arrow.png'}"
+                       BackgroundColor="Transparent"
+                       WidthRequest="34"
+                       HeightRequest="34"
+                       Aspect="AspectFit"
+                       VerticalOptions="Center"
+                       Rotation="180">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPreviousDateClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <!-- Date Label -->
+                <Label x:Name="DateDisplayLabel"
+                       Text="Select Date"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"
+                       FontSize="20">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnDateLabelTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <!-- Date Picker -->
+                <DatePicker x:Name="DatePicker"
+                            IsVisible="False"
+                            DateSelected="OnDateSelected"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=DateDisplayLabel, Property=Height, Constant=20}" />
+
+                <!-- Right Arrow -->
+                <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.black_right_arrow.png'}"
+                       BackgroundColor="Transparent"
+                       WidthRequest="34"
+                       HeightRequest="34"
+                       Aspect="AspectFit"
+                       VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnNextDateClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </Frame>
+        
+
+        <Frame x:Name="ListMapFrame"
+               CornerRadius="0"
+               BackgroundColor="Transparent"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}" 
+               RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=-5}" 
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.16}">
+
+            <!-- Wrap content inside ScrollView -->
+            <ScrollView>
+                <StackLayout x:Name="RoomNamesContainer">
+                    <!-- Room names will be dynamically added here -->
+                </StackLayout>
+            </ScrollView>
+
+        </Frame>
+
+
+
+
+    </RelativeLayout>
+</ContentPage>

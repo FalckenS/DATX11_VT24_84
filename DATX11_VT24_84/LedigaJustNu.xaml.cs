@@ -19,6 +19,11 @@ namespace DATX11_VT24_84
         public void AddClickedMethod(ImageButton backButton)
         {
         }
+        
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync(false);
+        }
         private void ShowCurrentDateTime()
         {
             // Update the DateTime label with the current date and time
@@ -94,7 +99,7 @@ namespace DATX11_VT24_84
                         var floor = room.Floor;
                         var capacity = room.Capacity;
                         var today = DateTime.Today; // Get the current date
-                        await Navigation.PushModalAsync(new BokaRum(roomName, building, floor, today, capacity), false);
+                        await Navigation.PushModalAsync(new BokaRum(roomName, building, floor, today, capacity, today), false);
                     };
 
                     roomsStackLayout.Children.Add(grid);
