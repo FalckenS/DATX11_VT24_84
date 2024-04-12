@@ -49,7 +49,7 @@ namespace DATX11_VT24_84
             Label roomLabel = new Label
             {
                 Text = roomName,
-                FontSize = 14,
+                FontSize = 16,
                 TextColor = Color.White,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalTextAlignment = TextAlignment.Start, 
@@ -67,11 +67,11 @@ namespace DATX11_VT24_84
             Label buildingLabel = new Label
             {
                 Text = buildingName,
-                FontSize = 10,
+                FontSize = 12,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center,
-                Margin = new Thickness(5, 0, 0, 0) // Add margin to position the label
+                Margin = new Thickness(5, 0, 0, 25) // Add margin to position the label
             };
 
             // Add roomLabel and buildingLabel to a vertical stack layout
