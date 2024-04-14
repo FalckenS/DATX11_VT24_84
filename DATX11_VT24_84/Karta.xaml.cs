@@ -1,10 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
 using SkiaSharp;
@@ -13,21 +8,16 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
 
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 namespace DATX11_VT24_84
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LiveKarta : ContentPage
+    public partial class Karta : ContentPage
     {
         private HashSet<string> availableRoomIds = new HashSet<string>();
-        public LiveKarta()
+        public Karta()
         {
-            InitializeComponent();
-            UIUtility.UpdateBackgroundColorOtherPages(this);
+            InitializeComponent(); 
+            UIUtility.UpdateBackgroundColorMainPages(this);
             LoadAvailableRoomIdsAsync();
-            ShowCurrentDateTime();
         }
         
         private async Task LoadAvailableRoomIdsAsync()
@@ -118,24 +108,5 @@ namespace DATX11_VT24_84
             await LoadAvailableRoomIdsAsync();
         }
         
-        private void ShowCurrentDateTime()
-        {
-            // Update the DateTime label with the current date and time
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    string formattedDateTime = DateTime.Now.ToString("dddd d MMMM, HH:mm", new System.Globalization.CultureInfo("sv-SE"));
-                    formattedDateTime = char.ToUpper(formattedDateTime[0]) + formattedDateTime.Substring(1);
-                    dateTimeLabel.Text = formattedDateTime;
-                });
-                return true;
-            });
-        }
-        
-        private async void OnBackButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PopModalAsync(false);
-        }
     }
 }

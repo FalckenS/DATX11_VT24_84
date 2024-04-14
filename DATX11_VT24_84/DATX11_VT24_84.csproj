@@ -11,7 +11,11 @@
 
     <ItemGroup>
         <PackageReference Include="Google.Apis.Calendar.v3" Version="1.67.0.3297" />
+        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="SharpVectors" Version="1.8.4" />
+        <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.7" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012"/>
     </ItemGroup>
 
@@ -46,6 +50,8 @@
       <EmbeddedResource Include="Images\white_location_needle.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
+      <None Remove="Images\karta.svg" />
+      <EmbeddedResource Include="Images\karta.svg" />
     </ItemGroup>
 
     <ItemGroup>
