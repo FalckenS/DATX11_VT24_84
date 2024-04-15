@@ -19,50 +19,56 @@
     <path d="M2771.99 2270C2773.43 2406 2659.26 2440 2602 2440" stroke="black" stroke-width="10"/>
     <path d="M4147.01 2273C4145.57 2137 4259.74 2103 4317 2103" stroke="black" stroke-width="10"/>
     <path d="M4146.99 2273C4148.43 2137 4034.26 2103 3977 2103" stroke="black" stroke-width="10"/>
-    <path d="M2949.89 3344V2987H3410.73V3344H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M2949.89 2987V2630H3410.73V2987H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M3410.73 2987V2630H3871.57V2987H3410.73Z" stroke="black" stroke-width="20"/>
-    <path d="M3410.73 2630V2273H3871.57V2630H3410.73Z" stroke="black" stroke-width="20"/>
-    <path d="M2949.89 2630V2273H3410.73V2630H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M3410.73 2273V1916H3871.57V2273H3410.73Z" stroke="black" stroke-width="20"/>
-    <path d="M3410.73 1916V1559H3871.57V1916H3410.73Z" stroke="black" stroke-width="20"/>
-    <path d="M2949.89 2273V1916H3410.73V2273H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M2949.89 1916V1559H3410.73V1916H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M2949.89 1559V1202H3410.73V1559H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M3410.73 845V488H3871.57V845H3410.73Z" stroke="black" stroke-width="20"/>
-    <path d="M3410.73 488V131L3871.57 131V488H3410.73Z" stroke="black" stroke-width="20"/>
-    <path d="M4381 1131V131L4729 131V1131H4381Z" stroke="black" stroke-width="20"/>
-    <path d="M4380.98 2273V1559H4728.5V2273H4380.98Z" stroke="black" stroke-width="20"/>
-    <path d="M4380.98 3344V2273H4728.5V3344H4380.98Z" stroke="black" stroke-width="20"/>
-    <path d="M2489.04 488V131L2949.89 131V488H2489.04Z" stroke="black" stroke-width="20"/>
-    <path d="M2949.89 488V131L3410.73 131V488H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M3410.73 3344V2987H3871.57V3344H3410.73Z" stroke="black" stroke-width="20"/>
+    
+    <!-- Grupprum början -->
+    <path id="M1212F" d="M2949.89 3344V2987H3410.73V3344H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1212E" d="M2949.89 2987V2630H3410.73V2987H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1212B" d="M3410.73 2987V2630H3871.57V2987H3410.73Z" stroke="black" stroke-width="20"/>
+    <path id="M1212A" d="M3410.73 2630V2273H3871.57V2630H3410.73Z" stroke="black" stroke-width="20"/>
+    <path id="M1212D" d="M2949.89 2630V2273H3410.73V2630H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1203E" d="M3410.73 2273V1916H3871.57V2273H3410.73Z" stroke="black" stroke-width="20"/>
+    <path id="M1203D" d="M3410.73 1916V1559H3871.57V1916H3410.73Z" stroke="black" stroke-width="20"/>
+    <path id="M1203C" d="M2949.89 2273V1916H3410.73V2273H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1203B" d="M2949.89 1916V1559H3410.73V1916H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1203A" d="M2949.89 1559V1202H3410.73V1559H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1206B" d="M3410.73 845V488H3871.57V845H3410.73Z" stroke="black" stroke-width="20"/>
+    <path id="M1206A" d="M3410.73 488V131L3871.57 131V488H3410.73Z" stroke="black" stroke-width="20"/>
+    <path id="M1208A" d="M4381 1131V131L4729 131V1131H4381Z" stroke="black" stroke-width="20"/>
+    <path id="M1208C" d="M4380.98 2273V1559H4728.5V2273H4380.98Z" stroke="black" stroke-width="20"/>
+    <path id="M1211" d="M4380.98 3344V2273H4728.5V3344H4380.98Z" stroke="black" stroke-width="20"/>
+    <path id="M1204" d="M2489.04 488V131L2949.89 131V488H2489.04Z" stroke="black" stroke-width="20"/>
+    <path id="M1205" d="M2949.89 488V131L3410.73 131V488H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1212C" d="M3410.73 3344V2987H3871.57V3344H3410.73Z" stroke="black" stroke-width="20"/>
     <path d="M4380.98 4243V3886H4728.5V4243H4380.98Z" stroke="black" stroke-width="20" stroke-dasharray="40 40"/>
-    <path d="M4033.46 4243V3886H4380.98V4243H4033.46Z" stroke="black" stroke-width="20"/>
+    <path id="M1215A" d="M4033.46 4243V3886H4380.98V4243H4033.46Z" stroke="black" stroke-width="20"/>
     <path d="M4380.98 4600V4243H4728.5V4600H4380.98Z" stroke="black" stroke-width="20" stroke-dasharray="40 40"/>
-    <path d="M4033.46 4600V4243H4380.98V4600H4033.46Z" stroke="black" stroke-width="20"/>
-    <path d="M2949.89 4178V3886H3297.41V4178H2949.89Z" stroke="black" stroke-width="20"/>
-    <path d="M2945.57 4470L2950 4178H3293.09V4470H2945.57Z" stroke="black" stroke-width="20"/>
-    <path d="M3293.09 4243V3886H3640.61V4243H3293.09Z" stroke="black" stroke-width="20"/>
-    <path d="M3297.41 4600V4243H3644.93V4600H3297.41Z" stroke="black" stroke-width="20"/>
+    <path id="M1215B" d="M4033.46 4600V4243H4380.98V4600H4033.46Z" stroke="black" stroke-width="20"/>
+    <path id="M1213A" d="M2949.89 4178V3886H3297.41V4178H2949.89Z" stroke="black" stroke-width="20"/>
+    <path id="M1213B" d="M2945.57 4470L2950 4178H3293.09V4470H2945.57Z" stroke="black" stroke-width="20"/>
+    <path id="M1215C" d="M3293.09 4243V3886H3640.61V4243H3293.09Z" stroke="black" stroke-width="20"/>
+    <path id="M1215D" d="M3297.41 4600V4243H3644.93V4600H3297.41Z" stroke="black" stroke-width="20"/>
     <path d="M3297.41 5187V4600H3644.93V5187H3297.41Z" stroke="black" stroke-width="20" stroke-dasharray="40 40"/>
     <path d="M2949.89 6601V5187H3644.93V6601H2949.89Z" stroke="black" stroke-width="20" stroke-dasharray="40 40"/>
     <path d="M2949.42 7856V7023H3644.76V7856H2949.42Z" stroke="black" stroke-width="20" stroke-dasharray="40 40"/>
-    <path d="M2945.57 4827V4470H3293.09V4827H2945.57Z" stroke="black" stroke-width="20"/>
-    <path d="M1400 5282V4751H2374.57V5282H1400Z" stroke="black" stroke-width="20"/>
+    <path id="M1222A" d="M2945.57 4827V4470H3293.09V4827H2945.57Z" stroke="black" stroke-width="20"/>
+    <path id="M1162A" d="M1400 5282V4751H2374.57V5282H1400Z" stroke="black" stroke-width="20"/>
     <path d="M1400.07 4372V3841H2028.2V4372H1400.07Z" stroke="black" stroke-width="20"/>
+    <!--Vilek rum är det under? Bokningsbart?-->
     <path d="M423 5289V4758H1400V5289H423Z" stroke="black" stroke-width="20"/>
-    <path d="M1400.07 5577V5289H2374.64V5577H1400.07Z" stroke="black" stroke-width="20"/>
-    <path d="M1400.07 5865V5577H2374.64V5865H1400.07Z" stroke="black" stroke-width="20"/>
-    <path d="M1400.07 6175V5865H2374.64V6175H1400.07Z" stroke="black" stroke-width="20"/>
-    <path d="M1400.07 6448V6175H2374.64V6448H1400.07Z" stroke="black" stroke-width="20"/>
-    <path d="M1400.07 6729V6441H2374.64V6729H1400.07Z" stroke="black" stroke-width="20"/>
-    <path d="M1400.07 7017V6729H2374.64V7017H1400.07Z" stroke="black" stroke-width="20"/>
-    <path d="M1400 7593V7305H2374.57V7593H1400Z" stroke="black" stroke-width="20"/>
-    <path d="M1400 7305V7017H2374.57V7305H1400Z" stroke="black" stroke-width="20"/>
-    <path d="M1401 7881V7593H2375.57V7881H1401Z" stroke="black" stroke-width="20"/>
+    <path id="M1162B" d="M1400.07 5577V5289H2374.64V5577H1400.07Z" stroke="black" stroke-width="20"/>
+    <path id="M1162C" d="M1400.07 5865V5577H2374.64V5865H1400.07Z" stroke="black" stroke-width="20"/>
+    <path id="M1162D" d="M1400.07 6175V5865H2374.64V6175H1400.07Z" stroke="black" stroke-width="20"/>
+    <path id="M1162E" d="M1400.07 6448V6175H2374.64V6448H1400.07Z" stroke="black" stroke-width="20"/>
+    <path id="M1162F" d="M1400.07 6729V6441H2374.64V6729H1400.07Z" stroke="black" stroke-width="20"/>
+    <path id="M1162G" d="M1400.07 7017V6729H2374.64V7017H1400.07Z" stroke="black" stroke-width="20"/>
+    <path id="M1162I" d="M1400 7593V7305H2374.57V7593H1400Z" stroke="black" stroke-width="20"/>
+    <path id="M1162H" d="M1400 7305V7017H2374.57V7305H1400Z" stroke="black" stroke-width="20"/>
+    <path id="M1162F" d="M1401 7881V7593H2375.57V7881H1401Z" stroke="black" stroke-width="20"/>
     <path d="M1009.38 4751V4372H2028.2V4751H1009.38Z" stroke="black" stroke-width="20"/>
-    <path d="M2945.57 5187V4830H3293.09V5187H2945.57Z" stroke="black" stroke-width="20"/>
+    <path id="M1222B" d="M2945.57 5187V4830H3293.09V5187H2945.57Z" stroke="black" stroke-width="20"/>
+    <!-- Grupprum slut -->
+    
+    
     <line x1="4819.45" y1="81" x2="2374.56" y2="81" stroke="#030303" stroke-width="30"/>
     <line x1="2389.64" y1="66" x2="2389.64" y2="3344" stroke="#030303" stroke-width="30"/>
     <line x1="4834.45" y1="66.0009" x2="4833.99" y2="7797" stroke="#030303" stroke-width="30"/>
