@@ -1,20 +1,30 @@
-// MinaBokningar.xaml.cs
 using Xamarin.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DATX11_VT24_84
 {
     public partial class MinaBokningar : ContentPage
     {
+        private const string UserID = "1";
+
         public MinaBokningar()
         {
             InitializeComponent();
             AddTopTriangles();
             LoadBookings();
             UIUtility.UpdateBackgroundColorMainPages(this);
+           
+            // Update page when coming back from another page, ex from back button
+            MessagingCenter.Subscribe<Page, Bokning.UpdateMessage>(this, "UpdatePage", (sender, args) =>
+            {
+                // Handle the message and update the page accordingly
+                Console.WriteLine("here123");
+                LoadBookings();
+            });
         }
 
         private void AddTopTriangles()
@@ -40,23 +50,116 @@ namespace DATX11_VT24_84
                 activityIndicator.IsRunning = true;
 
                 // Retrieve the bookings for the user
-                List<Reservation> bookings = await BackEnd.GetUpcomingReservationsForUser("1");
+                List<Reservation> ongoingReservations = await BackEnd.GetOngoingReservationsForUser(UserID);
+                List<Reservation> upcomingReservations = await BackEnd.GetUpcomingReservationsForUser(UserID);
 
-                // Group bookings by date
-                var groupedBookings = new Dictionary<DateTime, List<Reservation>>();
-                foreach (Reservation booking in bookings)
+                // Group ongoing bookings by date
+                var groupedOngoingBookings = new Dictionary<DateTime, List<Reservation>>();
+                foreach (Reservation booking in ongoingReservations)
                 {
                     DateTime dateKey = booking.StartTime.Date;
-                    Console.WriteLine($"datekey: {dateKey}");
-                    if (!groupedBookings.ContainsKey(dateKey))
+                    if (!groupedOngoingBookings.ContainsKey(dateKey))
                     {
-                        groupedBookings[dateKey] = new List<Reservation>();
+                        groupedOngoingBookings[dateKey] = new List<Reservation>();
                     }
-                    groupedBookings[dateKey].Add(booking);
+                    groupedOngoingBookings[dateKey].Add(booking);
                 }
 
-                // Display the bookings
-                foreach (var group in groupedBookings)
+                // Display the ongoing bookings
+                foreach (var group in groupedOngoingBookings)
+                {
+                    // Create a gray background frame to encapsulate the day's bookings
+                    Frame grayFrame = new Frame
+                    {
+                        BackgroundColor = Color.FromHex("#36474F"),
+                        Margin = new Thickness(15, 10, 15, 10),
+                        CornerRadius = 20
+                    };
+                    stackLayout.Children.Add(grayFrame);
+
+                    // Create a new StackLayout for each day's content
+                    StackLayout dayContentLayout = new StackLayout();
+                    grayFrame.Content = dayContentLayout;
+
+                    // Add the date label to the day's content layout for ongoing reservations
+                    Label dateLabel = new Label
+                    {
+                        Text = "Pågående Bokningar",
+                        FontAttributes = FontAttributes.Bold,
+                        FontSize = 18,
+                        HorizontalTextAlignment = TextAlignment.Start,
+                        TextColor = Color.White
+                    };
+                    dayContentLayout.Children.Add(dateLabel);
+
+                    // Display each ongoing reservation in the group under the respective day
+                    foreach (Reservation booking in group.Value)
+                    {
+                        // Create a white background for individual reservations
+                        Frame reservationFrame = new Frame
+                        {
+                            BackgroundColor = Color.White,
+                            CornerRadius = 20,
+                            Margin = new Thickness(0, 0, 0, 5),
+                            
+                        };
+
+                        // Create a grid to contain the time on the left and room name on the right with arrow
+                        Grid grid = new Grid();
+                        reservationFrame.Content = grid;
+
+                        // Add the start and end time to the left side of the grid
+                        Label timeLabel = new Label
+                        {
+                            Text = $"{booking.StartTime:HH:mm} – {booking.EndTime:HH:mm}",
+                            FontAttributes = FontAttributes.Bold,
+                            FontSize = 16,
+                            TextColor = Color.Black,
+                            HorizontalOptions = LayoutOptions.StartAndExpand,
+                            VerticalOptions = LayoutOptions.Center
+                        };
+                        grid.Children.Add(timeLabel);
+
+                        // Add the room name to the right side of the grid
+                        Label roomLabel = new Label
+                        {
+                            Text = booking.RoomName,
+                            FontAttributes = FontAttributes.Bold,
+                            FontSize = 16, // Set the font size to 16
+                            TextColor = Color.Black,
+                            HorizontalOptions = LayoutOptions.End, // Align to the start
+                            VerticalOptions = LayoutOptions.Center
+                        };
+                        Grid.SetColumn(roomLabel, 1); // Set the column index to 1
+                        grid.Children.Add(roomLabel);
+
+                        // Attach TapGestureRecognizer to reservationFrame
+                        TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
+                        tapGestureRecognizer.Tapped += async (sender, e) =>
+                        {
+                            // Display confirmation booking page with reservation details
+                            await DisplayConfirmationBookingPage(booking);
+                        };
+                        reservationFrame.GestureRecognizers.Add(tapGestureRecognizer);
+
+                        dayContentLayout.Children.Add(reservationFrame);
+                    }
+                }
+
+                // Group upcoming bookings by date
+                var groupedUpcomingBookings = new Dictionary<DateTime, List<Reservation>>();
+                foreach (Reservation booking in upcomingReservations)
+                {
+                    DateTime dateKey = booking.StartTime.Date;
+                    if (!groupedUpcomingBookings.ContainsKey(dateKey))
+                    {
+                        groupedUpcomingBookings[dateKey] = new List<Reservation>();
+                    }
+                    groupedUpcomingBookings[dateKey].Add(booking);
+                }
+
+                // Display the upcoming bookings
+                foreach (var group in groupedUpcomingBookings)
                 {
                     // Create a gray background frame to encapsulate the day's bookings
                     Frame grayFrame = new Frame

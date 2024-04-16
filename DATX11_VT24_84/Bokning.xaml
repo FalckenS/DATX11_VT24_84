@@ -8,8 +8,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />  <!-- Back button -->
                 <RowDefinition Height="30" /> <!-- Title -->
-                <RowDefinition Height="220" /> <!-- Card -->
-                <RowDefinition Height="Auto" /> <!-- Ändra Avboka Button -->
+                <RowDefinition Height="290" /> <!-- Card -->
+                <RowDefinition Height="Auto" /> <!-- Kartvy, Ändra, Avboka Buttons -->
             </Grid.RowDefinitions>
             
             <!-- Back button -->
@@ -52,30 +52,35 @@
                     <Label x:Name="TimeLabel" TextColor="White" FontSize="24" FontAttributes="Bold"
                            Margin="0,30,0,0"/>
                     <Label x:Name="DateLabel" TextColor="White" FontSize="18" />
+                    <!-- Ända Avboka Buttons -->
+                    <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+                        <Button Text="Kartvy" Clicked="OnMapClicked"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                CornerRadius="10"
+                                BackgroundColor="LightSkyBlue"
+                                Margin="0,10,0,20" />
+                        <Button Text="Ändra" Clicked="OnRescheduleBookingClicked"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                CornerRadius="10"
+                                BackgroundColor="#FFBF00"
+                                Margin="15,10,15,20" />
+                        <Button Text="Avboka" Clicked="OnCancelBookingClicked"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                CornerRadius="10"
+                                BackgroundColor="IndianRed"
+                                Margin="0,10,0,20" />
+                    </StackLayout>  
                 </StackLayout>
             </Frame>
-            
-            <!-- Ända Avboka Buttons -->
-            <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
-                <Button Text="Kartvy" Clicked="OnMapClicked"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        CornerRadius="10"
-                        BackgroundColor="LightSkyBlue"
-                        Margin="0,10,0,20" />
-                <Button Text="Ändra" Clicked="OnResceduleBookingClocked"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        CornerRadius="10"
-                        BackgroundColor="#FFBF00"
-                        Margin="15,10,15,20" />
-                <Button Text="Avboka" Clicked="OnEndCancelBookingClicked"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        CornerRadius="10"
-                        BackgroundColor="IndianRed"
-                        Margin="0,10,0,20" />
-            </StackLayout>  
+            <Button Grid.Row="3" x:Name="ConfirmButtonLabel" Text="Laddar bokningstatus ..." Clicked="OnConfirmedBookingClicked"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    CornerRadius="10"
+                    BackgroundColor="Gray"
+                    Margin="30,0,30,0" />
 
         </Grid>
     </ContentPage.Content>
