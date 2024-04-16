@@ -158,6 +158,11 @@ namespace DATX11_VT24_84
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
+        
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync(false);
+        } 
 
     }
 }
