@@ -146,13 +146,10 @@ namespace DATX11_VT24_84
 
                 string roomName = RoomNameLabel.Text; 
 
-                // Create reservation
-                await BackEnd.CreateReservation("datx11.vt24.84@gmail.com", roomName, startTime, endTime); 
+                await BackEnd.CreateReservation("1", roomName, startTime, endTime); 
 
-                // Display success message
                 await DisplayAlert("Success", "Booking created successfully", "OK");
 
-                // Refresh booking information
                 FetchAndDisplayBookings();
             }
             catch (Exception ex)

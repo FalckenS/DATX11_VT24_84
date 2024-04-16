@@ -117,9 +117,17 @@
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>00</x:String>
+                            <x:String>05</x:String>
+                            <x:String>10</x:String>
                             <x:String>15</x:String>
+                            <x:String>20</x:String>
+                            <x:String>25</x:String>
                             <x:String>30</x:String>
+                            <x:String>35</x:String>
+                            <x:String>40</x:String>
                             <x:String>45</x:String>
+                            <x:String>50</x:String>
+                            <x:String>55</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
@@ -177,9 +185,17 @@
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>00</x:String>
+                            <x:String>05</x:String>
+                            <x:String>10</x:String>
                             <x:String>15</x:String>
+                            <x:String>20</x:String>
+                            <x:String>25</x:String>
                             <x:String>30</x:String>
+                            <x:String>35</x:String>
+                            <x:String>40</x:String>
                             <x:String>45</x:String>
+                            <x:String>50</x:String>
+                            <x:String>55</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
