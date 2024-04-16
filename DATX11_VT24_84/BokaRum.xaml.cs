@@ -62,6 +62,9 @@ namespace DATX11_VT24_84
                 // Filter out past bookings
                 reservations = reservations.Where(booking => booking.StartTime > DateTime.Now).ToList();
 
+                // Filter reservations for the specified room
+                reservations = reservations.Where(booking => booking.RoomName == _roomName).ToList();
+
                 // Display booking information
                 if (reservations.Count == 0)
                 {
@@ -86,6 +89,7 @@ namespace DATX11_VT24_84
                 BookingInfoLabel.Text = "Error fetching reservations";
             }
         }
+
 
         
 
