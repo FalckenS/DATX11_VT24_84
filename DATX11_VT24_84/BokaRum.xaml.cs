@@ -34,23 +34,24 @@ namespace DATX11_VT24_84
 
             DateTime currentTime = DateTime.Now;
             int currentMinute = currentTime.Minute;
-            int nearestQuarter = (currentMinute / 15 + 1) * 15;
+            int nearestFiveMinutes = ((currentMinute + 2) / 5) * 5;
             int currentHour = currentTime.Hour;
-            if (nearestQuarter >= 60)
+            if (nearestFiveMinutes >= 60)
             {
                 currentHour = (currentHour + 1) % 24;
-                nearestQuarter = 0;
+                nearestFiveMinutes = 0;
             }
 
             StartHourPicker.SelectedIndex = currentHour;
-            StartMinutePicker.SelectedIndex = nearestQuarter / 15;
+            StartMinutePicker.SelectedIndex = nearestFiveMinutes / 5;
 
             int endHour = (currentHour + 1) % 24;
             EndHourPicker.SelectedIndex = endHour;
-            EndMinutePicker.SelectedIndex = nearestQuarter / 15;
+            EndMinutePicker.SelectedIndex = nearestFiveMinutes / 5;
 
             UpdateEndTime();
         }
+
 
         private async void FetchAndDisplayBookings()
         {
@@ -61,6 +62,9 @@ namespace DATX11_VT24_84
 
                 // Filter out past bookings
                 reservations = reservations.Where(booking => booking.StartTime > DateTime.Now).ToList();
+
+                // Filter reservations for the specified room
+                reservations = reservations.Where(booking => booking.RoomName == _roomName).ToList();
 
                 // Display booking information
                 if (reservations.Count == 0)
@@ -86,6 +90,7 @@ namespace DATX11_VT24_84
                 BookingInfoLabel.Text = "Error fetching reservations";
             }
         }
+
 
         
 
@@ -142,13 +147,10 @@ namespace DATX11_VT24_84
 
                 string roomName = RoomNameLabel.Text; 
 
-                // Create reservation
-                await BackEnd.CreateReservation("datx11.vt24.84@gmail.com", roomName, startTime, endTime); 
+                await BackEnd.CreateReservation("1", roomName, startTime, endTime); 
 
-                // Display success message
                 await DisplayAlert("Success", "Booking created successfully", "OK");
 
-                // Refresh booking information
                 FetchAndDisplayBookings();
             }
             catch (Exception ex)

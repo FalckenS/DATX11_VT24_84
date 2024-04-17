@@ -2,12 +2,11 @@ using Xamarin.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DATX11_VT24_84
 {
-    public partial class MinaBokningar : ContentPage
+    public partial class MinaBokningar
     {
         private const string UserID = "1";
 
@@ -75,7 +74,7 @@ namespace DATX11_VT24_84
                         Margin = new Thickness(15, 10, 15, 10),
                         CornerRadius = 20
                     };
-                    stackLayout.Children.Add(grayFrame);
+                    StackLayout.Children.Add(grayFrame);
 
                     // Create a new StackLayout for each day's content
                     StackLayout dayContentLayout = new StackLayout();
@@ -168,7 +167,7 @@ namespace DATX11_VT24_84
                         Margin = new Thickness(15, 10, 15, 10),
                         CornerRadius = 20
                     };
-                    stackLayout.Children.Add(grayFrame);
+                    StackLayout.Children.Add(grayFrame);
 
                     // Create a new StackLayout for each day's content
                     StackLayout dayContentLayout = new StackLayout();
