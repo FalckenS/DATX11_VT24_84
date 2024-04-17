@@ -47,7 +47,7 @@ namespace DATX11_VT24_84
             if (reservation.Confirmed)
             {
                 ConfirmButtonLabel.Text = "\u2713 Bokning Bekräftad";
-                ConfirmButtonLabel.BackgroundColor = Color.LightGreen;
+                ConfirmButtonLabel.BackgroundColor = Color.FromHex("#409c40");
                 ConfirmButtonLabel.IsEnabled = false;
             }
             else
@@ -62,13 +62,14 @@ namespace DATX11_VT24_84
                     ConfirmButtonLabel.IsEnabled = false;
                 }
                 // Confirmation ending between -20 and 20 minutes
-                else if (timeUntilReservation.TotalMinutes >= -20 && timeUntilReservation.TotalMinutes <= 20)
+                else if (timeUntilReservation.TotalMinutes <= 0)
                 {
-                    ConfirmButtonLabel.Text = "Bekräfta bokning | Stänger om " + ((int)timeUntilReservation.TotalMinutes + 40) + " min";
+                    ConfirmButtonLabel.Text = "Bekräfta bokning | Stänger om "
+                                              + (20 + (int)timeUntilReservation.TotalMinutes) + " min";
                     ConfirmButtonLabel.BackgroundColor = Color.LightGreen;
                     ConfirmButtonLabel.IsEnabled = true;
                 }
-                // Display time left in minutes if less than 1 hour to reservation
+                // Display time left in minutes if less than 1 hour to reservation #"
                 else if (timeUntilReservation.TotalHours < 1)
                 {
                     ConfirmButtonLabel.Text = "Bekräfta bokning | Öppnar om " + (int)timeUntilReservation.TotalMinutes + " min";
@@ -92,7 +93,7 @@ namespace DATX11_VT24_84
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                await view.FadeTo(0.4, 500, Easing.SinInOut); // Fade to lower opacity
+                await view.FadeTo(0.5, 500, Easing.SinInOut); // Fade to lower opacity
                 await view.FadeTo(1, 500, Easing.SinInOut);   // Fade back to full opacity
             }
             // Reset the background color to the original color when the animation stops
