@@ -15,7 +15,7 @@
                          Aspect="AspectFit"
                          WidthRequest="30"
                          HeightRequest="30"
-                         Margin="5,30,0,0"/>
+                         Margin="35,30,0,0"/>
             
             <Label x:Name="titleLabel" Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,-20,0,20"/>
             <Label x:Name="dateTimeLabel" TextColor="White" FontSize="16" HorizontalOptions="Center" Margin="0,-20,0,20"/>
