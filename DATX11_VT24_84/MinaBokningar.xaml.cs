@@ -45,8 +45,8 @@ namespace DATX11_VT24_84
             try
             {
                 // Show activity indicator while loading
-                activityIndicator.IsVisible = true;
-                activityIndicator.IsRunning = true;
+                ActivityIndicator.IsVisible = true;
+                ActivityIndicator.IsRunning = true;
 
                 // Retrieve the bookings for the user
                 List<Reservation> ongoingReservations = await BackEnd.GetOngoingReservationsForUser(UserID);
@@ -237,8 +237,8 @@ namespace DATX11_VT24_84
                 }
 
                 // Hide activity indicator after loading
-                activityIndicator.IsVisible = false;
-                activityIndicator.IsRunning = false;
+                ActivityIndicator.IsVisible = false;
+                ActivityIndicator.IsRunning = false;
             }
             catch (Exception ex)
             {

@@ -5,7 +5,7 @@
              x:Class="DATX11_VT24_84.MinaBokningar">
     <RelativeLayout x:Name="MainLayout">
         <ScrollView>
-            <StackLayout x:Name="stackLayout">
+            <StackLayout x:Name="StackLayout">
                 <Grid Margin="0,50,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -21,7 +21,7 @@
                                  HeightRequest="30"
                                  Margin="40,0,0,0"/>
                    
-                    <Label x:Name="titleLabel" Text="Mina Bokningar" 
+                    <Label x:Name="TitleLabel" Text="Mina Bokningar" 
                            TextColor="White" 
                            FontSize="20" 
                            FontAttributes="Bold" 
@@ -34,7 +34,7 @@
         </ScrollView>
 
         <!-- Loading Indicator -->
-        <ActivityIndicator x:Name="activityIndicator"
+        <ActivityIndicator x:Name="ActivityIndicator"
                            IsRunning="False"
                            IsVisible="False"
                            Color="Gray"
