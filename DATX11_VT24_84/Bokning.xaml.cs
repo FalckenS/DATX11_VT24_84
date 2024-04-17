@@ -17,7 +17,6 @@ namespace DATX11_VT24_84
         {
             _booking = booking;
             InitializeComponent();
-            UIUtility.UpdateBackgroundColorMainPages(this);
             LoadTexts(booking);
             Task.Run(() => AnimatePulsatingEffect(ConfirmButtonLabel, _cancellationTokenSource.Token));
             LoadConfirmBookingButton(booking);

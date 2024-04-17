@@ -17,7 +17,6 @@ namespace DATX11_VT24_84
         public Boka()
         {
             InitializeComponent();
-            UIUtility.UpdateBackgroundColorMainPages(this);
             _currentDate = DateTime.Today;
             UpdateDateLabel();
             UpdateDatePicker();

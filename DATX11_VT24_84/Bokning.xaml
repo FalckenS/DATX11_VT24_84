@@ -4,7 +4,7 @@
              xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.Bokning">
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="#232E34">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />  <!-- Back button -->
                 <RowDefinition Height="30" /> <!-- Title -->
