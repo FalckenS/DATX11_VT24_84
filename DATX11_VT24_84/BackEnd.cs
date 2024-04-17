@@ -267,7 +267,7 @@ namespace DATX11_VT24_84
         private static CalendarService GetCalendarService()
         {
             Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
-            const string filePath = "DATX11_VT24_84.disco-catcher-418315-d913f85a8669.json";
+            const string filePath = "DATX11_VT24_84.JsonFiles.disco-catcher-418315-d913f85a8669.json";
             Stream stream = assembly.GetManifestResourceStream(filePath);
             if (stream == null)
             {
@@ -311,7 +311,7 @@ namespace DATX11_VT24_84
         
         private static async Task<List<Room>> GetAllRooms()
         {
-            const string filePath = "DATX11_VT24_84.rooms.json";
+            const string filePath = "DATX11_VT24_84.JsonFiles.rooms.json";
             Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
             Stream stream = assembly.GetManifestResourceStream(filePath);
             if (stream == null)

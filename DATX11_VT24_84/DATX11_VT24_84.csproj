@@ -20,6 +20,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="JsonFiles\rooms.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
       <None Remove="Images\black_x_icon.png" />
       <None Remove="Images\grey_search_icon.png" />
       <EmbeddedResource Include="Images\grey_search_icon.png">
@@ -31,13 +34,10 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="rooms.json" />
-      <EmbeddedResource Include="rooms.json">
+      <EmbeddedResource Include="JsonFiles\disco-catcher-418315-d913f85a8669.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="disco-catcher-418315-d913f85a8669.json" />
-      <EmbeddedResource Include="disco-catcher-418315-d913f85a8669.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="Images\clock.png" />
       <EmbeddedResource Include="Images\clock.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
