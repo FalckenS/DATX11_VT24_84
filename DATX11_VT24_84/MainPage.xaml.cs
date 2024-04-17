@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DATX11_VT24_84
@@ -110,9 +111,7 @@ namespace DATX11_VT24_84
                 ReservationCard1.IsVisible = true;
             }
         }
-
-        // TODO gör cards clickable
-        
+        // Making the reservation cards clickable 
         private async void AddReservationCard(Reservation reservation, Label roomLabel, Label buildingLabel,
             Label timeLabel, Label timeUntilLabel)
         {
@@ -133,6 +132,19 @@ namespace DATX11_VT24_84
             {
                 timeUntilLabel.Text = "Pågående";
             }
+            TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += async (s, e) =>
+            {
+                await DisplayConfirmationBookingPage(reservation);
+            };
+            // wierd, only attached to ReservationCard1 but works on ReservationCard2 as well
+            ReservationCard1.GestureRecognizers.Add(tapGestureRecognizer);
+        }
+        
+        private async Task DisplayConfirmationBookingPage(Reservation booking)
+        {
+            // Navigate to bokningar page with the selected booking
+            await Navigation.PushModalAsync(new Bokning(booking), false);
         }
 
         private static DateTime GetRealTime()
