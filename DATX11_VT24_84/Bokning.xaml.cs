@@ -77,9 +77,21 @@ namespace DATX11_VT24_84
                     ConfirmButtonLabel.IsEnabled = false;
                 }
                 // Display time left in hours if more than or equal to 1 hour to reservation
-                else
+                else if (timeUntilReservation.TotalHours <= 24)
                 {
                     ConfirmButtonLabel.Text = "Bekräfta bokning | Öppnar Om " + (int)timeUntilReservation.TotalHours + " h";
+                    ConfirmButtonLabel.BackgroundColor = Color.LightGreen;
+                    ConfirmButtonLabel.IsEnabled = false;
+                }
+                else if (timeUntilReservation.TotalHours <= 48)
+                {
+                    ConfirmButtonLabel.Text = "Bekräfta bokning | Öppnar imorgon";
+                    ConfirmButtonLabel.BackgroundColor = Color.LightGreen;
+                    ConfirmButtonLabel.IsEnabled = false;
+                }
+                else
+                {
+                    ConfirmButtonLabel.Text = "Bekräfta bokning | Öppnar Om " + (int)timeUntilReservation.TotalDays + " dagar";
                     ConfirmButtonLabel.BackgroundColor = Color.LightGreen;
                     ConfirmButtonLabel.IsEnabled = false;
                 }
@@ -96,8 +108,6 @@ namespace DATX11_VT24_84
                 await view.FadeTo(0.5, 500, Easing.SinInOut); // Fade to lower opacity
                 await view.FadeTo(1, 500, Easing.SinInOut);   // Fade back to full opacity
             }
-            // Reset the background color to the original color when the animation stops
-            view.BackgroundColor = Color.LightGreen;
         }
 
         private static DateTime GetRealTime()
