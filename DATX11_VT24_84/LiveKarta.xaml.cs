@@ -12,7 +12,6 @@ using SkiaSharp.Views.Forms;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,9 +21,11 @@ namespace DATX11_VT24_84
     public partial class LiveKarta : ContentPage
     {
         private HashSet<string> availableRoomIds = new HashSet<string>();
+        private bool isToggled = false; // Variable to track toggle state
         public LiveKarta()
         {
             InitializeComponent();
+            toggleStatusLabel.Text = toggleSwitch.IsToggled ? "Våning: 0" : "Våning: 1";
             UIUtility.UpdateBackgroundColorOtherPages(this);
             LoadAvailableRoomIdsAsync();
             ShowCurrentDateTime();
@@ -52,8 +53,8 @@ namespace DATX11_VT24_84
             SKCanvas canvas = surface.Canvas;
 
             // Clear the canvas
-            //canvas.Clear(SKColors.White);
-
+            canvas.Clear(SKColors.White);
+            
             // Load your SVG image
             var assembly = typeof(App).GetTypeInfo().Assembly;
             using (Stream stream = assembly.GetManifestResourceStream("DATX11_VT24_84.Images.karta.svg"))
@@ -112,12 +113,6 @@ namespace DATX11_VT24_84
                 }
             }
         }
-        
-        private async void RefreshButton_Clicked(object sender, EventArgs e)
-        {
-            await LoadAvailableRoomIdsAsync();
-        }
-        
         private void ShowCurrentDateTime()
         {
             // Update the DateTime label with the current date and time
@@ -133,9 +128,21 @@ namespace DATX11_VT24_84
             });
         }
         
+        private async void RefreshButton_Clicked(object sender, EventArgs e)
+        {
+            await LoadAvailableRoomIdsAsync();
+        }
+        
         private async void OnBackButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync(false);
         }
+        
+        private void OnToggleSwitchToggled(object sender, ToggledEventArgs e)
+        {
+            // Add your logic here
+            toggleStatusLabel.Text = e.Value ? "Våning: 0" : "Våning: 1";
+        }
+        
     }
 }

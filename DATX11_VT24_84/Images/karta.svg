@@ -1,4 +1,4 @@
-<svg width="4850" height="7993" viewBox="0 0 4850 7993" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg clip-path="inset(0% round 330px)" width="4850" height="7993" viewBox="0 0 4850 7993" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4845 0C4846.1 0 4847 0.895431 4847 2V4019.08L4847 7991C4847 7992.1 4846.1 7993 4845 7993H46C44.8955 7993 44 7992.1 44 7991L44 2.00001C44 0.895441 44.8955 0 46 0L4845 0Z" fill="#F8F1F1"/>
     <path d="M2654.46 6880.5V7280.5M2654.46 7280.5L2742.5 7196.12M2654.46 7280.5L2552.5 7196.12" stroke="black" stroke-width="7"/>
     <path d="M4033.5 4600H3630" stroke="black" stroke-width="18"/>
@@ -63,7 +63,7 @@
     <path id="M1162G" d="M1400.07 7017V6729H2374.64V7017H1400.07Z" stroke="black" stroke-width="20"/>
     <path id="M1162I" d="M1400 7593V7305H2374.57V7593H1400Z" stroke="black" stroke-width="20"/>
     <path id="M1162H" d="M1400 7305V7017H2374.57V7305H1400Z" stroke="black" stroke-width="20"/>
-    <path id="M1162F" d="M1401 7881V7593H2375.57V7881H1401Z" stroke="black" stroke-width="20"/>
+    <path id="M1162J" d="M1401 7881V7593H2375.57V7881H1401Z" stroke="black" stroke-width="20"/>
     <path d="M1009.38 4751V4372H2028.2V4751H1009.38Z" stroke="black" stroke-width="20"/>
     <path id="M1222B" d="M2945.57 5187V4830H3293.09V5187H2945.57Z" stroke="black" stroke-width="20"/>
     <!-- Grupprum slut -->

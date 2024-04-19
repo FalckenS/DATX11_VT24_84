@@ -7,6 +7,7 @@
              x:Class="DATX11_VT24_84.LiveKarta">
     <ContentPage.Content>
         <StackLayout>
+            
             <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_left_arrow.png'}" 
                          Clicked="OnBackButtonClicked" 
                          BackgroundColor="Transparent" 
@@ -17,10 +18,18 @@
                          HeightRequest="30"
                          Margin="35,30,0,0"/>
             
-            <Label x:Name="titleLabel" Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,-20,0,20"/>
-            <Label x:Name="dateTimeLabel" TextColor="White" FontSize="16" HorizontalOptions="Center" Margin="0,-20,0,20"/>
-            <skia:SKCanvasView x:Name="canvasView" PaintSurface="OnCanvasViewPaintSurface" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,0,0,0"/>
+            
            
+                <Label x:Name="titleLabel" Text="Lediga just nu" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,-20,0,20"/>
+                <Label x:Name="dateTimeLabel" TextColor="White" FontSize="16" HorizontalOptions="Center" Margin="0,-20,0,20"/>
+                <skia:SKCanvasView x:Name="canvasView" PaintSurface="OnCanvasViewPaintSurface" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,0,0,0"/>
+           
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                <Switch x:Name="toggleSwitch" Toggled="OnToggleSwitchToggled" OnColor="#00ACFF" ThumbColor="#D9D9D9"/>
+                <Label x:Name="toggleStatusLabel" TextColor="White" VerticalOptions="Center" Margin="5,0,0,0" />
+            </StackLayout>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

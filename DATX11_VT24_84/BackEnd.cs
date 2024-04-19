@@ -252,7 +252,7 @@ namespace DATX11_VT24_84
             request.MaxResults = 2500;
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
     
-            Events events = await request.ExecuteAsync();
+                Events events = await request.ExecuteAsync();
             return events.Items.Select(e => new Reservation(
                 e.Summary,
                 e.Location,
