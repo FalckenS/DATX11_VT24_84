@@ -53,7 +53,7 @@ namespace DATX11_VT24_84
             SKCanvas canvas = surface.Canvas;
 
             // Clear the canvas
-            canvas.Clear(SKColors.White);
+            //canvas.Clear(SKColors.White);
             
             // Load your SVG image
             var assembly = typeof(App).GetTypeInfo().Assembly;
@@ -95,16 +95,32 @@ namespace DATX11_VT24_84
                     // Draw the modified SVG onto the canvas
                     var skSvg = new SkiaSharp.Extended.Svg.SKSvg();
                     skSvg.Load(new MemoryStream(System.Text.Encoding.UTF8.GetBytes(xmlDoc.OuterXml)));
-                    
-                    // Calculate the scaling factor to fit the SVG image within the canvas
-                    float scale = Math.Min((float)canvasView.CanvasSize.Width / skSvg.Picture.CullRect.Width,
-                        (float)canvasView.CanvasSize.Height / skSvg.Picture.CullRect.Height);
 
-                    // Apply the scaling transformation
-                    canvas.Scale(scale);
+                        // Calculate the scaling factors for width and height
+                        float scaleX = (float)canvasView.CanvasSize.Width / skSvg.Picture.CullRect.Width;
+                        float scaleY = (float)canvasView.CanvasSize.Height / skSvg.Picture.CullRect.Height;
 
-                    // Draw the SVG onto the canvas
-                    canvas.DrawPicture(skSvg.Picture);
+                        // Choose the minimum scaling factor to ensure the entire SVG image fits within the canvas
+                        float scale = Math.Min(scaleX, scaleY);
+                        
+                        // Calculate the scaled width and height of the SVG image
+                        float scaledWidth = skSvg.Picture.CullRect.Width * scale;
+                        float scaledHeight = skSvg.Picture.CullRect.Height * scale;
+
+                        // Calculate the corner radius for rounding
+                        float cornerRadius = 100f; // Adjust as needed
+
+                        // Create a rounded rectangle path
+                        var roundedRect = new SKRoundRect(new SKRect(0, 0, scaledWidth, scaledHeight), cornerRadius);
+
+                        // Clip the canvas to the rounded rectangle
+                        canvas.ClipRoundRect(roundedRect);
+                        
+                        // Apply the scaling transformation
+                        canvas.Scale(scale);
+
+                        // Draw the SVG onto the canvas
+                        canvas.DrawPicture(skSvg.Picture);
                 }
                 else
                 {
