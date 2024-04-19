@@ -302,6 +302,35 @@ namespace DATX11_VT24_84
                 throw new Exception("Ogiltigt rumsnamn!");
             }
         }
+        
+        // Add this method to the BackEnd class
+        public static async Task<List<Reservation>> GetReservationsForDate(DateTime date)
+        {
+            List<Reservation> allReservations = await GetAllReservations();
+            return allReservations.Where(reservation =>
+                reservation.StartTime.Date == date.Date || reservation.EndTime.Date == date.Date).ToList();
+        }
+        
+        public static async Task<List<(string RoomName, List<Reservation> Reservations)>> GetRoomsWithReservationsForDate(DateTime date)
+        {
+            List<Room> allRooms = await GetAllRooms();
+            List<Reservation> allReservations = await GetReservationsForDate(date);
+
+            List<(string RoomName, List<Reservation> Reservations)> roomsWithReservations = new List<(string, List<Reservation>)>();
+
+            foreach (Room room in allRooms)
+            {
+                List<Reservation> reservationsForRoom = allReservations
+                    .Where(reservation => reservation.RoomName == room.Name)
+                    .ToList();
+        
+                roomsWithReservations.Add((room.Name, reservationsForRoom));
+            }
+
+            return roomsWithReservations;
+        }
+
+
 
         internal static async Task<List<string>> GetAllRoomNames()
         {
