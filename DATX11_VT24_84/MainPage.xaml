@@ -37,22 +37,20 @@
             <!-- Search box row: 1 -->
             <Frame Grid.Row="1" Grid.Column="1"
                    BackgroundColor="#AFAFAF"
-                   CornerRadius="20" 
-                   Padding="10">
-                <StackLayout Orientation="Horizontal">
-                    <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_search_icon.png'}"
-                           HeightRequest="30"/>
-                    <Entry Placeholder="Hitta till grupprum"
-                           TextColor="Black"
-                           BackgroundColor="Transparent"
-                           HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                   CornerRadius="20"
+                   Padding="-10, 10, 10, 0">
+                <StackLayout Orientation="Vertical">
+                    <SearchBar x:Name="SearchBar"
+                               Placeholder="Hitta till grupprum"
+                               TextChanged="SearchBar_TextChanged"
+                               BackgroundColor="#AFAFAF"/>
                 </StackLayout>
             </Frame>
             
             <!-- Bokningar rubrik, row: 2 -->
             <Label Grid.Row="2" Grid.Column="1"
                    x:Name="ReservationTitle"
-                   IsVisible="True"
+                   IsVisible="False"
                    Text="Dagens bokningar:"
                    FontSize="20"
                    TextColor="White"
@@ -174,6 +172,21 @@
                     Style="{StaticResource MainPageButton}"/>
             
             <!-- Row: 12 -->
+            
+            <!-- Search bar suggestions, row: 2 -->
+            <ListView Grid.Row="2" Grid.Column="1"
+                      Grid.RowSpan="8"
+                      x:Name="SuggestionList"
+                      BackgroundColor="LightGray"
+                      IsVisible="False"
+                      ItemSelected="SuggestionList_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding .}"
+                                  TextColor="Black"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </RelativeLayout>
 </ContentPage>

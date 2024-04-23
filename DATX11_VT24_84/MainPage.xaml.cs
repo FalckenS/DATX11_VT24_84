@@ -9,12 +9,42 @@ namespace DATX11_VT24_84
     public partial class MainPage
     {
         private const string UserID = "1";
+        private List<string> _allRooms;
         
         public MainPage()
         {   
             InitializeComponent();
             AddTopTriangles();
             UpdateReservationCards();
+            GetAllRoomSuggestions();
+        }
+
+        private async void GetAllRoomSuggestions()
+        {
+            _allRooms = await BackEnd.GetAllRoomNames();
+            SuggestionList.ItemsSource = _allRooms;
+        }
+        
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<string> listOfSuggestions = _allRooms
+                .Where(s => s.ToLower().Contains(e.NewTextValue.ToLower()))
+                .ToList();
+            
+            // Filter the list of suggestions based on the search text
+            SuggestionList.ItemsSource = listOfSuggestions;
+
+            // Show or hide the suggestions list depending on whether there is a search term
+            SuggestionList.IsVisible = (listOfSuggestions.Count != 0) && !string.IsNullOrEmpty(e.NewTextValue);
+        }
+
+        private void SuggestionList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                SearchBar.Text = e.SelectedItem as string;
+                SuggestionList.IsVisible = false;
+            }
         }
 
         private void AddTopTriangles()

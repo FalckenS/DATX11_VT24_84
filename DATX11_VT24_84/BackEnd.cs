@@ -330,9 +330,7 @@ namespace DATX11_VT24_84
             return roomsWithReservations;
         }
 
-
-
-        internal static async Task<List<string>> GetAllRoomNames()
+        public static async Task<List<string>> GetAllRoomNames()
         {
             List<Room> allRooms = await GetAllRooms();
             return (from room in allRooms select room.Name).ToList();
