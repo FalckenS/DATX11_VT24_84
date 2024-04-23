@@ -25,9 +25,6 @@
       </EmbeddedResource>
       <None Remove="Images\black_x_icon.png" />
       <None Remove="Images\grey_search_icon.png" />
-      <EmbeddedResource Include="Images\grey_search_icon.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="Images\grey_x_icon.png" />
       <None Remove="Images\grey_back_arrow.png" />
       <EmbeddedResource Include="Images\grey_left_arrow.png">
