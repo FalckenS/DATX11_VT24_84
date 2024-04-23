@@ -169,7 +169,7 @@ namespace DATX11_VT24_84
                 Command = new Command(async () =>
                 {
                     var room = await BackEnd.GetRoomInfo(roomName);
-                    var startTime = _currentDate.Date.AddHours(8).AddHours(Grid.GetColumn(box));
+                    var startTime = _currentDate.Date.AddHours(0).AddHours(Grid.GetColumn(box));
                     var endTime = startTime.AddHours(1);
                     await Navigation.PushModalAsync(new BokaRum(roomName, room.Building, room.Floor, startTime, room.Capacity, endTime));
                 })
