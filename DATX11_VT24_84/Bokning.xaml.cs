@@ -113,7 +113,7 @@ namespace DATX11_VT24_84
         {
             // Vintertid: +1
             // Sommartid: +2 // inte för mac
-            return DateTime.Now.AddHours(0);
+            return DateTime.Now.AddHours(BackEnd.HourDifference);
         }
         
 
