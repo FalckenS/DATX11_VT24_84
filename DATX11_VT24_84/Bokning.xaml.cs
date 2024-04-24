@@ -17,7 +17,6 @@ namespace DATX11_VT24_84
         {
             _booking = booking;
             InitializeComponent();
-            UIUtility.UpdateBackgroundColorMainPages(this);
             LoadTexts(booking);
             Task.Run(() => AnimatePulsatingEffect(ConfirmButtonLabel, _cancellationTokenSource.Token));
             LoadConfirmBookingButton(booking);
@@ -113,8 +112,8 @@ namespace DATX11_VT24_84
         private static DateTime GetRealTime()
         {
             // Vintertid: +1
-            // Sommartid: +2
-            return DateTime.Now.AddHours(2);
+            // Sommartid: +2 // inte för mac
+            return DateTime.Now.AddHours(0);
         }
         
 

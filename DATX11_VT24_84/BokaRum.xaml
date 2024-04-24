@@ -1,5 +1,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.BokaRum">
     <ContentPage.Content>
         <StackLayout Padding="20">
@@ -10,7 +11,15 @@
                    HorizontalOptions="Start"
                    VerticalOptions="Start"
                    Margin="10,10,0,0"/>
-            
+            <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.white_x.png'}" 
+                         Clicked="OnBackButtonClicked" 
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="End" 
+                         VerticalOptions="Center"
+                         Aspect="AspectFit"
+                         WidthRequest="30"
+                         HeightRequest="30"
+                         Margin="0,-25,30,0"/>
             <Label x:Name="CurrentDayLabel"
                    TextColor="White"
                    FontSize="20"
@@ -234,5 +243,7 @@
                     Padding="20,20" 
                     Clicked="OnBookRoomClicked" /> <!-- Add Clicked event handler -->
         </StackLayout>
+        
+        
     </ContentPage.Content>
 </ContentPage>

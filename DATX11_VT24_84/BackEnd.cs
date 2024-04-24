@@ -38,7 +38,7 @@ namespace DATX11_VT24_84
         FRÅN OSS TILL API: Två timmar + så vi måste TA BORT TVÅ innan vi skickar för det ska bli rätt!
         FRÅN API TILL OSS: Två timmar - så vi måste LÄGGA TILL TVÅ för det ska bli rätt!
         */
-        private const int HourDifference = 2;
+        private const int HourDifference = 0;
         
         private const string CalendarID = "datx11.vt24.84@gmail.com";
         private const string TimeZone = "Europe/Stockholm";
@@ -267,7 +267,7 @@ namespace DATX11_VT24_84
         private static CalendarService GetCalendarService()
         {
             Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
-            const string filePath = "DATX11_VT24_84.disco-catcher-418315-d913f85a8669.json";
+            const string filePath = "DATX11_VT24_84.JsonFiles.disco-catcher-418315-d913f85a8669.json";
             Stream stream = assembly.GetManifestResourceStream(filePath);
             if (stream == null)
             {
@@ -311,7 +311,7 @@ namespace DATX11_VT24_84
         
         private static async Task<List<Room>> GetAllRooms()
         {
-            const string filePath = "DATX11_VT24_84.rooms.json";
+            const string filePath = "DATX11_VT24_84.JsonFiles.rooms.json";
             Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
             Stream stream = assembly.GetManifestResourceStream(filePath);
             if (stream == null)

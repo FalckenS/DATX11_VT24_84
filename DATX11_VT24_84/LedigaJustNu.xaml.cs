@@ -12,7 +12,6 @@ namespace DATX11_VT24_84
         {
             InitializeComponent();
             AddGrids();
-            UIUtility.UpdateBackgroundColorMainPages(this);
             ShowCurrentDateTime();
         }
 

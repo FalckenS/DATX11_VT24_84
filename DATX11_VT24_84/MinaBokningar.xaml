@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
              x:Class="DATX11_VT24_84.MinaBokningar">
-    <RelativeLayout x:Name="MainLayout">
+    <RelativeLayout x:Name="MainLayout" BackgroundColor="#232E34">
         <ScrollView>
             <StackLayout x:Name="StackLayout">
                 <Grid Margin="0,50,0,0">
