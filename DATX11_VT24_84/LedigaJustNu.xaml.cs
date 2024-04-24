@@ -126,7 +126,7 @@ namespace DATX11_VT24_84
                         var floor = room.Floor;
                         var capacity = room.Capacity;
                         var today = DateTime.Today;
-                        await Navigation.PushModalAsync(new BokaRum(roomName, building, floor, today, capacity, today), false);
+                        await Navigation.PushModalAsync(new BokaRum(roomName, building, floor, today, capacity), false);
                     };
 
                     roomsStackLayout.Children.Add(grid);

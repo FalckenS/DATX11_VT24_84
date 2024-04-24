@@ -13,7 +13,7 @@ namespace DATX11_VT24_84
     {
         private string _roomName;
         private DateTime _bookingDate;
-        public BokaRum(string roomName, string building, string floor, DateTime bookingDate, string capacity, DateTime selectedDate)
+        public BokaRum(string roomName, string building, string floor, DateTime bookingDate, string capacity)
         {
             InitializeComponent();
             _roomName = roomName;
