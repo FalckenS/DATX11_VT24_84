@@ -8,11 +8,6 @@ namespace DATX11_VT24_84
 {
     public static class UIUtility
     {
-        public static void UpdateBackgroundColorMainPages(ContentPage page)
-        {
-            page.BackgroundColor = Color.FromHex("#232E34");
-        }
-        
         public static void UpdateBackgroundColorOtherPages(ContentPage page)
         {
             page.BackgroundColor = Color.FromHex("#36474F");
@@ -79,27 +74,6 @@ namespace DATX11_VT24_84
                 widthConstraint: Constraint.RelativeToParent(parent => parent.Width),
                 heightConstraint: Constraint.RelativeToParent(parent => parent.Height)
             );
-        }
-        
-        public static void AddBackButton(RelativeLayout layout, IHasBackButton backButtonPage)
-        {
-            const int width = 40;
-            
-            ImageButton imageButton = new ImageButton
-            {
-                Source = ImageSource.FromResource("DATX11_VT24_84.Images.grey_left_arrow.png", typeof(EmbeddedImage).GetTypeInfo().Assembly),
-                BackgroundColor = Color.Transparent,
-                WidthRequest = width,
-                HeightRequest = width
-            };
-            
-            backButtonPage.AddClickedMethod(imageButton);
-            
-            Constraint xConstraint = Constraint.RelativeToParent(parent => parent.Width - width - width/2);
-            Constraint yConstraint = Constraint.RelativeToParent(parent => width/2);
-            Constraint widthConstraint = Constraint.Constant(width);
-            Constraint heightConstraint = Constraint.Constant(width);
-            layout.Children.Add(imageButton, xConstraint, yConstraint, widthConstraint, heightConstraint);
         }
     }
     

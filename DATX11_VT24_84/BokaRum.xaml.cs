@@ -13,7 +13,7 @@ namespace DATX11_VT24_84
     {
         private string _roomName;
         private DateTime _bookingDate;
-        public BokaRum(string roomName, string building, string floor, DateTime bookingDate, string capacity, DateTime selectedDate)
+        public BokaRum(string roomName, string building, string floor, DateTime bookingDate, string capacity)
         {
             InitializeComponent();
             _roomName = roomName;
@@ -34,8 +34,9 @@ namespace DATX11_VT24_84
 
             DateTime currentTime = DateTime.Now;
             int currentMinute = currentTime.Minute;
-            int nearestFiveMinutes = ((currentMinute + 2) / 5) * 5;
+            int nearestFiveMinutes = ((currentMinute + 4) / 5) * 5; 
             int currentHour = currentTime.Hour;
+
             if (nearestFiveMinutes >= 60)
             {
                 currentHour = (currentHour + 1) % 24;
@@ -50,6 +51,7 @@ namespace DATX11_VT24_84
             EndMinutePicker.SelectedIndex = nearestFiveMinutes / 5;
 
             UpdateEndTime();
+
         }
 
 
@@ -158,6 +160,11 @@ namespace DATX11_VT24_84
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
+        
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync(false);
+        } 
 
     }
 }

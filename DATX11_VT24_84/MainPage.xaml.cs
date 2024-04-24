@@ -9,12 +9,42 @@ namespace DATX11_VT24_84
     public partial class MainPage
     {
         private const string UserID = "1";
+        private List<string> _allRooms;
         
         public MainPage()
         {   
             InitializeComponent();
             AddTopTriangles();
             UpdateReservationCards();
+            GetAllRoomSuggestions();
+        }
+
+        private async void GetAllRoomSuggestions()
+        {
+            _allRooms = await BackEnd.GetAllRoomNames();
+            SuggestionList.ItemsSource = _allRooms;
+        }
+        
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<string> listOfSuggestions = _allRooms
+                .Where(s => s.ToLower().Contains(e.NewTextValue.ToLower()))
+                .ToList();
+            
+            // Filter the list of suggestions based on the search text
+            SuggestionList.ItemsSource = listOfSuggestions;
+
+            // Show or hide the suggestions list depending on whether there is a search term
+            SuggestionList.IsVisible = (listOfSuggestions.Count != 0) && !string.IsNullOrEmpty(e.NewTextValue);
+        }
+
+        private void SuggestionList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                SearchBar.Text = e.SelectedItem as string;
+                SuggestionList.IsVisible = false;
+            }
         }
 
         private void AddTopTriangles()
@@ -59,9 +89,9 @@ namespace DATX11_VT24_84
                 ReservationTitle.IsVisible = true;
                 
                 AddReservationCard(ongoingReservations[0], ReservationCard1Room, ReservationCard1Building,
-                    ReservationCard1Time, ReservationCard1TimeUntil);
+                    ReservationCard1Time, ReservationCard1TimeUntil, ReservationCard1);
                 AddReservationCard(ongoingReservations[1], ReservationCard2Room, ReservationCard2Building,
-                    ReservationCard2Time, ReservationCard2TimeUntil);
+                    ReservationCard2Time, ReservationCard2TimeUntil, ReservationCard2);
 
                 ReservationCard1.IsVisible = true;
                 ReservationCard2.IsVisible = true;
@@ -72,9 +102,9 @@ namespace DATX11_VT24_84
                 ReservationTitle.IsVisible = true;
                 
                 AddReservationCard(ongoingReservations[0], ReservationCard1Room, ReservationCard1Building,
-                    ReservationCard1Time, ReservationCard1TimeUntil);
+                    ReservationCard1Time, ReservationCard1TimeUntil, ReservationCard1);
                 AddReservationCard(upcomingReservationsThisDay[0], ReservationCard2Room, ReservationCard2Building,
-                    ReservationCard2Time, ReservationCard2TimeUntil);
+                    ReservationCard2Time, ReservationCard2TimeUntil, ReservationCard2);
                 
                 ReservationCard1.IsVisible = true;
                 ReservationCard2.IsVisible = true;
@@ -84,7 +114,7 @@ namespace DATX11_VT24_84
                 ReservationTitle.IsVisible = true;
                 
                 AddReservationCard(ongoingReservations[0], ReservationCard1Room, ReservationCard1Building,
-                    ReservationCard1Time, ReservationCard1TimeUntil);
+                    ReservationCard1Time, ReservationCard1TimeUntil, ReservationCard1);
                 
                 ReservationCard1.IsVisible = true;
             }
@@ -94,9 +124,9 @@ namespace DATX11_VT24_84
                 ReservationTitle.IsVisible = true;
                 
                 AddReservationCard(upcomingReservationsThisDay[0], ReservationCard1Room, ReservationCard1Building,
-                    ReservationCard1Time, ReservationCard1TimeUntil);
+                    ReservationCard1Time, ReservationCard1TimeUntil, ReservationCard1);
                 AddReservationCard(upcomingReservationsThisDay[1], ReservationCard2Room, ReservationCard2Building,
-                    ReservationCard2Time, ReservationCard2TimeUntil);
+                    ReservationCard2Time, ReservationCard2TimeUntil, ReservationCard2);
                 
                 ReservationCard1.IsVisible = true;
                 ReservationCard2.IsVisible = true;
@@ -106,14 +136,14 @@ namespace DATX11_VT24_84
                 ReservationTitle.IsVisible = true;
                 
                 AddReservationCard(upcomingReservationsThisDay[0], ReservationCard1Room, ReservationCard1Building,
-                    ReservationCard1Time, ReservationCard1TimeUntil);
+                    ReservationCard1Time, ReservationCard1TimeUntil, ReservationCard1);
                 
                 ReservationCard1.IsVisible = true;
             }
         }
-        // Making the reservation cards clickable 
+        
         private async void AddReservationCard(Reservation reservation, Label roomLabel, Label buildingLabel,
-            Label timeLabel, Label timeUntilLabel)
+            Label timeLabel, Label timeUntilLabel, Frame reservationCard)
         {
             roomLabel.Text = reservation.RoomName;
             buildingLabel.Text = (await BackEnd.GetRoomInfo(reservation.RoomName)).Building;
@@ -132,19 +162,14 @@ namespace DATX11_VT24_84
             {
                 timeUntilLabel.Text = "Pågående";
             }
+            
+            // Gör kortet clickable
             TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += async (s, e) =>
             {
-                await DisplayConfirmationBookingPage(reservation);
+                await Navigation.PushModalAsync(new Bokning(reservation), false);
             };
-            // wierd, only attached to ReservationCard1 but works on ReservationCard2 as well
-            ReservationCard1.GestureRecognizers.Add(tapGestureRecognizer);
-        }
-        
-        private async Task DisplayConfirmationBookingPage(Reservation booking)
-        {
-            // Navigate to bokningar page with the selected booking
-            await Navigation.PushModalAsync(new Bokning(booking), false);
+            reservationCard.GestureRecognizers.Add(tapGestureRecognizer);
         }
 
         private static DateTime GetRealTime()

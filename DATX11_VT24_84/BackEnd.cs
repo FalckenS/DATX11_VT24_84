@@ -252,7 +252,7 @@ namespace DATX11_VT24_84
             request.MaxResults = 2500;
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
     
-            Events events = await request.ExecuteAsync();
+                Events events = await request.ExecuteAsync();
             return events.Items.Select(e => new Reservation(
                 e.Summary,
                 e.Location,
@@ -267,7 +267,7 @@ namespace DATX11_VT24_84
         private static CalendarService GetCalendarService()
         {
             Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
-            const string filePath = "DATX11_VT24_84.disco-catcher-418315-d913f85a8669.json";
+            const string filePath = "DATX11_VT24_84.JsonFiles.disco-catcher-418315-d913f85a8669.json";
             Stream stream = assembly.GetManifestResourceStream(filePath);
             if (stream == null)
             {
@@ -302,8 +302,35 @@ namespace DATX11_VT24_84
                 throw new Exception("Ogiltigt rumsnamn!");
             }
         }
+        
+        // Add this method to the BackEnd class
+        public static async Task<List<Reservation>> GetReservationsForDate(DateTime date)
+        {
+            List<Reservation> allReservations = await GetAllReservations();
+            return allReservations.Where(reservation =>
+                reservation.StartTime.Date == date.Date || reservation.EndTime.Date == date.Date).ToList();
+        }
+        
+        public static async Task<List<(string RoomName, List<Reservation> Reservations)>> GetRoomsWithReservationsForDate(DateTime date)
+        {
+            List<Room> allRooms = await GetAllRooms();
+            List<Reservation> allReservations = await GetReservationsForDate(date);
 
-        internal static async Task<List<string>> GetAllRoomNames()
+            List<(string RoomName, List<Reservation> Reservations)> roomsWithReservations = new List<(string, List<Reservation>)>();
+
+            foreach (Room room in allRooms)
+            {
+                List<Reservation> reservationsForRoom = allReservations
+                    .Where(reservation => reservation.RoomName == room.Name)
+                    .ToList();
+        
+                roomsWithReservations.Add((room.Name, reservationsForRoom));
+            }
+
+            return roomsWithReservations;
+        }
+
+        public static async Task<List<string>> GetAllRoomNames()
         {
             List<Room> allRooms = await GetAllRooms();
             return (from room in allRooms select room.Name).ToList();
@@ -311,7 +338,7 @@ namespace DATX11_VT24_84
         
         private static async Task<List<Room>> GetAllRooms()
         {
-            const string filePath = "DATX11_VT24_84.rooms.json";
+            const string filePath = "DATX11_VT24_84.JsonFiles.rooms.json";
             Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
             Stream stream = assembly.GetManifestResourceStream(filePath);
             if (stream == null)

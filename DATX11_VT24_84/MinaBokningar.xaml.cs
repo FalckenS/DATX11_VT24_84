@@ -15,7 +15,6 @@ namespace DATX11_VT24_84
             InitializeComponent();
             AddTopTriangles();
             LoadBookings();
-            UIUtility.UpdateBackgroundColorMainPages(this);
            
             // Update page when coming back from another page, ex from back button
             MessagingCenter.Subscribe<Page, Bokning.UpdateMessage>(this, "UpdatePage", (sender, args) =>
