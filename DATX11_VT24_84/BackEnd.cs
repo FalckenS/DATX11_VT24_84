@@ -38,8 +38,8 @@ namespace DATX11_VT24_84
         FRÅN OSS TILL API: Två timmar + så vi måste TA BORT TVÅ innan vi skickar för det ska bli rätt!
         FRÅN API TILL OSS: Två timmar - så vi måste LÄGGA TILL TVÅ för det ska bli rätt!
         */
-        private const int HourDifference = 2;
         
+        private const int HourDifference = 0; // 0 for ios 2 for andriod
         private const string CalendarID = "datx11.vt24.84@gmail.com";
         private const string TimeZone = "Europe/Stockholm";
         

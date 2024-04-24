@@ -113,7 +113,7 @@ namespace DATX11_VT24_84
         {
             // Vintertid: +1
             // Sommartid: +2
-            return DateTime.Now.AddHours(2);
+            return DateTime.Now.AddHours(0);
         }
         
 
