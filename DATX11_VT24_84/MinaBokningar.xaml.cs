@@ -20,7 +20,6 @@ namespace DATX11_VT24_84
             MessagingCenter.Subscribe<Page, Bokning.UpdateMessage>(this, "UpdatePage", (sender, args) =>
             {
                 // Handle the message and update the page accordingly
-                Console.WriteLine("here123");
                 LoadBookings();
             });
         }
@@ -64,20 +63,20 @@ namespace DATX11_VT24_84
                 }
 
                 // Display the ongoing bookings
-                foreach (var group in groupedOngoingBookings)
+                foreach (KeyValuePair<DateTime, List<Reservation>> group in groupedOngoingBookings)
                 {
                     // Create a gray background frame to encapsulate the day's bookings
-                    Frame grayFrame = new Frame
+                    Frame blueFrame = new Frame
                     {
-                        BackgroundColor = Color.FromHex("#36474F"),
                         Margin = new Thickness(15, 10, 15, 10),
-                        CornerRadius = 20
+                        CornerRadius = 15,
+                        BackgroundColor = Color.LightBlue
                     };
-                    StackLayout.Children.Add(grayFrame);
+                    StackLayout.Children.Add(blueFrame);
 
                     // Create a new StackLayout for each day's content
                     StackLayout dayContentLayout = new StackLayout();
-                    grayFrame.Content = dayContentLayout;
+                    blueFrame.Content = dayContentLayout;
 
                     // Add the date label to the day's content layout for ongoing reservations
                     Label dateLabel = new Label
@@ -97,7 +96,7 @@ namespace DATX11_VT24_84
                         Frame reservationFrame = new Frame
                         {
                             BackgroundColor = Color.White,
-                            CornerRadius = 20,
+                            CornerRadius = 15,
                             Margin = new Thickness(0, 0, 0, 5),
                             
                         };
@@ -164,7 +163,7 @@ namespace DATX11_VT24_84
                     {
                         BackgroundColor = Color.FromHex("#36474F"),
                         Margin = new Thickness(15, 10, 15, 10),
-                        CornerRadius = 20
+                        CornerRadius = 15
                     };
                     StackLayout.Children.Add(grayFrame);
 
@@ -190,7 +189,7 @@ namespace DATX11_VT24_84
                         Frame reservationFrame = new Frame
                         {
                             BackgroundColor = Color.White,
-                            CornerRadius = 20
+                            CornerRadius = 15
                         };
 
                         // Create a grid to contain the time on the left and room name on the right with arrow
