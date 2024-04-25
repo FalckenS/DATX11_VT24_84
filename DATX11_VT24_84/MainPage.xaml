@@ -6,7 +6,8 @@
              x:Class="DATX11_VT24_84.MainPage"
              NavigationPage.HasNavigationBar="False">
 
-    <RelativeLayout x:Name="MainLayout" BackgroundColor="#232E34">
+    <RelativeLayout x:Name="MainLayout"
+                    BackgroundColor="#232E34">
         <Grid RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
               RelativeLayout.WidthConstraint ="{ConstraintExpression Type=RelativeToParent, Property=Width,  Factor=1}">
             
@@ -37,12 +38,11 @@
             <!-- Search box row: 1 -->
             <Frame Grid.Row="1" Grid.Column="1"
                    BackgroundColor="#AFAFAF"
-                   CornerRadius="20"
-                   Padding="-10, 10, 10, 0">
+                   CornerRadius="20" Padding="-10, 10, 10, 0">
                 <StackLayout Orientation="Vertical">
                     <SearchBar x:Name="SearchBar"
                                Placeholder="Hitta till grupprum"
-                               TextChanged="SearchBar_TextChanged"
+                               TextChanged="SearchBar_TextChanged" SearchButtonPressed="SearchBar_SearchButtonPressed"
                                BackgroundColor="#AFAFAF"/>
                 </StackLayout>
             </Frame>
@@ -51,9 +51,7 @@
             <Label Grid.Row="2" Grid.Column="1"
                    x:Name="ReservationTitle"
                    IsVisible="False"
-                   Text="Dagens bokningar:"
-                   FontSize="20"
-                   TextColor="White"
+                   Text="Dagens bokningar:" FontSize="20" TextColor="White"
                    Padding="5, 0, 0, 0"
                    HorizontalOptions="Start" VerticalOptions="Center"/>
             
@@ -72,7 +70,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                    <StackLayout Grid.Row="0" Grid.Column="0"
+                                 Orientation="Horizontal"
                                  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                         <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.clock.png'}"
                                HorizontalOptions="Start" VerticalOptions="Center"/>
@@ -118,7 +117,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                    <StackLayout Grid.Row="0" Grid.Column="0"
+                                 Orientation="Horizontal"
                                  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                         <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.clock.png'}"
                                HorizontalOptions="Start" VerticalOptions="Center"/>
@@ -174,16 +174,14 @@
             <!-- Row: 12 -->
             
             <!-- Search bar suggestions, row: 2 -->
-            <ListView Grid.Row="2" Grid.Column="1"
-                      Grid.RowSpan="8"
+            <ListView Grid.Row="2" Grid.Column="1" Grid.RowSpan="8"
                       x:Name="SuggestionList"
-                      BackgroundColor="LightGray"
                       IsVisible="False"
-                      ItemSelected="SuggestionList_ItemSelected">
+                      ItemSelected="SuggestionList_ItemSelected"
+                      BackgroundColor="LightGray">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding .}"
-                                  TextColor="Black"/>
+                        <TextCell Text="{Binding .}" TextColor="Black"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

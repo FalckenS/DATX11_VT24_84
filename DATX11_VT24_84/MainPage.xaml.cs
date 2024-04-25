@@ -30,20 +30,25 @@ namespace DATX11_VT24_84
             List<string> listOfSuggestions = _allRooms
                 .Where(s => s.ToLower().Contains(e.NewTextValue.ToLower()))
                 .ToList();
-            
-            // Filter the list of suggestions based on the search text
             SuggestionList.ItemsSource = listOfSuggestions;
-
-            // Show or hide the suggestions list depending on whether there is a search term
-            SuggestionList.IsVisible = (listOfSuggestions.Count != 0) && !string.IsNullOrEmpty(e.NewTextValue);
+            SuggestionList.IsVisible = listOfSuggestions.Count != 0 && !string.IsNullOrEmpty(e.NewTextValue);
+        }
+        
+        private async void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string searchTerm = SearchBar.Text;
+            if (_allRooms.Contains(searchTerm))
+            {
+                await Navigation.PushModalAsync(new HittaTillGrupprum(searchTerm), true);
+            }
         }
 
-        private void SuggestionList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void SuggestionList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
-                SearchBar.Text = e.SelectedItem as string;
                 SuggestionList.IsVisible = false;
+                await Navigation.PushModalAsync(new HittaTillGrupprum(e.SelectedItem as string), true);
             }
         }
 
@@ -58,17 +63,17 @@ namespace DATX11_VT24_84
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new LedigaJustNu(), false);
+            await Navigation.PushModalAsync(new LedigaJustNu(), true);
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new Boka(), false);
+            await Navigation.PushModalAsync(new Boka(), true);
         }
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new MinaBokningar(), false);
+            await Navigation.PushModalAsync(new MinaBokningar(), true);
         }
         
         private async void UpdateReservationCards()
@@ -167,7 +172,7 @@ namespace DATX11_VT24_84
             TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += async (s, e) =>
             {
-                await Navigation.PushModalAsync(new Bokning(reservation), false);
+                await Navigation.PushModalAsync(new Bokning(reservation), true);
             };
             reservationCard.GestureRecognizers.Add(tapGestureRecognizer);
         }
