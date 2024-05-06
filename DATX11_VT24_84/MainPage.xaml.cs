@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -14,7 +15,7 @@ namespace DATX11_VT24_84
         public MainPage()
         {   
             InitializeComponent();
-            AddTopTriangles();
+            //AddTopTriangles();
             UpdateReservationCards();
             GetAllRoomSuggestions();
         }
@@ -52,6 +53,7 @@ namespace DATX11_VT24_84
             }
         }
 
+        /*
         private void AddTopTriangles()
         {
             // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
@@ -60,6 +62,7 @@ namespace DATX11_VT24_84
                 UIUtility.AddTopTriangles(MainLayout, Width, Height);
             };
         }
+        */
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
@@ -182,6 +185,11 @@ namespace DATX11_VT24_84
             // Vintertid: +1
             // Sommartid: +2
             return DateTime.Now.AddHours(BackEnd.HourDifference);
+        }
+        
+        private async void OnLoginButtonClicked()
+        {
+            return;
         }
     }
 }

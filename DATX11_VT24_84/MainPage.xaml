@@ -6,14 +6,48 @@
              x:Class="DATX11_VT24_84.MainPage"
              NavigationPage.HasNavigationBar="False">
 
-    <RelativeLayout x:Name="MainLayout"
-                    BackgroundColor="#232E34">
+    <RelativeLayout x:Name="MainLayout" BackgroundColor="#232E34">
+        <!-- Width: 412 -->
+        <Polygon Fill="#F9686D">
+            <Polygon.Points>
+                <Point X="0" Y="0"/>
+                
+                <Point X="500" Y="0"/>
+                <Point X="500" Y="80"/>
+            </Polygon.Points>
+        </Polygon>
+        
+        <Polygon Fill="#853691">
+            <Polygon.Points>
+                <Point X="0" Y="0"/>
+                
+                <Point X="0" Y="100"/>
+                <Point X="150" Y="0"/>
+            </Polygon.Points>
+        </Polygon>
+        
+        <Polygon Fill="#27AD72">
+            <Polygon.Points>
+                <Point X="1000" Y="-1000"/>
+                
+                <Point X="250" Y="0"/>
+                <Point X="500" Y="200"/>
+            </Polygon.Points>
+        </Polygon>
+        
+        <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.login_icon.png'}"
+                     BackgroundColor="Transparent"
+                     WidthRequest="45"
+                     HeightRequest="45"
+                     TranslationX="352"
+                     TranslationY="19"/>
+        
         <Grid RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
               RelativeLayout.WidthConstraint ="{ConstraintExpression Type=RelativeToParent, Property=Width,  Factor=1}">
             
             <!-- Grid definitions -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>     <!-- 0  -->
+                <RowDefinition Height="1.5*"/>  <!-- 0  -->
                 <RowDefinition Height="*"/>     <!-- 1  -->
                 <RowDefinition Height="0.75*"/> <!-- 2  -->
                 <RowDefinition Height="1.5*"/>  <!-- 3  -->

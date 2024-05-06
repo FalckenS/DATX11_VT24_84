@@ -8,11 +8,6 @@ namespace DATX11_VT24_84
 {
     public static class UIUtility
     {
-        public static void UpdateBackgroundColorOtherPages(ContentPage page)
-        {
-            page.BackgroundColor = Color.FromHex("#36474F");
-        }
-        
         public static void AddTopTriangles(RelativeLayout layout, double width, double height)
         {
             Polygon middleTriangle = CreateMiddleTriangle(width, height);
@@ -31,9 +26,9 @@ namespace DATX11_VT24_84
                 Fill = new SolidColorBrush(Color.FromHex("853691")),
                 Points = new PointCollection
                 {
-                    new Point(0, 0),
+                    new Point(0.0*width, 0),
                     new Point(0.3*width, 0),
-                    new Point(0, 0.06*height)
+                    new Point(0.0*width, 0.09*height)
                 }
             };
         }
@@ -45,9 +40,9 @@ namespace DATX11_VT24_84
                 Fill = new SolidColorBrush(Color.FromHex("F9686D")),
                 Points = new PointCollection
                 {
-                    new Point(0, 0),
-                    new Point(width, 0),
-                    new Point(width, 0.04*height)
+                    new Point(0*width, 0),
+                    new Point(1*width, 0),
+                    new Point(1*width, 0.07*height)
                 }
             };
         }
@@ -59,9 +54,9 @@ namespace DATX11_VT24_84
                 Fill = new SolidColorBrush(Color.FromHex("27AD72")),
                 Points = new PointCollection
                 {
-                    new Point(0.6*width, 0.00*height),
-                    new Point(1.0*width, 0.00*height),
-                    new Point(1.0*width, 0.08*height)
+                    new Point(0.6*width, 0),
+                    new Point(1.0*width, 0),
+                    new Point(1.0*width, 0.12*height)
                 }
             };
         }

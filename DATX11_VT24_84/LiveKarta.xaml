@@ -6,7 +6,7 @@
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="DATX11_VT24_84.LiveKarta">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="#36474F">
             
             <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.grey_left_arrow.png'}" 
                          Clicked="OnBackButtonClicked" 

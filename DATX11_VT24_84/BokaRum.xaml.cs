@@ -19,8 +19,7 @@ namespace DATX11_VT24_84
             _roomName = roomName;
             _bookingDate = bookingDate;
             FetchAndDisplayBookings();
-
-            UIUtility.UpdateBackgroundColorOtherPages(this);
+            
             RoomNameLabel.Text = roomName; 
             BuildingLabel.Text = building; 
             FloorLabel.Text = $"Våning  {floor}";

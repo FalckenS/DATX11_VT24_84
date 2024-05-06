@@ -13,7 +13,6 @@ namespace DATX11_VT24_84
         public MinaBokningar()
         {
             InitializeComponent();
-            AddTopTriangles();
             LoadBookings();
            
             // Update page when coming back from another page, ex from back button
@@ -22,15 +21,6 @@ namespace DATX11_VT24_84
                 // Handle the message and update the page accordingly
                 LoadBookings();
             });
-        }
-
-        private void AddTopTriangles()
-        {
-            // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
-            SizeChanged += (sender, e) =>
-            {
-                UIUtility.AddTopTriangles(MainLayout, Width, Height);
-            };
         }
 
         private async void OnBackButtonClicked(object sender, EventArgs e)
