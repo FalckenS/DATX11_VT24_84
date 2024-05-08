@@ -166,6 +166,35 @@ namespace DATX11_VT24_84
             }
         }
         
+        // ------------------------------------------ Update Reservation Info -----------------------------------------
+        
+        //great for updating the values
+        public static async Task<Reservation> GetReservationById(string eventId)
+        {
+            CalendarService calendarService = GetCalendarService();
+            try
+            {
+                EventsResource.GetRequest request = calendarService.Events.Get(CalendarID, eventId);
+                Event calendarEvent = await request.ExecuteAsync();
+
+                string userID = calendarEvent.Summary;
+                string roomName = calendarEvent.Location;
+                DateTime startTime = calendarEvent.Start.DateTime.Value.AddHours(HourDifference);
+                DateTime endTime = calendarEvent.End.DateTime.Value.AddHours(HourDifference);
+                string id = calendarEvent.Id;
+                bool confirmed = bool.Parse(calendarEvent.Description);
+
+                return new Reservation(userID, roomName, startTime, endTime, id, confirmed);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Något gick fel när evenemanget hämtades!", e);
+            }
+        }
+
+
+
+
         // ------------------------------------------ Available rooms methods ------------------------------------------
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
