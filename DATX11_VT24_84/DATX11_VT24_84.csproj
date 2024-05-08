@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Images\karta.svg" />
       <EmbeddedResource Include="JsonFiles\rooms.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
@@ -48,7 +49,10 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </EmbeddedResource>
       <None Remove="Images\karta.svg" />
-      <EmbeddedResource Include="Images\karta.svg" />
+      <None Remove="Images\login_icon.png" />
+      <EmbeddedResource Include="Images\login_icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>

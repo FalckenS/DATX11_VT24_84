@@ -7,12 +7,46 @@
              NavigationPage.HasNavigationBar="False">
 
     <RelativeLayout x:Name="MainLayout" BackgroundColor="#232E34">
+        <!-- Width: 412 -->
+        <Polygon Fill="#F9686D">
+            <Polygon.Points>
+                <Point X="0" Y="0"/>
+                <Point X="500" Y="0"/>
+                <Point X="500" Y="80"/>
+            </Polygon.Points>
+        </Polygon>
+        
+        <Polygon Fill="#853691">
+            <Polygon.Points>
+                <Point X="0" Y="0"/>
+                
+                <Point X="0" Y="100"/>
+                <Point X="150" Y="0"/>
+            </Polygon.Points>
+        </Polygon>
+        
+        <Polygon Fill="#27AD72">
+            <Polygon.Points>
+                <Point X="1000" Y="-1000"/>
+                
+                <Point X="250" Y="0"/>
+                <Point X="500" Y="200"/>
+            </Polygon.Points>
+        </Polygon>
+        
+        <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.login_icon.png'}"
+                     BackgroundColor="Transparent"
+                     WidthRequest="45"
+                     HeightRequest="45"
+                     TranslationX="352"
+                     TranslationY="19"/>
+        
         <Grid RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
               RelativeLayout.WidthConstraint ="{ConstraintExpression Type=RelativeToParent, Property=Width,  Factor=1}">
             
             <!-- Grid definitions -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>     <!-- 0  -->
+                <RowDefinition Height="1.5*"/>  <!-- 0  -->
                 <RowDefinition Height="*"/>     <!-- 1  -->
                 <RowDefinition Height="0.75*"/> <!-- 2  -->
                 <RowDefinition Height="1.5*"/>  <!-- 3  -->
@@ -41,7 +75,8 @@
                 <StackLayout Orientation="Vertical">
                     <SearchBar x:Name="SearchBar"
                                Placeholder="Hitta till grupprum"
-                               TextChanged="SearchBar_TextChanged"
+                               TextChanged="SearchBar_TextChanged" 
+                               SearchButtonPressed="SearchBar_SearchButtonPressed"
                                BackgroundColor="white"/>
                 </StackLayout>
             </Frame>
@@ -54,7 +89,6 @@
                    FontAttributes="Bold"
                    FontSize="20"
                    TextColor="White"
-                   
                    Padding="5, 0, 0, 0"
                    HorizontalOptions="Start" VerticalOptions="Center"/>
             
@@ -74,7 +108,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                    <StackLayout Grid.Row="0" Grid.Column="0"
+                                 Orientation="Horizontal"
                                  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                         <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.clock.png'}"
                                HorizontalOptions="Start" VerticalOptions="Center"/>
@@ -129,7 +164,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                    <StackLayout Grid.Row="0" Grid.Column="0"
+                                 Orientation="Horizontal"
                                  HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                         <Image Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.clock.png'}"
                                HorizontalOptions="Start" VerticalOptions="Center"/>
@@ -185,16 +221,14 @@
             <!-- Row: 12 -->
             
             <!-- Search bar suggestions, row: 2 -->
-            <ListView Grid.Row="2" Grid.Column="1"
-                      Grid.RowSpan="8"
+            <ListView Grid.Row="2" Grid.Column="1" Grid.RowSpan="8"
                       x:Name="SuggestionList"
-                      BackgroundColor="LightGray"
                       IsVisible="False"
-                      ItemSelected="SuggestionList_ItemSelected">
+                      ItemSelected="SuggestionList_ItemSelected"
+                      BackgroundColor="LightGray">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding .}"
-                                  TextColor="Black"/>
+                        <TextCell Text="{Binding .}" TextColor="Black"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

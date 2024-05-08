@@ -26,7 +26,6 @@ namespace DATX11_VT24_84
         {
             InitializeComponent();
             toggleStatusLabel.Text = toggleSwitch.IsToggled ? "Våning: 0" : "Våning: 1";
-            UIUtility.UpdateBackgroundColorOtherPages(this);
             LoadAvailableRoomIdsAsync();
             ShowCurrentDateTime();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -14,7 +15,7 @@ namespace DATX11_VT24_84
         public MainPage()
         {   
             InitializeComponent();
-            AddTopTriangles();
+            //AddTopTriangles();
             UpdateReservationCards();
             GetAllRoomSuggestions();
         }
@@ -30,23 +31,29 @@ namespace DATX11_VT24_84
             List<string> listOfSuggestions = _allRooms
                 .Where(s => s.ToLower().Contains(e.NewTextValue.ToLower()))
                 .ToList();
-            
-            // Filter the list of suggestions based on the search text
             SuggestionList.ItemsSource = listOfSuggestions;
-
-            // Show or hide the suggestions list depending on whether there is a search term
-            SuggestionList.IsVisible = (listOfSuggestions.Count != 0) && !string.IsNullOrEmpty(e.NewTextValue);
+            SuggestionList.IsVisible = listOfSuggestions.Count != 0 && !string.IsNullOrEmpty(e.NewTextValue);
         }
-
-        private void SuggestionList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        
+        private async void SearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            if (e.SelectedItem != null)
+            string searchTerm = SearchBar.Text;
+            if (_allRooms.Contains(searchTerm))
             {
-                SearchBar.Text = e.SelectedItem as string;
-                SuggestionList.IsVisible = false;
+                await Navigation.PushModalAsync(new HittaTillGrupprum(searchTerm), true);
             }
         }
 
+        private async void SuggestionList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                SuggestionList.IsVisible = false;
+                await Navigation.PushModalAsync(new HittaTillGrupprum(e.SelectedItem as string), true);
+            }
+        }
+
+        /*
         private void AddTopTriangles()
         {
             // Av okänd anledning verkar SizeChanged vara det enda sättet att få korrekt Width och Height
@@ -55,15 +62,16 @@ namespace DATX11_VT24_84
                 UIUtility.AddTopTriangles(MainLayout, Width, Height);
             };
         }
+        */
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new LedigaJustNu(), false);
+            await Navigation.PushModalAsync(new LedigaJustNu(), true);
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new Boka(), false);
+            await Navigation.PushModalAsync(new Boka(), true);
         }
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
@@ -190,7 +198,10 @@ namespace DATX11_VT24_84
             // Sommartid: +2
             return DateTime.Now.AddHours(BackEnd.HourDifference);
         }
-
-       
+        
+        private async void OnLoginButtonClicked()
+        {
+            return;
+        }
     }
 }
