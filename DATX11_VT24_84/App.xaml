@@ -16,10 +16,10 @@
             
             <Style x:Key="ReservationCard" TargetType="Frame">
                 <Setter Property="IsVisible" Value="False"/>
-                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="CornerRadius" Value="15"/>
                 <Setter Property="Padding" Value="9"/>
                 <Setter Property="HasShadow" Value="true"/>
-                <Setter Property="BackgroundColor" Value="#D9D9D9"/>
+                <Setter Property="BackgroundColor" Value="white"/>
             </Style>
             <Style x:Key="ReservationCardTimeUntil" TargetType="Label">
                 <Setter Property="Text" Value="-"/>

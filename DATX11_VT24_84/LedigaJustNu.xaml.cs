@@ -45,7 +45,7 @@ namespace DATX11_VT24_84
             {
                 IsRunning = true,
                 IsVisible = true,
-                Color = Color.White,
+                Color = Color.Teal,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
