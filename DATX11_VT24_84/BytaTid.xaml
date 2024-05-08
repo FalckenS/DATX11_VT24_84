@@ -1,0 +1,249 @@
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:datx11Vt2484="clr-namespace:DATX11_VT24_84;assembly=DATX11_VT24_84"
+             x:Class="DATX11_VT24_84.BytaTid">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <!-- Label for "Boka grupprum" -->
+            <Label Text="Ändra tid för bokning"
+                   TextColor="White"
+                   FontSize="15"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Margin="10,10,0,0"/>
+            <ImageButton Source="{datx11Vt2484:EmbeddedImage ResourceId='DATX11_VT24_84.Images.white_x.png'}" 
+                         Clicked="OnBackButtonClicked" 
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="End" 
+                         VerticalOptions="Center"
+                         Aspect="AspectFit"
+                         WidthRequest="30"
+                         HeightRequest="30"
+                         Margin="0,-25,30,0"/>
+            <Label x:Name="CurrentDayLabel"
+                   TextColor="White"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Margin="10,5,0,0"/>
+            <!-- Frame to display the room name and building -->
+            <Frame CornerRadius="15"
+                   Padding="20"
+                   Margin="0,30,0,0" 
+                   BackgroundColor="#80232E34"
+                   WidthRequest="300"
+                   HeightRequest="80">
+                <StackLayout>
+                    <Label x:Name="RoomNameLabel"
+                           TextColor="White"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"
+                           VerticalTextAlignment="Start"
+                           Margin="0,-15,0,0" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" /> <!-- BuildingLabel takes up the left side -->
+                            <ColumnDefinition Width="Auto" /> <!-- FloorLabel takes up the right side -->
+                        </Grid.ColumnDefinitions>
+
+                        <Label x:Name="BuildingLabel"
+                               TextColor="White"
+                               FontSize="15"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               VerticalTextAlignment="Start"
+                               Margin="0,5,0,0" />
+
+                        <Label x:Name="FloorLabel"
+                               TextColor="White"
+                               FontSize="15"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               VerticalTextAlignment="Start"
+                               Margin="10,5,0,0"
+                               Grid.Column="1" /> <!-- Position FloorLabel in the second column -->
+                    </Grid>
+                    <Label x:Name="CapacityLabel"
+                           TextColor="White"
+                           FontSize="15"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"
+                           VerticalTextAlignment="Start"
+                           Margin="0,10,0,0" />
+
+                </StackLayout>
+            </Frame>
+<StackLayout Orientation="Horizontal" Margin="10,80,0,0">
+    <!-- Start time labels -->
+    <StackLayout VerticalOptions="EndAndExpand">
+        <Label Text="Starttid" TextColor="White" FontSize="16" Margin="0,-50,0,5" />
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="StartHourPicker" Title="Timme" SelectedIndexChanged="OnStartHourSelectedIndexChanged" FontSize="15">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>01</x:String>
+                            <x:String>02</x:String>
+                            <x:String>03</x:String>
+                            <x:String>04</x:String>
+                            <x:String>05</x:String>
+                            <x:String>06</x:String>
+                            <x:String>07</x:String>
+                            <x:String>08</x:String>
+                            <x:String>09</x:String>
+                            <x:String>10</x:String>
+                            <x:String>11</x:String>
+                            <x:String>12</x:String>
+                            <x:String>13</x:String>
+                            <x:String>14</x:String>
+                            <x:String>15</x:String>
+                            <x:String>16</x:String>
+                            <x:String>17</x:String>
+                            <x:String>18</x:String>
+                            <x:String>19</x:String>
+                            <x:String>20</x:String>
+                            <x:String>21</x:String>
+                            <x:String>22</x:String>
+                            <x:String>23</x:String>
+                            <x:String>24</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
+        </Frame>
+    </StackLayout>
+    <StackLayout VerticalOptions="EndAndExpand">
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="StartMinutePicker" Title="Minut" SelectedIndexChanged="OnStartMinuteSelectedIndexChanged" FontSize="15" HorizontalOptions="Center">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>05</x:String>
+                            <x:String>10</x:String>
+                            <x:String>15</x:String>
+                            <x:String>20</x:String>
+                            <x:String>25</x:String>
+                            <x:String>30</x:String>
+                            <x:String>35</x:String>
+                            <x:String>40</x:String>
+                            <x:String>45</x:String>
+                            <x:String>50</x:String>
+                            <x:String>55</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
+        </Frame>
+    </StackLayout>
+    
+    <!-- End time labels -->
+    <StackLayout VerticalOptions="EndAndExpand" Margin="90,0,0,0">
+        <Label Text="Sluttid" TextColor="White" FontSize="16" Margin="0,-50,0,5" />
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="EndHourPicker" Title="Timme" SelectedIndexChanged="OnEndHourSelectedIndexChanged" FontSize="15">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>01</x:String>
+                            <x:String>02</x:String>
+                            <x:String>03</x:String>
+                            <x:String>04</x:String>
+                            <x:String>05</x:String>
+                            <x:String>06</x:String>
+                            <x:String>07</x:String>
+                            <x:String>08</x:String>
+                            <x:String>09</x:String>
+                            <x:String>10</x:String>
+                            <x:String>11</x:String>
+                            <x:String>12</x:String>
+                            <x:String>13</x:String>
+                            <x:String>14</x:String>
+                            <x:String>15</x:String>
+                            <x:String>16</x:String>
+                            <x:String>17</x:String>
+                            <x:String>18</x:String>
+                            <x:String>19</x:String>
+                            <x:String>20</x:String>
+                            <x:String>21</x:String>
+                            <x:String>22</x:String>
+                            <x:String>23</x:String>
+                            <x:String>24</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
+        </Frame>
+    </StackLayout>
+    <StackLayout VerticalOptions="EndAndExpand">
+        <Frame CornerRadius="15" BackgroundColor="White" Padding="6" Margin="0">
+            <Grid>
+                <Picker x:Name="EndMinutePicker" Title="Minut" SelectedIndexChanged="OnEndMinuteSelectedIndexChanged" FontSize="15" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>00</x:String>
+                            <x:String>05</x:String>
+                            <x:String>10</x:String>
+                            <x:String>15</x:String>
+                            <x:String>20</x:String>
+                            <x:String>25</x:String>
+                            <x:String>30</x:String>
+                            <x:String>35</x:String>
+                            <x:String>40</x:String>
+                            <x:String>45</x:String>
+                            <x:String>50</x:String>
+                            <x:String>55</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <!-- Chevron arrow pointing downwards -->
+                <Polygon Points="0,0 5,10 10,0" Stroke="Black" Fill="Transparent" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0" />
+            </Grid>
+        </Frame>
+    </StackLayout>
+</StackLayout>
+
+
+
+            <Frame CornerRadius="15"
+                   Padding="20"
+                   Margin="0,20,0,0" 
+                   BackgroundColor="#80232E34"
+                   WidthRequest="300"
+                   HeightRequest="100">
+                <ScrollView>
+                    <Label x:Name="BookingInfoLabel"
+                           TextColor="White"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           Margin="10,10,10,0"/>
+                </ScrollView>
+            </Frame>
+
+            <!-- Button for booking -->
+            <Button Text="Ändra tid" 
+                    BackgroundColor="#00ACFF"
+                    TextColor="White"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    CornerRadius="15"
+                    Margin="20,150,20,0"
+                    Padding="20,20" 
+                    Clicked="OnBookRoomClicked" /> <!-- Add Clicked event handler -->
+        </StackLayout>
+        
+        
+    </ContentPage.Content>
+</ContentPage>
