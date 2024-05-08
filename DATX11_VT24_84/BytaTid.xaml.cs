@@ -31,8 +31,7 @@ namespace DATX11_VT24_84
             string capacity = roomInfo.Result.Capacity;
             
             FetchAndDisplayBookings();
-
-            UIUtility.UpdateBackgroundColorOtherPages(this);
+            
             RoomNameLabel.Text = _roomName; 
             BuildingLabel.Text = building; 
             FloorLabel.Text = $"Våning  {floor}";
