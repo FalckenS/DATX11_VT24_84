@@ -7,15 +7,17 @@ using Xamarin.Forms;
 
 namespace DATX11_VT24_84
 {
-    public partial class Bokning
+    public partial class Bokning : IRefreshable
     {
-        private readonly Reservation _booking;
+        private Reservation _booking;
+        private readonly IRefreshable _page;
         private const string UserID = "1";
         private CancellationTokenSource _cancellationTokenSource;
 
-        public Bokning(Reservation booking)
+        public Bokning(Reservation booking , IRefreshable page)
         {
             _booking = booking;
+            _page = page;
             InitializeComponent();
             LoadTexts(booking);
             Task.Run(() => AnimatePulsatingEffect(ConfirmButtonLabel, _cancellationTokenSource.Token));
@@ -128,9 +130,7 @@ namespace DATX11_VT24_84
         }
         private async void PreviousPage()
         {
-            UpdateMessage message = new UpdateMessage { Message = "Updated information" };
-            MessagingCenter.Send(this, "UpdatePage", message);
-
+            _page.RefreshData();
             await Navigation.PopModalAsync();
         }
 
@@ -146,9 +146,9 @@ namespace DATX11_VT24_84
             // If the user clicks "No", no action needs to be taken.
         }
 
-        private void OnRescheduleBookingClicked(object sender, EventArgs e)
+        private async void OnRescheduleBookingClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            await Navigation.PushModalAsync(new BytaTid(_booking, this),  false); 
         }
 
         private async void OnMapClicked(object sender, EventArgs e)
@@ -165,6 +165,13 @@ namespace DATX11_VT24_84
             Task.Run(() => AnimatePulsatingEffect(ConfirmButtonLabel, _cancellationTokenSource.Token));
             await BackEnd.ConfirmReservation(_booking.ID);
             await LoadConfirmBookingButton(_booking); // Update button state
+        }
+
+        public async void RefreshData()
+        {
+            _booking = await BackEnd.GetReservationById(_booking.ID);
+            LoadTexts(_booking);
+            await LoadConfirmBookingButton(_booking);
         }
     }
 }

@@ -6,4 +6,8 @@ namespace DATX11_VT24_84
     {
         void AddClickedMethod(ImageButton backButton);
     }
+    public interface IRefreshable
+    {
+        void RefreshData();
+    }
 }

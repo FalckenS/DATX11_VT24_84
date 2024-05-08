@@ -5,7 +5,7 @@
              x:Class="DATX11_VT24_84.MinaBokningar">
     <RelativeLayout x:Name="MainLayout" BackgroundColor="#232E34">
         <ScrollView>
-            <StackLayout x:Name="StackLayout">
+            <StackLayout>
                 <Grid Margin="0,50,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -29,7 +29,10 @@
                            Margin="0,0,60,0" 
                            Grid.Column="1"/>
                 </Grid>
-                <!-- This stack layout will be populated with booking information -->
+                <StackLayout x:Name="StackLayout">
+                    <!-- This stack layout will be populated with booking information -->
+                </StackLayout>
+                
             </StackLayout>
         </ScrollView>
 
@@ -37,7 +40,7 @@
         <ActivityIndicator x:Name="ActivityIndicator"
                            IsRunning="False"
                            IsVisible="False"
-                           Color="Gray"
+                           Color="teal"
                            HorizontalOptions="CenterAndExpand"
                            VerticalOptions="CenterAndExpand"
                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-20}"

@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace DATX11_VT24_84
 {
-    public partial class MinaBokningar
+    public partial class MinaBokningar : IRefreshable
     {
+        private readonly IRefreshable _page;
         private const string UserID = "1";
 
-        public MinaBokningar()
+        public MinaBokningar(IRefreshable page)
         {
+            _page = page;
             InitializeComponent();
             AddTopTriangles();
             LoadBookings();
            
             // Update page when coming back from another page, ex from back button
-            MessagingCenter.Subscribe<Page, Bokning.UpdateMessage>(this, "UpdatePage", (sender, args) =>
-            {
-                // Handle the message and update the page accordingly
-                LoadBookings();
-            });
+            
         }
 
         private void AddTopTriangles()
@@ -35,6 +33,7 @@ namespace DATX11_VT24_84
 
         private async void OnBackButtonClicked(object sender, EventArgs e)
         {
+            _page.RefreshData();
             await Navigation.PopModalAsync(false);
         }
 
@@ -42,6 +41,7 @@ namespace DATX11_VT24_84
         {
             try
             {
+                StackLayout.Children.Clear();
                 // Show activity indicator while loading
                 ActivityIndicator.IsVisible = true;
                 ActivityIndicator.IsRunning = true;
@@ -70,7 +70,7 @@ namespace DATX11_VT24_84
                     {
                         Margin = new Thickness(15, 10, 15, 10),
                         CornerRadius = 15,
-                        BackgroundColor = Color.LightBlue
+                        BackgroundColor = Color.Teal
                     };
                     StackLayout.Children.Add(blueFrame);
 
@@ -248,7 +248,12 @@ namespace DATX11_VT24_84
         private async Task DisplayConfirmationBookingPage(Reservation booking)
         {
             // Navigate to bokningar page with the selected booking
-            await Navigation.PushModalAsync(new Bokning(booking), false);
+            await Navigation.PushModalAsync(new Bokning(booking, this), false);
+        }
+
+        public void RefreshData()
+        {
+            LoadBookings();
         }
     }
 }

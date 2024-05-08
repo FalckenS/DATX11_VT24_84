@@ -36,14 +36,13 @@
             
             <!-- Search box row: 1 -->
             <Frame Grid.Row="1" Grid.Column="1"
-                   BackgroundColor="#AFAFAF"
-                   CornerRadius="20"
-                   Padding="-10, 10, 10, 0">
+                   BackgroundColor="white" CornerRadius="15"
+                   Padding="-10, 10, 10, 0"><!--#AFAFAF -->
                 <StackLayout Orientation="Vertical">
                     <SearchBar x:Name="SearchBar"
                                Placeholder="Hitta till grupprum"
                                TextChanged="SearchBar_TextChanged"
-                               BackgroundColor="#AFAFAF"/>
+                               BackgroundColor="white"/>
                 </StackLayout>
             </Frame>
             
@@ -51,13 +50,16 @@
             <Label Grid.Row="2" Grid.Column="1"
                    x:Name="ReservationTitle"
                    IsVisible="False"
-                   Text="Dagens bokningar:"
+                   Text="Dagens bokningar" 
+                   FontAttributes="Bold"
                    FontSize="20"
                    TextColor="White"
+                   
                    Padding="5, 0, 0, 0"
                    HorizontalOptions="Start" VerticalOptions="Center"/>
             
             <!-- Bokning 1, row: 3 -->
+            
             <Frame Grid.Row="3" Grid.Column="1"
                    x:Name="ReservationCard1"
                    Style="{StaticResource ReservationCard}">
@@ -102,8 +104,17 @@
             </Frame>
             
             <!-- Row: 4 -->
+            <ActivityIndicator Grid.Row="3" Grid.Column="1" x:Name="ActivityIndicator"
+                               IsRunning="False"
+                               IsVisible="False"
+                               Color="Teal"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-20}"
+                               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-20}" />
             
             <!-- Bokning 2, row: 5 -->
+            
             <Frame Grid.Row="5" Grid.Column="1"
                    x:Name="ReservationCard2"
                    Style="{StaticResource ReservationCard}">

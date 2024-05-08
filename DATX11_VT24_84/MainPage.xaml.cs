@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace DATX11_VT24_84
 {
-    public partial class MainPage
+    public partial class MainPage : IRefreshable
     {
         private const string UserID = "1";
         private List<string> _allRooms;
@@ -68,11 +68,14 @@ namespace DATX11_VT24_84
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new MinaBokningar(), false);
+            await Navigation.PushModalAsync(new MinaBokningar(this), false);
         }
         
         private async void UpdateReservationCards()
         {
+            ActivityIndicator.IsVisible = true;
+            ActivityIndicator.IsRunning = true;
+            
             ReservationTitle.IsVisible = false;
             ReservationCard1.IsVisible = false;
             ReservationCard2.IsVisible = false;
@@ -140,6 +143,8 @@ namespace DATX11_VT24_84
                 
                 ReservationCard1.IsVisible = true;
             }
+            ActivityIndicator.IsVisible = false;
+            ActivityIndicator.IsRunning = false;
         }
         
         private async void AddReservationCard(Reservation reservation, Label roomLabel, Label buildingLabel,
@@ -167,9 +172,16 @@ namespace DATX11_VT24_84
             TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += async (s, e) =>
             {
-                await Navigation.PushModalAsync(new Bokning(reservation), false);
+                await Navigation.PushModalAsync(new Bokning(reservation, this), false);
             };
             reservationCard.GestureRecognizers.Add(tapGestureRecognizer);
+        }
+        
+        public void RefreshData()
+        {
+            MainLayout.Children.Remove(ReservationCard1);
+            MainLayout.Children.Remove(ReservationCard2);
+            UpdateReservationCards();
         }
 
         private static DateTime GetRealTime()
@@ -178,5 +190,7 @@ namespace DATX11_VT24_84
             // Sommartid: +2
             return DateTime.Now.AddHours(BackEnd.HourDifference);
         }
+
+       
     }
 }
