@@ -10,9 +10,11 @@ namespace DATX11_VT24_84
     public partial class Boka : ContentPage
     {
         private DateTime _currentDate;
+        private readonly IRefreshable _page;
 
-        public Boka()
+        public Boka(IRefreshable page)
         {
+            _page = page;
             InitializeComponent();
             _currentDate = DateTime.Today;
             UpdateDateLabel();
@@ -28,7 +30,7 @@ namespace DATX11_VT24_84
     {
         IsRunning = true,
         IsVisible = true,
-        Color = Color.White,
+        Color = Color.Teal,
         HorizontalOptions = LayoutOptions.CenterAndExpand,
         VerticalOptions = LayoutOptions.CenterAndExpand
     };
@@ -241,6 +243,7 @@ namespace DATX11_VT24_84
 
         private async void OnBackButtonClicked(object sender, EventArgs e)
         {
+            _page.RefreshData();
             await Navigation.PopModalAsync(false);
         }
     }

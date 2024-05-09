@@ -8,8 +8,11 @@ namespace DATX11_VT24_84
 {
     public partial class LedigaJustNu : IHasBackButton
     {
-        public LedigaJustNu()
+        private readonly IRefreshable _page;
+
+        public LedigaJustNu(IRefreshable page)
         {
+            _page = page;
             InitializeComponent();
             AddGrids();
             ShowCurrentDateTime();
@@ -21,6 +24,7 @@ namespace DATX11_VT24_84
 
         private async void OnBackButtonClicked(object sender, EventArgs e)
         {
+            _page.RefreshData();
             await Navigation.PopModalAsync(false);
         }
 
@@ -142,7 +146,5 @@ namespace DATX11_VT24_84
                 StackLayoutFrames.Children.Add(frame);
             }
         }
-
-       
     }
 }

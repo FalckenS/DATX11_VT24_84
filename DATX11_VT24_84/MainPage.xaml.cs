@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DATX11_VT24_84
@@ -66,12 +64,12 @@ namespace DATX11_VT24_84
         
         private async void OnLedigaJustNuButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new LedigaJustNu(), true);
+            await Navigation.PushModalAsync(new LedigaJustNu(this), true);
         }
         
         private async void OnBokaButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new Boka(), true);
+            await Navigation.PushModalAsync(new Boka(this), true);
         }
         
         private async void OnMinaBokningarButtonClicked(object sender, EventArgs e)
