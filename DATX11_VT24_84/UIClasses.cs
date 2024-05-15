@@ -14,21 +14,24 @@ namespace DATX11_VT24_84
             Polygon leftTriangle = CreateLeftTriangle(width, height);
             Polygon rightTriangle = CreateRightTriangle(width, height);
             
-            AddTriangleToLayout(layout, middleTriangle);
             AddTriangleToLayout(layout, leftTriangle);
             AddTriangleToLayout(layout, rightTriangle);
+            AddTriangleToLayout(layout, middleTriangle);
+            
         }
 
         private static Polygon CreateLeftTriangle(double width, double height)
         {
             return new Polygon
             {
-                Fill = new SolidColorBrush(Color.FromHex("853691")),
+                Fill = new SolidColorBrush(Color.FromHex("#27AD72")),
                 Points = new PointCollection
                 {
                     new Point(0.0*width, 0),
                     new Point(0.3*width, 0),
-                    new Point(0.0*width, 0.09*height)
+                    new Point(0.1*width, 0.05*height),
+                    new Point(0.0*width, 0.06*height)
+                    
                 }
             };
         }
@@ -37,12 +40,13 @@ namespace DATX11_VT24_84
         {
             return new Polygon
             {
-                Fill = new SolidColorBrush(Color.FromHex("F9686D")),
+                Fill = new SolidColorBrush(Color.FromHex("#853691")),
                 Points = new PointCollection
                 {
                     new Point(0*width, 0),
-                    new Point(1*width, 0),
-                    new Point(1*width, 0.07*height)
+                    new Point(.7*width, 0),
+                    new Point(.5*width, 0.04*height),
+                    new Point(.2*width, 0.025*height)
                 }
             };
         }
@@ -51,12 +55,12 @@ namespace DATX11_VT24_84
         {
             return new Polygon
             {
-                Fill = new SolidColorBrush(Color.FromHex("27AD72")),
+                Fill = new SolidColorBrush(Color.FromHex("#F9686D")),
                 Points = new PointCollection
                 {
-                    new Point(0.6*width, 0),
+                    new Point(0.3*width, 0),
                     new Point(1.0*width, 0),
-                    new Point(1.0*width, 0.12*height)
+                    new Point(1.0*width, 0.04*height)
                 }
             };
         }

@@ -12,15 +12,16 @@
             <Polygon.Points>
                 <Point X="0" Y="0"/>
                 <Point X="500" Y="0"/>
-                <Point X="500" Y="80"/>
+                <Point X="500" Y="70"/>
+                <Point X="200" Y="60"/>
             </Polygon.Points>
         </Polygon>
         
         <Polygon Fill="#853691">
             <Polygon.Points>
                 <Point X="0" Y="0"/>
-                
                 <Point X="0" Y="100"/>
+                <Point X="55" Y="70"/>
                 <Point X="150" Y="0"/>
             </Polygon.Points>
         </Polygon>
@@ -28,9 +29,9 @@
         <Polygon Fill="#27AD72">
             <Polygon.Points>
                 <Point X="1000" Y="-1000"/>
-                
                 <Point X="250" Y="0"/>
-                <Point X="500" Y="200"/>
+                <Point X="300" Y="63"/>
+                <Point X="500" Y="130"/>
             </Polygon.Points>
         </Polygon>
         
